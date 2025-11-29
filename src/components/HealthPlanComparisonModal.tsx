@@ -256,17 +256,20 @@ export const HealthPlanComparisonModal = ({
                 ))}
               </tr>
             </thead>
-            <tbody className="bg-background divide-y divide-border">
+            <tbody className="bg-background">
               {Object.entries(groupedAttributes).map(([groupName, attrNames]) => (
                 <React.Fragment key={groupName}>
-                  <tr className="bg-muted/70">
-                    <td colSpan={plansToCompare.length + 1} className="px-4 py-3 font-bold text-primary text-center border-b border-border">
+                  <tr className="bg-primary/10 border-t-2 border-t-primary">
+                    <td 
+                      colSpan={plansToCompare.length + 1} 
+                      className="px-6 py-4 font-bold text-lg text-primary text-center uppercase tracking-wide"
+                    >
                       {groupName}
                     </td>
                   </tr>
                   
                   {attrNames.map((attrName, index) => (
-                    <tr key={attrName} className={index % 2 === 0 ? 'bg-background' : 'bg-muted/20'}>
+                    <tr key={attrName} className={index % 2 === 0 ? 'bg-background border-b border-border' : 'bg-muted/20 border-b border-border'}>
                       <th scope="row" className="px-4 py-3 font-medium sticky-col text-left text-sm">
                         {attrName}
                       </th>
