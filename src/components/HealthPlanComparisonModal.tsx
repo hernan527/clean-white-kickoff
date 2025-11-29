@@ -164,6 +164,7 @@ export const HealthPlanComparisonModal = ({
   
   const groupedAttributes = useMemo(() => {
     // Recolectar atributos únicos con su información completa
+    // Solo toma el orden del primer atributo que encuentra
     const uniqueAttrs = new Map<string, {
       groupName: string;
       groupOrder: number | null;
@@ -176,6 +177,7 @@ export const HealthPlanComparisonModal = ({
         const groupName = attr.attribute_group_name || 'Otros Beneficios';
         const key = `${groupName}::${attr.name}`;
         
+        // Solo guarda si no existe, así usa el orden del primer atributo encontrado
         if (!uniqueAttrs.has(key)) {
           uniqueAttrs.set(key, {
             groupName,
