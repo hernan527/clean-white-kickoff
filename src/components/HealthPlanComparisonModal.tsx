@@ -323,31 +323,28 @@ export const HealthPlanComparisonModal = ({
     }
 
     return (
-      <div className="border rounded-lg overflow-hidden">
-        <div className="overflow-x-auto">
+      <div className="flex flex-col h-full overflow-hidden">
+        <ScrollArea className="w-full h-full">
           <table className="min-w-full table-fixed divide-y divide-border">
-            <thead className="bg-muted sticky top-0 z-20">
+            <thead className="sticky-header">
               <tr>
-                <th className="text-left p-3 font-semibold border-r border-border sticky left-0 bg-muted z-10 min-w-[250px] corner-cell">
+                <th scope="col" className="w-64 px-4 py-3 sticky-col corner-cell text-left text-xs font-semibold uppercase">
                   Clínica
                 </th>
                 {plansToCompare.map(plan => (
-                  <th 
-                    key={plan._id} 
-                    className="p-3 text-center font-bold text-sm border-l border-border min-w-[250px]"
-                  >
-                    {plan.name}
+                  <th key={plan._id} scope="col" className="min-w-[250px] border-l border-border">
+                    <PlanHeader plan={plan} onRemovePlan={onRemovePlan} />
                   </th>
                 ))}
               </tr>
             </thead>
-            <tbody>
+            <tbody className="bg-background">
               {clinicas.map((clinica, idx) => (
                 <tr 
                   key={clinica.item_id}
-                  className={idx % 2 === 0 ? "bg-background" : "bg-muted/20"}
+                  className={idx % 2 === 0 ? "bg-background border-b border-border" : "bg-muted/20 border-b border-border"}
                 >
-                  <th scope="row" className="p-3 border-r border-border sticky left-0 bg-inherit z-10 min-w-[250px] text-left">
+                  <th scope="row" className="px-4 py-3 sticky-col text-left">
                     <div>
                       <p className="font-medium text-sm">{clinica.entity}</p>
                       {clinica.ubicacion?.[0] && (
@@ -360,7 +357,7 @@ export const HealthPlanComparisonModal = ({
                   {plansToCompare.map(plan => (
                     <td 
                       key={`${plan._id}-${clinica.item_id}`}
-                      className="p-3 text-center border-l border-border"
+                      className="px-4 py-3 text-center border-l border-border"
                     >
                       {planIncludesClinica(plan, clinica.item_id) ? (
                         <Check className="h-5 w-5 text-green-600 mx-auto" />
@@ -373,7 +370,7 @@ export const HealthPlanComparisonModal = ({
               ))}
             </tbody>
           </table>
-        </div>
+        </ScrollArea>
       </div>
     );
   };
