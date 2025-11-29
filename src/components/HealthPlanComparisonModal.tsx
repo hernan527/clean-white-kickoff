@@ -240,7 +240,7 @@ export const HealthPlanComparisonModal = ({
       <div className="flex flex-col h-full overflow-hidden">
         <style dangerouslySetInnerHTML={{ __html: ComparisonStyles }} />
         
-        <ScrollArea className="comparison-container w-full h-full max-h-[75vh]">
+        <ScrollArea className="w-full h-full">
           <table className="min-w-full table-fixed divide-y divide-border">
             <thead className="sticky-header">
               <tr>
@@ -310,7 +310,7 @@ export const HealthPlanComparisonModal = ({
     }
 
     return (
-      <div className="border rounded-lg overflow-hidden flex-1">
+      <div className="border rounded-lg overflow-hidden">
         <div className="overflow-x-auto">
           <table className="min-w-full table-fixed divide-y divide-border">
             <thead className="bg-muted sticky top-0 z-20">
@@ -374,7 +374,7 @@ export const HealthPlanComparisonModal = ({
       <div className="flex flex-col h-full overflow-hidden">
         <style dangerouslySetInnerHTML={{ __html: ComparisonStyles }} />
         
-        <div className="w-full overflow-x-auto border-b border-border bg-background shadow-sm sticky top-0 z-40">
+        <div className="w-full overflow-x-auto border-b border-border bg-background shadow-sm shrink-0 z-40">
           <table className="min-w-full table-fixed">
             <thead>
               <tr>
@@ -395,9 +395,9 @@ export const HealthPlanComparisonModal = ({
           defaultValue="todas" 
           value={activeClinicaTab} 
           onValueChange={setActiveClinicaTab} 
-          className="flex flex-col flex-1 mt-0 h-full overflow-hidden"
+          className="flex flex-col flex-1 min-h-0"
         >
-          <div className="px-4 pt-4 border-b bg-background z-30">
+          <div className="px-4 pt-4 border-b bg-background shrink-0">
             <TabsList className="w-full justify-start">
               <TabsTrigger value="todas">
                 Todas ({uniqueClinicas.length})
@@ -410,8 +410,8 @@ export const HealthPlanComparisonModal = ({
             </TabsList>
           </div>
           
-          <ScrollArea className="flex-1 overflow-y-auto w-full h-full p-4 pt-0">
-            <TabsContent value={activeClinicaTab} className="p-0 pt-4 mt-0">
+          <ScrollArea className="flex-1 min-h-0 w-full">
+            <TabsContent value={activeClinicaTab} className="p-4 m-0">
               {renderClinicasTable(clinicasToShow)} 
             </TabsContent>
           </ScrollArea>
@@ -421,8 +421,8 @@ export const HealthPlanComparisonModal = ({
   };
 
   const renderAddPlanTab = () => (
-    <div className="flex flex-col space-y-4 h-full">
-      <div className="relative">
+    <div className="flex flex-col space-y-4 h-full overflow-hidden">
+      <div className="relative shrink-0">
         <Input 
           placeholder="Buscar planes por nombre o línea..." 
           value={searchTerm} 
@@ -432,13 +432,13 @@ export const HealthPlanComparisonModal = ({
         <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground" />
       </div>
 
-      <ScrollArea className="flex-grow h-full max-h-[500px]">
+      <ScrollArea className="flex-1 min-h-0">
         {plansToAdd.length === 0 ? (
           <div className="text-center py-8 text-muted-foreground">
             <p>No se encontraron planes disponibles o ya están todos comparados.</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pr-4">
             {plansToAdd.map(plan => (
               <Card key={plan._id}>
                 <CardHeader>
@@ -476,42 +476,40 @@ export const HealthPlanComparisonModal = ({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-[95vw] max-h-[95vh] p-0">
-        <DialogHeader className="px-6 py-4 border-b">
-          <DialogTitle>Comparación de Planes de Salud</DialogTitle>
+      <DialogContent className="max-w-[95vw] w-[95vw] h-[90vh] p-0 flex flex-col">
+        <DialogHeader className="px-6 py-4 border-b shrink-0">
+          <DialogTitle>Comparación Eficiente de Planes de Salud</DialogTitle>
         </DialogHeader>
 
-        <div className="flex flex-col h-full overflow-hidden">
-          <Tabs defaultValue="beneficios" value={activeTab} onValueChange={setActiveTab} className="flex flex-col h-full">
-            <div className="px-6">
-              <TabsList className="w-full justify-start">
-                <TabsTrigger value="beneficios">
-                  Beneficios
-                </TabsTrigger>
-                <TabsTrigger value="clinicas">
-                  Clínicas y Red
-                </TabsTrigger>
-                <TabsTrigger value="add">
-                  Añadir Plan
-                </TabsTrigger>
-              </TabsList>
-            </div>
+        <Tabs defaultValue="beneficios" value={activeTab} onValueChange={setActiveTab} className="flex flex-col flex-1 min-h-0">
+          <div className="px-6 pt-4 shrink-0">
+            <TabsList className="w-full justify-start">
+              <TabsTrigger value="beneficios">
+                Beneficios
+              </TabsTrigger>
+              <TabsTrigger value="clinicas">
+                Clínicas y Red
+              </TabsTrigger>
+              <TabsTrigger value="add">
+                Añadir Plan
+              </TabsTrigger>
+            </TabsList>
+          </div>
 
-            <div className="flex-grow overflow-hidden">
-              <TabsContent value="beneficios" className="h-full p-0 mt-0">
-                {renderBeneficiosTable()}
-              </TabsContent>
+          <div className="flex-1 min-h-0 overflow-hidden">
+            <TabsContent value="beneficios" className="h-full m-0 data-[state=active]:flex data-[state=active]:flex-col">
+              {renderBeneficiosTable()}
+            </TabsContent>
 
-              <TabsContent value="clinicas" className="h-full p-0 mt-0">
-                {renderClinicasContent()}
-              </TabsContent>
+            <TabsContent value="clinicas" className="h-full m-0 data-[state=active]:flex data-[state=active]:flex-col">
+              {renderClinicasContent()}
+            </TabsContent>
 
-              <TabsContent value="add" className="h-full p-6 mt-0">
-                {renderAddPlanTab()}
-              </TabsContent>
-            </div>
-          </Tabs>
-        </div>
+            <TabsContent value="add" className="h-full m-0 p-6 data-[state=active]:flex data-[state=active]:flex-col">
+              {renderAddPlanTab()}
+            </TabsContent>
+          </div>
+        </Tabs>
       </DialogContent>
     </Dialog>
   );
