@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo, useEffect } from 'react';
+import React, { useState, useCallback, useMemo, useEffect, useRef } from 'react';
 import { JSX } from 'react/jsx-runtime';
 
 // Define the custom primary color for consistency with the Angular component's styling
@@ -99,6 +99,10 @@ const FormQuote = () => {
   const [contactoType, setContactoType] = useState(null); // 'phone' or 'whatsapp'
   const [formData, setFormData] = useState(initialFormData);
 
+  // --- Refs for continuous increment/decrement ---
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
   // --- Utility Functions ---
 
   // Replicates Angular's FormBuilder.group/patchValue logic
@@ -197,6 +201,37 @@ const FormQuote = () => {
   const getChildAgeControls = useMemo(() => {
     return Array.from({ length: cantidadHijos }, (_, i) => i);
   }, [cantidadHijos]);
+
+  // --- Continuous increment/decrement handlers ---
+  const startContinuousAction = (action: () => void) => {
+    // Execute immediately
+    action();
+    
+    // Wait 500ms before starting continuous action
+    timeoutRef.current = setTimeout(() => {
+      intervalRef.current = setInterval(() => {
+        action();
+      }, 100); // Repeat every 100ms
+    }, 500);
+  };
+
+  const stopContinuousAction = () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    }
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
+  };
+
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      stopContinuousAction();
+    };
+  }, []);
 
   // --- Step 2 Handlers (Forma de Ingreso) ---
 
@@ -534,81 +569,183 @@ const FormQuote = () => {
             <div className="step-content">
               <h2 className="text-lg font-semibold mb-4 text-gray-700">1. Selecciona tu Grupo Familiar</h2>
               
-              {/* Icon Buttons Grid 2x2 */}
-              <div className="flex flex-wrap justify-center mb-6 gap-3">
-                <button type="button" className={getButtonClass(1)} onClick={() => selectGroup(1)}>
-                  <UserIcon />
-                  <span className="text-xs mt-1">Individual</span>
-                </button>
-                <button type="button" className={getButtonClass(3)} onClick={() => selectGroup(3)}>
-                  <UsersIcon />
-                  <span className="text-xs mt-1">Pareja</span>
-                </button>
-                <button type="button" className={getButtonClass(2)} onClick={() => selectGroup(2)}>
-                  <UserPlusIcon />
-                  <span className="text-xs mt-1">Titular + Hijos</span>
-                </button>
-                <button type="button" className={getButtonClass(4)} onClick={() => selectGroup(4)}>
-                  <UsersPlusIcon />
-                  <span className="text-xs mt-1">Pareja + Hijos</span>
-                </button>
-              </div>
-              
-              {/* Edades Input Section */}
-              {selectedGroup !== null && (
-                <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
-                  <h3 className="font-bold text-md mb-3 text-gray-700">Edades</h3>
-                  
-                  {/* Titular Age */}
-                  <div className="flex items-center justify-between py-2 border-b border-gray-100">
-                    <span className="text-sm font-medium w-1/3">Titular:</span>
-                    <div className="flex-contenedor w-2/3 max-w-[150px]">
-                      <button type="button" className="btn inner-square-cuatro-div menos" onClick={() => decrementar('titular')}>-</button>
-                      <span className="text-lg font-bold mx-4 w-12 text-center">{edadTitular} años</span>
-                      <button type="button" className="btn inner-square-cuatro-div mas" onClick={() => incrementar('titular')}>+</button>
-                    </div>
+              {!selectedGroup ? (
+                // Show all 4 group buttons when none is selected
+                <div className="flex flex-wrap justify-center mb-6 gap-3">
+                  <button type="button" className={getButtonClass(1)} onClick={() => selectGroup(1)}>
+                    <UserIcon />
+                    <span className="text-xs mt-1">Individual</span>
+                  </button>
+                  <button type="button" className={getButtonClass(3)} onClick={() => selectGroup(3)}>
+                    <UsersIcon />
+                    <span className="text-xs mt-1">Pareja</span>
+                  </button>
+                  <button type="button" className={getButtonClass(2)} onClick={() => selectGroup(2)}>
+                    <UserPlusIcon />
+                    <span className="text-xs mt-1">Titular + Hijos</span>
+                  </button>
+                  <button type="button" className={getButtonClass(4)} onClick={() => selectGroup(4)}>
+                    <UsersPlusIcon />
+                    <span className="text-xs mt-1">Pareja + Hijos</span>
+                  </button>
+                </div>
+              ) : (
+                // Show selected group button on left and ages on right
+                <div className="flex flex-col sm:flex-row gap-4 mb-6">
+                  {/* Selected Group Button */}
+                  <div className="flex-shrink-0">
+                    <button 
+                      type="button" 
+                      className={getButtonClass(selectedGroup)} 
+                      onClick={() => setSelectedGroup(null)}
+                      title="Haz clic para cambiar grupo familiar"
+                    >
+                      {selectedGroup === 1 && (
+                        <>
+                          <UserIcon />
+                          <span className="text-xs mt-1">Individual</span>
+                        </>
+                      )}
+                      {selectedGroup === 2 && (
+                        <>
+                          <UserPlusIcon />
+                          <span className="text-xs mt-1">Titular + Hijos</span>
+                        </>
+                      )}
+                      {selectedGroup === 3 && (
+                        <>
+                          <UsersIcon />
+                          <span className="text-xs mt-1">Pareja</span>
+                        </>
+                      )}
+                      {selectedGroup === 4 && (
+                        <>
+                          <UsersPlusIcon />
+                          <span className="text-xs mt-1">Pareja + Hijos</span>
+                        </>
+                      )}
+                    </button>
                   </div>
 
-                  {/* Conyuge Age */}
-                  {(selectedGroup === 3 || selectedGroup === 4) && (
+                  {/* Edades Section */}
+                  <div className="flex-1 bg-gray-50 p-4 rounded-lg border border-gray-200">
+                    <h3 className="font-bold text-md mb-3 text-gray-700">Edades</h3>
+                    
+                    {/* Titular Age */}
                     <div className="flex items-center justify-between py-2 border-b border-gray-100">
-                      <span className="text-sm font-medium w-1/3">Pareja:</span>
+                      <span className="text-sm font-medium w-1/3">Titular:</span>
                       <div className="flex-contenedor w-2/3 max-w-[150px]">
-                        <button type="button" className="btn inner-square-cuatro-div menos" onClick={() => decrementar('conyuge')}>-</button>
-                        <span className="text-lg font-bold mx-4 w-12 text-center">{edadConyuge} años</span>
-                        <button type="button" className="btn inner-square-cuatro-div mas" onClick={() => incrementar('conyuge')}>+</button>
+                        <button 
+                          type="button" 
+                          className="btn inner-square-cuatro-div menos" 
+                          onMouseDown={() => startContinuousAction(() => decrementar('titular'))}
+                          onMouseUp={stopContinuousAction}
+                          onMouseLeave={stopContinuousAction}
+                          onTouchStart={() => startContinuousAction(() => decrementar('titular'))}
+                          onTouchEnd={stopContinuousAction}
+                        >-</button>
+                        <span className="text-lg font-bold mx-4 w-12 text-center">{edadTitular} años</span>
+                        <button 
+                          type="button" 
+                          className="btn inner-square-cuatro-div mas" 
+                          onMouseDown={() => startContinuousAction(() => incrementar('titular'))}
+                          onMouseUp={stopContinuousAction}
+                          onMouseLeave={stopContinuousAction}
+                          onTouchStart={() => startContinuousAction(() => incrementar('titular'))}
+                          onTouchEnd={stopContinuousAction}
+                        >+</button>
                       </div>
                     </div>
-                  )}
 
-                  {/* Number of Children */}
-                  {(selectedGroup === 2 || selectedGroup === 4) && (
-                    <div className="flex items-center justify-between py-2">
-                      <span className="text-sm font-medium w-1/3">Hijos:</span>
-                      <div className="flex-contenedor w-2/3 max-w-[150px]">
-                        <button type="button" className="btn inner-square-cuatro-div menos" onClick={() => decrementar('hijos')}>-</button>
-                        <span className="text-lg font-bold mx-4 w-12 text-center">{cantidadHijos} hijos</span>
-                        <button type="button" className="btn inner-square-cuatro-div mas" onClick={() => incrementar('hijos')}>+</button>
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Ages of Children (dynamic based on cantidadHijos) */}
-                  {cantidadHijos > 0 && (
-                    <div className="mt-4 pt-3 border-t border-gray-200">
-                      <h4 className="font-semibold text-sm mb-2 text-gray-600">Edades de los Hijos:</h4>
-                      {getChildAgeControls.map((i) => (
-                        <div key={i} className="flex items-center justify-between py-1">
-                          <span className="text-sm w-1/3">Hijo {i + 1}:</span>
-                          <div className="flex-contenedor w-2/3 max-w-[150px]">
-                            <button type="button" className="btn inner-square-cuatro-div menos" onClick={() => decrementarChildAge(i)}>-</button>
-                            <span className="text-lg font-bold mx-4 w-12 text-center">{formData[`edadHijo${i + 1}`] || 0}</span>
-                            <button type="button" className="btn inner-square-cuatro-div mas" onClick={() => incrementarChildAge(i)}>+</button>
-                          </div>
+                    {/* Conyuge Age */}
+                    {(selectedGroup === 3 || selectedGroup === 4) && (
+                      <div className="flex items-center justify-between py-2 border-b border-gray-100">
+                        <span className="text-sm font-medium w-1/3">Pareja:</span>
+                        <div className="flex-contenedor w-2/3 max-w-[150px]">
+                          <button 
+                            type="button" 
+                            className="btn inner-square-cuatro-div menos" 
+                            onMouseDown={() => startContinuousAction(() => decrementar('conyuge'))}
+                            onMouseUp={stopContinuousAction}
+                            onMouseLeave={stopContinuousAction}
+                            onTouchStart={() => startContinuousAction(() => decrementar('conyuge'))}
+                            onTouchEnd={stopContinuousAction}
+                          >-</button>
+                          <span className="text-lg font-bold mx-4 w-12 text-center">{edadConyuge} años</span>
+                          <button 
+                            type="button" 
+                            className="btn inner-square-cuatro-div mas" 
+                            onMouseDown={() => startContinuousAction(() => incrementar('conyuge'))}
+                            onMouseUp={stopContinuousAction}
+                            onMouseLeave={stopContinuousAction}
+                            onTouchStart={() => startContinuousAction(() => incrementar('conyuge'))}
+                            onTouchEnd={stopContinuousAction}
+                          >+</button>
                         </div>
-                      ))}
-                    </div>
-                  )}
+                      </div>
+                    )}
+
+                    {/* Number of Children */}
+                    {(selectedGroup === 2 || selectedGroup === 4) && (
+                      <div className="flex items-center justify-between py-2">
+                        <span className="text-sm font-medium w-1/3">Hijos:</span>
+                        <div className="flex-contenedor w-2/3 max-w-[150px]">
+                          <button 
+                            type="button" 
+                            className="btn inner-square-cuatro-div menos" 
+                            onMouseDown={() => startContinuousAction(() => decrementar('hijos'))}
+                            onMouseUp={stopContinuousAction}
+                            onMouseLeave={stopContinuousAction}
+                            onTouchStart={() => startContinuousAction(() => decrementar('hijos'))}
+                            onTouchEnd={stopContinuousAction}
+                          >-</button>
+                          <span className="text-lg font-bold mx-4 w-12 text-center">{cantidadHijos} hijos</span>
+                          <button 
+                            type="button" 
+                            className="btn inner-square-cuatro-div mas" 
+                            onMouseDown={() => startContinuousAction(() => incrementar('hijos'))}
+                            onMouseUp={stopContinuousAction}
+                            onMouseLeave={stopContinuousAction}
+                            onTouchStart={() => startContinuousAction(() => incrementar('hijos'))}
+                            onTouchEnd={stopContinuousAction}
+                          >+</button>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Ages of Children (dynamic based on cantidadHijos) */}
+                    {cantidadHijos > 0 && (
+                      <div className="mt-4 pt-3 border-t border-gray-200">
+                        <h4 className="font-semibold text-sm mb-2 text-gray-600">Edades de los Hijos:</h4>
+                        {getChildAgeControls.map((i) => (
+                          <div key={i} className="flex items-center justify-between py-1">
+                            <span className="text-sm w-1/3">Hijo {i + 1}:</span>
+                            <div className="flex-contenedor w-2/3 max-w-[150px]">
+                              <button 
+                                type="button" 
+                                className="btn inner-square-cuatro-div menos" 
+                                onMouseDown={() => startContinuousAction(() => decrementarChildAge(i))}
+                                onMouseUp={stopContinuousAction}
+                                onMouseLeave={stopContinuousAction}
+                                onTouchStart={() => startContinuousAction(() => decrementarChildAge(i))}
+                                onTouchEnd={stopContinuousAction}
+                              >-</button>
+                              <span className="text-lg font-bold mx-4 w-12 text-center">{formData[`edadHijo${i + 1}`] || 0}</span>
+                              <button 
+                                type="button" 
+                                className="btn inner-square-cuatro-div mas" 
+                                onMouseDown={() => startContinuousAction(() => incrementarChildAge(i))}
+                                onMouseUp={stopContinuousAction}
+                                onMouseLeave={stopContinuousAction}
+                                onTouchStart={() => startContinuousAction(() => incrementarChildAge(i))}
+                                onTouchEnd={stopContinuousAction}
+                              >+</button>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                 </div>
               )}
 
