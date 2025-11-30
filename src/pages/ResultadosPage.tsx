@@ -49,7 +49,7 @@ interface HealthPlan {
   attributes?: Attribute[];
   clinicas?: Clinica[];
   images?: Image[];
-  pdfUrl?: string;
+  folleto?: string[];
 }
 
 const ResultadosPage = () => {
@@ -620,7 +620,7 @@ const ResultadosPage = () => {
               <Tabs defaultValue="info" className="flex-1 flex flex-col overflow-hidden mt-4">
                 <TabsList className="grid w-full grid-cols-2">
                   <TabsTrigger value="info">Información</TabsTrigger>
-                  <TabsTrigger value="pdf" disabled={!selectedPlan.pdfUrl}>
+                  <TabsTrigger value="pdf" disabled={!selectedPlan.folleto?.[0]}>
                     PDF del Plan
                   </TabsTrigger>
                 </TabsList>
@@ -701,10 +701,10 @@ const ResultadosPage = () => {
                 </TabsContent>
                 
                 <TabsContent value="pdf" className="flex-1 overflow-hidden mt-4">
-                  {selectedPlan.pdfUrl ? (
+                  {selectedPlan.folleto?.[0] ? (
                     <div className="h-full w-full rounded-lg overflow-hidden border border-border">
                       <iframe
-                        src={selectedPlan.pdfUrl}
+                        src={selectedPlan.folleto[0]}
                         className="w-full h-full min-h-[600px]"
                         title={`PDF - ${selectedPlan.name}`}
                       />
