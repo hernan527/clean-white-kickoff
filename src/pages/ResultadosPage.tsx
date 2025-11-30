@@ -474,62 +474,78 @@ const ResultadosPage = () => {
             {sortedPlans.map(plan => (
               <Card 
                 key={plan._id} 
-                className={`${viewMode === "list" ? "flex flex-col md:flex-row" : ""} overflow-hidden group hover:shadow-lg hover:-translate-y-1 transition-all duration-300`}
+                className={`${viewMode === "list" ? "flex flex-col md:flex-row" : ""} overflow-hidden hover:shadow-colorful transition-all duration-300 border-border/50`}
               >
-                {/* Logo Container - Cuadrado */}
+                {/* Logo Container */}
                 {plan.images && plan.images[0] && (
-                  <div className={`${viewMode === "list" ? "md:w-32 md:min-w-32" : "w-full h-32"} bg-white flex items-center justify-center border-b border-border p-4`}>
+                  <div className={`${viewMode === "list" ? "md:w-24 md:min-w-24" : "w-full h-20"} bg-gradient-to-br from-muted/30 to-muted/10 flex items-center justify-center border-b border-border/30 p-3`}>
                     <img
                       src={`/${plan.images[0].url}`}
                       alt={plan.empresa}
-                      className="max-h-20 max-w-full object-contain"
+                      className="max-h-10 max-w-full object-contain opacity-90"
                     />
                   </div>
                 )}
                 <div className="flex-1 flex flex-col">
-                  <CardHeader>
+                  <CardHeader className="pb-3">
                     <div className="flex items-start justify-between gap-3">
-                      <div>
-                        <CardTitle className="text-lg">{plan.name}</CardTitle>
-                        <CardDescription>{plan.empresa}</CardDescription>
+                      <div className="flex-1 min-w-0">
+                        <CardTitle className="text-base font-semibold truncate">{plan.name}</CardTitle>
+                        <CardDescription className="text-xs mt-1">{plan.empresa}</CardDescription>
                       </div>
-                      <div className="flex items-center gap-1 bg-accent px-2 py-1 rounded flex-shrink-0">
-                        <span className="text-sm font-medium">⭐ {plan.rating}</span>
-                      </div>
+                      <Badge variant="secondary" className="flex items-center gap-1 px-2 py-1 flex-shrink-0 bg-accent/10 text-accent-foreground border-accent/20">
+                        <span className="text-xs">⭐</span>
+                        <span className="text-xs font-semibold">{plan.rating}</span>
+                      </Badge>
                     </div>
                   </CardHeader>
-                  <CardContent className="flex-1">
-                    <p className="text-sm text-muted-foreground mb-3">{plan.linea}</p>
-                    <ul className="space-y-1">
+                  <CardContent className="flex-1 py-3">
+                    <p className="text-xs font-medium text-muted-foreground mb-3 bg-muted/30 px-2 py-1 rounded inline-block">{plan.linea}</p>
+                    <ul className="space-y-2">
                       {plan.attributes?.slice(0, 3).map((attr, idx) => (
-                        <li key={`${plan._id}-attr-${idx}`} className="text-sm flex items-center gap-2">
-                          <span className="text-primary">✓</span>
-                          <span className="font-medium">{attr.name}:</span> {attr.value_name}
+                        <li key={`${plan._id}-attr-${idx}`} className="text-xs flex items-start gap-2">
+                          <span className="text-primary mt-0.5 flex-shrink-0">✓</span>
+                          <span className="flex-1">
+                            <span className="font-semibold text-foreground">{attr.name}:</span>{" "}
+                            <span className="text-muted-foreground">{attr.value_name}</span>
+                          </span>
                         </li>
                       ))}
                     </ul>
                   </CardContent>
-                  <CardFooter className="flex flex-col gap-3">
-                    <div className="text-center w-full">
-                      <div className="text-2xl font-bold text-primary">${plan.price}</div>
-                      <div className="text-xs text-muted-foreground">por mes</div>
-                    </div>
-                    <div className="flex gap-2 w-full">
+                  <CardFooter className="flex flex-col gap-3 pt-3 border-t border-border/30">
+                    <div className="flex items-center justify-between w-full">
+                      <div>
+                        <div className="text-2xl font-bold text-primary">${plan.price}</div>
+                        <div className="text-[10px] text-muted-foreground">por mes</div>
+                      </div>
                       <Button 
                         variant={comparisonPlans.includes(plan._id) ? "default" : "outline"}
-                        size="icon"
+                        size="sm"
                         onClick={() => toggleComparison(plan._id)}
+                        className="flex items-center gap-1.5"
                         title={comparisonPlans.includes(plan._id) ? "Remover de comparación" : "Agregar a comparación"}
                       >
-                        {comparisonPlans.includes(plan._id) ? <Minus className="h-4 w-4" /> : <Plus className="h-4 w-4" />}
-                      </Button>
-                      <Button 
-                        className="flex-1"
-                        onClick={() => openDetailsModal(plan)}
-                      >
-                        Detalles
+                        {comparisonPlans.includes(plan._id) ? (
+                          <>
+                            <Minus className="h-3.5 w-3.5" />
+                            <span className="text-xs">Quitar</span>
+                          </>
+                        ) : (
+                          <>
+                            <Plus className="h-3.5 w-3.5" />
+                            <span className="text-xs">Comparar</span>
+                          </>
+                        )}
                       </Button>
                     </div>
+                    <Button 
+                      className="w-full"
+                      onClick={() => openDetailsModal(plan)}
+                      variant="secondary"
+                    >
+                      Ver Detalles
+                    </Button>
                   </CardFooter>
                 </div>
               </Card>
@@ -638,11 +654,11 @@ const ResultadosPage = () => {
                 <TabsContent value="info" className="flex-1 overflow-y-auto space-y-6 mt-4">
                   {/* Logo */}
                   {selectedPlan.images && selectedPlan.images[0] && (
-                    <div className="flex justify-center p-6 bg-white rounded-lg border border-border">
+                    <div className="flex justify-center p-4 bg-gradient-to-br from-muted/30 to-muted/10 rounded-lg border border-border/30">
                       <img
                         src={`/${selectedPlan.images[0].url}`}
                         alt={selectedPlan.empresa}
-                        className="max-h-24 object-contain"
+                        className="max-h-12 object-contain opacity-90"
                       />
                     </div>
                   )}
