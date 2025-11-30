@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { CheckCircle, Search, FileCheck, Award } from "lucide-react";
+import { Helmet } from "react-helmet-async";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
@@ -63,6 +64,19 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <Helmet>
+        <title>Comparador de Planes de Salud Argentina | Encontrá la Mejor Prepaga</title>
+        <meta name="description" content="Compará planes de salud de OSDE, Swiss Medical, Galeno, Medifé y más. Encontrá la mejor prepaga para vos y tu familia con precios actualizados y cobertura completa." />
+        <meta name="keywords" content="planes de salud, prepagas argentina, OSDE, Swiss Medical, Galeno, Medifé, comparador prepaga, cobertura médica" />
+        <link rel="canonical" href="https://tudominio.com/" />
+        <meta property="og:title" content="Comparador de Planes de Salud Argentina" />
+        <meta property="og:description" content="Compará las mejores prepagas de Argentina y elegí el plan ideal para vos." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://tudominio.com/" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Comparador de Planes de Salud Argentina" />
+        <meta name="twitter:description" content="Encontrá y compará los mejores planes de salud de Argentina." />
+      </Helmet>
       {/* Header */}
       <header className="border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">

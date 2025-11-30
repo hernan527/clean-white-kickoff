@@ -1,6 +1,7 @@
 import React, { useState, useMemo, useEffect, useCallback } from "react";
 import { X, Plus, Search, Check, Trash2, Star, ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -550,6 +551,16 @@ export const ComparisonPage = ({
 
   return (
     <div className="min-h-screen w-full flex flex-col bg-background">
+      <Helmet>
+        <title>Comparar Planes de Salud | {plansToCompare.length} Planes Seleccionados</title>
+        <meta name="description" content={`Compará lado a lado ${plansToCompare.length} planes de salud. Analizá beneficios, coberturas, cartilla médica y precios para tomar la mejor decisión.`} />
+        <meta name="keywords" content="comparar planes de salud, comparador prepagas, beneficios planes médicos, cartilla médica" />
+        <link rel="canonical" href="https://tudominio.com/comparar" />
+        <meta property="og:title" content={`Comparación de ${plansToCompare.length} Planes de Salud`} />
+        <meta property="og:description" content="Compará beneficios, coberturas y clínicas de múltiples planes de salud en una sola vista." />
+        <meta property="og:url" content="https://tudominio.com/comparar" />
+        <meta name="robots" content="noindex, follow" />
+      </Helmet>
       {/* Hero Header */}
       <div className="bg-gradient-to-br from-primary/5 via-background to-secondary/20 border-b border-border">
         <div className="container mx-auto px-6 py-8">

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Search, Grid3x3, List, Plus, Minus, Filter, X, ChevronDown } from "lucide-react";
+import { Helmet } from "react-helmet-async";
 import FormQuote from "@/components/FormQuote";
 import { FloatingQuoteButton } from "@/components/FloatingQuoteButton";
 import { ComparisonBar } from "@/components/ComparisonBar";
@@ -255,6 +256,15 @@ const ResultadosPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <Helmet>
+        <title>Planes de Salud Disponibles | Comparador de Prepagas Argentina</title>
+        <meta name="description" content={`Explorá ${healthPlans.length} planes de salud de las mejores prepagas de Argentina. Filtrá por precio, cobertura y clínicas. Compará y elegí el mejor plan para vos.`} />
+        <meta name="keywords" content="planes de salud precios, prepagas argentina, comparar planes médicos, cobertura médica, clínicas prepagas" />
+        <link rel="canonical" href="https://tudominio.com/resultados" />
+        <meta property="og:title" content="Planes de Salud Disponibles - Comparador de Prepagas" />
+        <meta property="og:description" content="Encontrá y compará los mejores planes de salud de Argentina con filtros por precio y cobertura." />
+        <meta property="og:url" content="https://tudominio.com/resultados" />
+      </Helmet>
       <FloatingQuoteButton onClick={() => setFormQuoteOpen(true)} />
       
       <Dialog open={formQuoteOpen} onOpenChange={setFormQuoteOpen}>
