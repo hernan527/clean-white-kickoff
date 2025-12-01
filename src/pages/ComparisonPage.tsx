@@ -288,7 +288,7 @@ export const ComparisonPage = ({
         }
       });
     });
-    return Array.from(clinicaMap.values()).sort((a, b) => a.entity.localeCompare(b.entity));
+    return Array.from(clinicaMap.values()).sort((a, b) => (a.entity || '').localeCompare(b.entity || ''));
   }, [plansToCompare]);
   
   const regions = useMemo(() => {
