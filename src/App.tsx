@@ -5,9 +5,9 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import Index from "./modules/home/pages/Index";
-import ResultadosPage from "./pages/ResultadosPage";
-import { ComparisonPage } from "./pages/ComparisonPage";
-import NotFound from "./pages/NotFound";
+import ResultadosPage from "./modules/salud/pages/ResultadosPage";
+import { ComparisonPage } from "./modules/salud/pages/ComparisonPage";
+import NotFound from "./modules/salud/pages/NotFound";
 
 const queryClient = new QueryClient();
 
