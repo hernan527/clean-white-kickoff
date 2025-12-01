@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Search, Grid3x3, List, Plus, Minus, Filter, X, ChevronDown } from "lucide-react";
+import { getHealthPlans, type HealthPlan, type Attribute, type Clinica, type Image } from "@/services/health.service";
 import { Helmet } from "react-helmet-async";
 import Layout from "@/layouts/Layout";
 import FormQuote from "@/modules/salud/components/FormQuote";
@@ -22,37 +23,7 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/co
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-interface Attribute {
-  name: string;
-  value_name: string;
-  attribute_group_name: string;
-}
-
-interface Clinica {
-  item_id: string;
-  nombre: string;
-  entity: string;
-}
-
-interface Image {
-  id: string;
-  descripcion: string;
-  empresa: string;
-  url: string;
-}
-
-interface HealthPlan {
-  _id: string;
-  name: string;
-  empresa: string;
-  price: number;
-  rating: number;
-  linea: string;
-  attributes?: Attribute[];
-  clinicas?: Clinica[];
-  images?: Image[];
-  folleto?: string[];
-}
+// Interfaces are now imported from health.service.ts
 
 const ResultadosPage = () => {
   const { toast } = useToast();
@@ -77,8 +48,7 @@ const ResultadosPage = () => {
   useEffect(() => {
     const fetchPlans = async () => {
       try {
-        const response = await fetch('https://servidorplus.avalianonline.com.ar/planes');
-        const data = await response.json();
+        const data = await getHealthPlans();
         setHealthPlans(data);
       } catch (error) {
         toast({
