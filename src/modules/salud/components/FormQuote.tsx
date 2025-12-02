@@ -1,7 +1,8 @@
 import React, { useState, useCallback, useMemo, useEffect, useRef, SVGProps } from 'react';
 import { JSX } from 'react/jsx-runtime';
 import { useToast } from '@/hooks/use-toast';
-import { submitQuote, type QuoteFormData } from '@/services/health.service';
+import { submitQuote } from '@/services/health.service';
+import { QuoteFormData } from '@/data/interfaces/quoteFormData';
 // Define the custom primary color for consistency with the Angular component's styling
 const PRIMARY_COLOR = '#4d72aa';
 const SECONDARY_COLOR = '#c4e2ff';
@@ -54,7 +55,7 @@ const MessageSquareIcon = (props: SVGProps<SVGSVGElement>) => (
 );
 
 // Initial form state structure, mirroring the Angular form group.
-const initialFormData = {
+const initialFormData: QuoteFormData = {
   _id: '',
   group: null as number | null,
   empresa_prepaga: 0,
@@ -99,7 +100,7 @@ const FormQuote = () => {
   const [aportesType, setAportesType] = useState<string | null>(null); // 'D' or 'P'
   const [cotizacionVisible, setCotizacionVisible] = useState(false);
   const [contactoType, setContactoType] = useState<string | null>(null); // 'phone' or 'whatsapp'
-  const [formData, setFormData] = useState(initialFormData);
+  const [formData, setFormData] = useState<QuoteFormData>(initialFormData);
 
   // --- Refs for continuous increment/decrement ---
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
@@ -108,7 +109,7 @@ const FormQuote = () => {
   // --- Utility Functions ---
 
   // Replicates Angular's FormBuilder.group/patchValue logic
-  const updateFormData = useCallback((fields: any) => {
+  const updateFormData = useCallback((fields: Partial<QuoteFormData>) => {
     setFormData(prev => ({ ...prev, ...fields }));
   }, []);
 
@@ -151,10 +152,13 @@ const FormQuote = () => {
       setEdadConyuge(0);
     }
     // Reset all child ages in form data
-    const resetChildren: any = {};
-    for (let i = 1; i <= 5; i++) {
-      resetChildren[`edadHijo${i}`] = 0;
-    }
+    const resetChildren: Partial<QuoteFormData> = {
+      edadHijo1: 0,
+      edadHijo2: 0,
+      edadHijo3: 0,
+      edadHijo4: 0,
+      edadHijo5: 0
+    };
     updateFormData(resetChildren);
   };
 
@@ -189,12 +193,14 @@ const FormQuote = () => {
   };
 
   const incrementarChildAge = (index: number) => {
-    const currentAge = (formData as any)[`edadHijo${index + 1}`] || 0;
+    const childAgeKey = `edadHijo${index + 1}` as keyof Pick<QuoteFormData, 'edadHijo1' | 'edadHijo2' | 'edadHijo3' | 'edadHijo4' | 'edadHijo5'>;
+    const currentAge = formData[childAgeKey] || 0;
     updateChildAge(index, currentAge + 1);
   };
 
   const decrementarChildAge = (index: number) => {
-    const currentAge = (formData as any)[`edadHijo${index + 1}`] || 0;
+    const childAgeKey = `edadHijo${index + 1}` as keyof Pick<QuoteFormData, 'edadHijo1' | 'edadHijo2' | 'edadHijo3' | 'edadHijo4' | 'edadHijo5'>;
+    const currentAge = formData[childAgeKey] || 0;
     if (currentAge > 0) {
       updateChildAge(index, currentAge - 1);
     }
@@ -308,7 +314,9 @@ const FormQuote = () => {
     });
 
     const quoteData: QuoteFormData = {
+      _id: formData._id,
       group: formData.group,
+      empresa_prepaga: formData.empresa_prepaga,
       edad_1: formData.edad_1,
       edad_2: formData.edad_2,
       numkids: formData.numkids,
@@ -319,8 +327,15 @@ const FormQuote = () => {
       edadHijo5: formData.edadHijo5,
       zone_type: formData.zone_type,
       tipo: formData.tipo,
+      agree: formData.agree,
       sueldo: formData.sueldo,
       aporteOS: formData.aporteOS,
+      aporte: formData.aporte,
+      categoriaMono: formData.categoriaMono,
+      monoadic: formData.monoadic,
+      cantAport: formData.cantAport,
+      afinidad: formData.afinidad,
+      bonAfinidad: formData.bonAfinidad,
       personalData: formData.personalData
     };
 
@@ -770,7 +785,7 @@ const FormQuote = () => {
                                 onTouchStart={() => startContinuousAction(() => decrementarChildAge(i))}
                                 onTouchEnd={stopContinuousAction}
                               >-</button>
-                              <span className="text-lg font-bold mx-4 w-12 text-center">{(formData as any)[`edadHijo${i + 1}`] || 0}</span>
+                              <span className="text-lg font-bold mx-4 w-12 text-center">{formData[`edadHijo${i + 1}` as keyof Pick<QuoteFormData, 'edadHijo1' | 'edadHijo2' | 'edadHijo3' | 'edadHijo4' | 'edadHijo5'>] || 0}</span>
                               <button 
                                 type="button" 
                                 className="btn inner-square-cuatro-div mas" 
