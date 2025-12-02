@@ -6,11 +6,16 @@
     "paths": {
       "@/*": ["./src/*"]
     },
+    "lib": ["DOM", "ES2022"],
     "noImplicitAny": false,
     "noUnusedParameters": false,
     "skipLibCheck": true,
     "allowJs": true,
     "noUnusedLocals": false,
     "strictNullChecks": false
-  }
+  },
+  "types": [
+      "node" // A veces Node incluye las referencias necesarias
+      // Otras opciones incluyen referencias a tipos de Deno si tienes Deno instalado.
+    ],
 }

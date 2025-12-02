@@ -1,10 +1,11 @@
-import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.39.3'
+
+// import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.39.3'
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 }
-
+const EXTERNAL_QUOTE_URL = Deno.env.get('HEALTH_EXTERNAL_QUOTE_URL') || 'URL_NO_CONFIGURADA';
 interface QuoteRequest {
   group: number;
   edad_1: number;
@@ -28,7 +29,7 @@ interface QuoteRequest {
   };
 }
 
-Deno.serve(async (req) => {
+Deno.serve(async (req: { method: string; json: () => QuoteRequest | PromiseLike<QuoteRequest>; }) => {
   // Handle CORS preflight requests
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });

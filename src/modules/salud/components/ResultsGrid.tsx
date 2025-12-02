@@ -1,5 +1,6 @@
 import { Search } from "lucide-react";
 import { PlanCard } from "./PlanCard";
+import { PlanCardSkeleton } from "./PlanCardSkeleton"; // <-- NUEVA IMPORTACIÓN
 import type { HealthPlan } from "@/services/health.service";
 
 interface ResultsGridProps {
@@ -19,13 +20,26 @@ export const ResultsGrid = ({
   onToggleComparison,
   onOpenDetails,
 }: ResultsGridProps) => {
+
+  // --- LÓGICA DEL SKELETON ---
   if (loading) {
+    // Array fantasma para simular 6 tarjetas
+    const skeletonArray = Array(6).fill(0); 
+
     return (
-      <div className="text-center py-12">
-        <p className="text-muted-foreground">Cargando planes...</p>
+      <div className={
+        viewMode === "grid"
+          ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          : "flex flex-col gap-4"
+      }>
+        {skeletonArray.map((_, index) => (
+          // Renderiza el esqueleto en lugar de la tarjeta real
+          <PlanCardSkeleton key={index} viewMode={viewMode} /> 
+        ))}
       </div>
     );
   }
+  // --- FIN LÓGICA SKELETON ---
 
   if (plans.length === 0) {
     return (

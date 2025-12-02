@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "lib": ["deno.ns", "deno.window", "esnext"],
+    "strict": true,
+    "types": ["https://deno.land/x/miniflare@v2.11.0/globals.d.ts"]
+  },
+  "imports": {
+    "supabase/": "https://esm.sh/@supabase/supabase-js@2.39.3/"
+  }
+}
