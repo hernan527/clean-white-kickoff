@@ -2,7 +2,7 @@ import { Facebook, Instagram, Linkedin, Mail } from "lucide-react";
 
 const Footer = () => {
   return (
-    <footer className="bg-slate-900 text-slate-300 py-16 border-t border-slate-800">
+    <footer className="bg-slate-950/80 backdrop-blur-xl text-slate-300 py-16 border-t border-white/10 relative">
       <div className="container mx-auto px-6">
         
         <div className="grid md:grid-cols-4 gap-12 mb-12">
@@ -51,7 +51,7 @@ const Footer = () => {
             <ul className="space-y-3 text-sm">
               <li><FooterLink href="#">Centro de ayuda</FooterLink></li>
               <li><FooterLink href="#">Preguntas frecuentes</FooterLink></li>
-              <li className="flex items-center gap-2 text-teal-400 font-medium pt-2">
+              <li className="flex items-center gap-2 text-cyan-400 font-medium pt-2">
                 <Mail size={16} /> hola@mejorplan.com.ar
               </li>
             </ul>
@@ -59,7 +59,7 @@ const Footer = () => {
         </div>
 
         {/* Copyright */}
-        <div className="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-500">
+        <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-500">
           <p>© {new Date().getFullYear()} Mejor Plan - Consultores en Salud. Todos los derechos reservados.</p>
           <div className="flex gap-6">
             <span>Hecho con ❤️ en Argentina</span>
@@ -74,14 +74,14 @@ const Footer = () => {
 const FooterLink = ({ href, children }: { href: string, children: React.ReactNode }) => (
   <a 
     href={href} 
-    className="hover:text-teal-400 transition-colors duration-200 block"
+    className="hover:text-cyan-400 transition-colors duration-200 block"
   >
     {children}
   </a>
 );
 
 const SocialIcon = ({ icon: Icon }: { icon: any }) => (
-  <a href="#" className="p-2 bg-slate-800 rounded-full hover:bg-teal-600 hover:text-white transition-all text-slate-400">
+  <a href="#" className="p-2 bg-white/5 backdrop-blur-sm rounded-full hover:bg-violet-600 hover:text-white transition-all text-slate-400 border border-white/10">
     <Icon size={18} />
   </a>
 );

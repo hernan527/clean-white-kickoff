@@ -10,12 +10,12 @@ interface ClinicaRowProps {
 }
 
 export const ClinicaRow = ({ clinica, plans, planIncludesClinica }: ClinicaRowProps) => (
-  <div className="grid grid-cols-1 md:grid-cols-4 border-b border-slate-100 hover:bg-slate-50/50 transition-colors group">
+  <div className="grid grid-cols-1 md:grid-cols-4 border-b border-white/5 hover:bg-white/5 transition-colors group">
     {/* Columna 1: Info Clínica */}
     <div className="col-span-1 p-3 flex flex-col justify-center">
-      <p className="font-bold text-sm text-slate-700 group-hover:text-teal-700 transition-colors">{clinica.entity}</p>
+      <p className="font-bold text-sm text-slate-200 group-hover:text-cyan-400 transition-colors">{clinica.entity}</p>
       {clinica.ubicacion?.[0] && (
-        <div className="flex items-center gap-1 mt-1 text-xs text-slate-400">
+        <div className="flex items-center gap-1 mt-1 text-xs text-slate-500">
             <MapPin size={10} />
             <span>{clinica.ubicacion[0].barrio}</span>
         </div>
@@ -31,7 +31,7 @@ export const ClinicaRow = ({ clinica, plans, planIncludesClinica }: ClinicaRowPr
 
     {/* Relleno */}
     {Array.from({ length: 3 - plans.length }).map((_, i) => (
-       <div key={`empty-${i}`} className="col-span-1 border-l border-slate-50 hidden md:block" />
+       <div key={`empty-${i}`} className="col-span-1 border-l border-white/5 hidden md:block" />
     ))}
   </div>
 );
