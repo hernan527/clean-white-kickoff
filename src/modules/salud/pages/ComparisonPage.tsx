@@ -72,7 +72,7 @@ const useComparisonData = (
     if (propOnAddPlan) {
       propOnAddPlan(planId);
     } else {
-      if (internalPlansToCompare.length < 4) {
+      if (internalPlansToCompare.length < 3) {
         const planToAdd = internalAllPlans.find(p => p._id === planId);
         if (planToAdd && !internalPlansToCompare.find(p => p._id === planId)) {
           const newPlans = [...internalPlansToCompare, planToAdd];
@@ -291,8 +291,8 @@ export const ComparisonPage = ({
                         </div>
                     ))}
 
-                    {/* Slot Vacío: Añadir Plan */}
-                    {plansToCompare.length < 4 && (
+                    {/* Slot Vacío: Añadir Plan - Solo visible si hay menos de 3 planes */}
+                    {plansToCompare.length < 3 && (
                         <div className="col-span-1 h-full min-h-[160px] hidden md:block">
                             <button 
                                 onClick={() => setIsDrawerOpen(true)}
@@ -302,7 +302,7 @@ export const ComparisonPage = ({
                                     <Plus size={24} />
                                 </div>
                                 <span className="font-bold text-sm">Añadir Plan</span>
-                                <span className="text-xs text-slate-500 mt-1">Comparar hasta 4</span>
+                                <span className="text-xs text-slate-500 mt-1">Comparar hasta 3</span>
                             </button>
                         </div>
                     )}
