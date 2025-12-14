@@ -88,7 +88,7 @@ export const PlanCard = ({
   return (
     <div 
       ref={cardRef}
-      className={`group relative w-full glass-card rounded-3xl transition-all duration-300 flex flex-col overflow-hidden hover:shadow-hover hover:-translate-y-1
+      className={`group relative w-full bg-card border border-border/60 rounded-3xl transition-all duration-300 flex flex-col overflow-hidden hover:shadow-xl hover:border-border hover:-translate-y-1 dark:shadow-lg dark:shadow-black/20
         ${viewMode === "list" ? "md:flex-row md:items-stretch" : ""}
       `}
     >
@@ -99,10 +99,12 @@ export const PlanCard = ({
       )}
 
       {/* HEADER LOGO */}
-      <div className={`h-24 flex items-center justify-center p-4 border-b border-border relative bg-muted/50 ${viewMode === 'list' ? 'md:w-56 md:border-r md:border-b-0' : ''}`}>
+      <div className={`h-24 flex items-center justify-center p-4 border-b border-border relative bg-muted/30 ${viewMode === 'list' ? 'md:w-56 md:border-r md:border-b-0' : ''}`}>
          <div className="flex items-center gap-2 transform transition-transform group-hover:scale-105 duration-300">
            {EMPRESA_LOGOS[plan.empresa] ? (
-              <img src={`/assets/images/card-header/${EMPRESA_LOGOS[plan.empresa]}`} alt={plan.empresa} className="h-10 w-auto object-contain dark:brightness-110" />
+              <div className="bg-white rounded-xl p-2 shadow-sm border border-border/50">
+                <img src={`/assets/images/card-header/${EMPRESA_LOGOS[plan.empresa]}`} alt={plan.empresa} className="h-8 w-auto object-contain" />
+              </div>
            ) : (
               <span className="text-xl font-bold text-foreground">{plan.empresa}</span>
            )}

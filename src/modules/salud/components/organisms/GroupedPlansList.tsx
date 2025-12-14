@@ -55,7 +55,7 @@ const CompanyGroup = ({
   const logoFile = EMPRESA_LOGOS[empresa];
 
   return (
-    <div className="glass-card rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-lg">
+    <div className="bg-card border border-border/60 rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-lg dark:shadow-lg dark:shadow-black/20">
       {/* Header - Always visible */}
       <button
         onClick={onToggle}
@@ -63,12 +63,12 @@ const CompanyGroup = ({
       >
         <div className="flex items-center gap-4">
           {/* Logo */}
-          <div className="w-16 h-12 md:w-20 md:h-14 flex items-center justify-center bg-background rounded-xl p-2">
+          <div className="w-16 h-12 md:w-20 md:h-14 flex items-center justify-center bg-white rounded-xl p-2 border border-border/50 shadow-sm">
             {logoFile ? (
               <img
                 src={`/assets/images/card-header/${logoFile}`}
                 alt={empresa}
-                className="max-h-full max-w-full object-contain dark:brightness-110"
+                className="max-h-full max-w-full object-contain"
               />
             ) : (
               <span className="text-sm font-bold text-foreground">{empresa}</span>

@@ -30,7 +30,7 @@ export const FloatingComparisonBar = ({ plans, onCompare }: FloatingComparisonBa
   return (
     <div 
       onClick={onCompare}
-      className="fixed bottom-8 left-1/2 -translate-x-1/2 bg-slate-900 text-white px-5 py-3 rounded-full shadow-2xl flex items-center gap-4 z-50 hover:scale-105 transition-all duration-300 cursor-pointer animate-in slide-in-from-bottom-10 fade-in border border-slate-700/50 hover:bg-slate-800 group"
+      className="fixed bottom-8 left-1/2 -translate-x-1/2 bg-foreground text-background px-5 py-3 rounded-full shadow-2xl flex items-center gap-4 z-50 hover:scale-105 transition-all duration-300 cursor-pointer animate-in slide-in-from-bottom-10 fade-in border border-border/50 hover:bg-foreground/90 group"
     >
       {/* --- AVATARES DE LOGOS --- */}
       <div className="flex -space-x-3">
@@ -39,7 +39,7 @@ export const FloatingComparisonBar = ({ plans, onCompare }: FloatingComparisonBa
             return (
                 <div 
                     key={plan._id} 
-                    className="w-10 h-10 rounded-full bg-white border-2 border-slate-900 flex items-center justify-center overflow-hidden relative z-0 hover:z-10 transition-all"
+                    className="w-10 h-10 rounded-full bg-white border-2 border-foreground flex items-center justify-center overflow-hidden relative z-0 hover:z-10 transition-all shadow-sm"
                 >
                     {logoFile ? (
                         <img 
@@ -48,7 +48,7 @@ export const FloatingComparisonBar = ({ plans, onCompare }: FloatingComparisonBa
                             className="w-full h-full object-contain p-1" 
                         />
                     ) : (
-                        <span className="text-[10px] font-bold text-slate-800">
+                        <span className="text-[10px] font-bold text-foreground">
                             {plan.empresa.substring(0, 2).toUpperCase()}
                         </span>
                     )}
@@ -59,17 +59,17 @@ export const FloatingComparisonBar = ({ plans, onCompare }: FloatingComparisonBa
 
       {/* --- TEXTO INFORMATIVO --- */}
       <div className="flex flex-col leading-tight">
-        <span className="text-[10px] text-slate-400 font-medium uppercase tracking-wide">Comparando</span>
-        <span className="text-sm font-bold text-white">
+        <span className="text-[10px] text-background/60 font-medium uppercase tracking-wide">Comparando</span>
+        <span className="text-sm font-bold text-background">
             {plans.length} {plans.length === 1 ? 'Plan' : 'Planes'}
         </span>
       </div>
 
       {/* --- SEPARADOR --- */}
-      <div className="h-8 w-[1px] bg-slate-700 mx-1"></div>
+      <div className="h-8 w-[1px] bg-background/20 mx-1"></div>
 
       {/* --- ACCIÓN --- */}
-      <div className="flex items-center gap-2 text-sm font-bold text-teal-400 group-hover:text-teal-300 transition-colors">
+      <div className="flex items-center gap-2 text-sm font-bold text-primary group-hover:text-primary/80 transition-colors">
         Ver Tabla <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
       </div>
     </div>
