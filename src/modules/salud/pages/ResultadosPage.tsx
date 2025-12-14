@@ -124,8 +124,8 @@ const ResultadosPage = () => {
   const toggleComparison = (id: string) => {
     setComparisonPlans(prev => {
       if (prev.includes(id)) return prev.filter(x => x !== id);
-      if (prev.length >= 4) {
-        toast({ title: "Límite alcanzado", description: "Máximo 4 planes para comparar.", variant: "destructive" });
+      if (prev.length >= 3) {
+        toast({ title: "Límite alcanzado", description: "Máximo 3 planes para comparar.", variant: "destructive" });
         return prev;
       }
       return [...prev, id];
