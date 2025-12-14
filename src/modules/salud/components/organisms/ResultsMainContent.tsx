@@ -19,8 +19,8 @@ interface ResultsMainContentProps {
   // Header props
   sortBy: string;
   onSortChange: (value: string) => void;
-  viewMode: "grid" | "list";
-  onViewModeChange: (mode: "grid" | "list") => void;
+  viewMode: "grid" | "list" | "grouped";
+  onViewModeChange: (mode: "grid" | "list" | "grouped") => void;
   filteredPlansCount: number;
   onOpenFilters: () => void;
   allClinicas: Clinica[];
