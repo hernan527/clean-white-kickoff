@@ -182,15 +182,6 @@ export const ResultsHeaderBar = ({
           </Button>
         </div>
       </div>
-
-      {/* Floating Filter Button - Mobile Only */}
-      <Button
-        onClick={onOpenFilters}
-        className="fixed bottom-6 right-6 z-50 lg:hidden rounded-full h-14 w-14 shadow-lg"
-        size="icon"
-      >
-        <Filter className="h-6 w-6" />
-      </Button>
     </>
   );
 };
