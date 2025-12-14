@@ -4,41 +4,143 @@
 @tailwind utilities;
 
 /* ============================================
-   MODERN DARK GLASSMORPHISM DESIGN SYSTEM
-   Style: SaaS Dark Mode with Neon Accents
+   DUAL THEME DESIGN SYSTEM
+   Light Mode + Dark Glassmorphism
    ============================================ */
 
 @layer base {
+  /* ===== LIGHT MODE (Default) ===== */
   :root {
-    /* ===== DARK BASE (Slate-950) ===== */
+    /* Base */
+    --background: 210 40% 98%;
+    --foreground: 222 47% 11%;
+
+    /* Cards */
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    /* Primary - Blue Health */
+    --primary: 200 85% 45%;
+    --primary-foreground: 210 40% 98%;
+    --primary-light: 200 85% 95%;
+
+    /* Secondary - Green Health */
+    --secondary: 160 60% 45%;
+    --secondary-foreground: 210 40% 98%;
+    --secondary-light: 160 60% 95%;
+
+    /* Accent - Orange CTA */
+    --accent: 25 95% 55%;
+    --accent-foreground: 210 40% 98%;
+
+    /* CTA Highlight */
+    --cta-highlight: 25 95% 55%;
+    --cta-highlight-foreground: 210 40% 98%;
+
+    /* Semantic Colors */
+    --success: 160 84% 39%;
+    --success-foreground: 210 40% 98%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 222 47% 11%;
+    --info: 200 85% 45%;
+    --info-foreground: 210 40% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+
+    /* Muted */
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 20% 45%;
+
+    /* Borders & Inputs */
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 200 85% 45%;
+    --radius: 1rem;
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(200 85% 45%), hsl(160 60% 45%));
+    --gradient-header: linear-gradient(135deg, hsl(0 0% 100%), hsl(210 40% 98%));
+    --gradient-hero: radial-gradient(ellipse 80% 50% at 50% -20%, hsl(200 85% 85% / 0.5), transparent);
+    --gradient-accent: linear-gradient(135deg, hsl(25 95% 55%), hsl(200 85% 45%));
+    --gradient-cta: linear-gradient(135deg, hsl(25 95% 55%), hsl(25 95% 45%));
+    --gradient-success: linear-gradient(135deg, hsl(160 84% 39%), hsl(160 60% 45%));
+
+    /* Shadows */
+    --shadow-card: 0 4px 20px hsl(0 0% 0% / 0.08);
+    --shadow-hover: 0 10px 40px hsl(200 85% 45% / 0.15);
+    --shadow-success: 0 8px 30px -8px hsl(160 84% 39% / 0.3);
+    --shadow-accent: 0 8px 30px -8px hsl(25 95% 55% / 0.3);
+
+    /* Footer */
+    --footer-bg: 222 47% 11%;
+    --footer-foreground: 210 40% 98%;
+
+    /* Sidebar */
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 222 47% 11%;
+    --sidebar-primary: 200 85% 45%;
+    --sidebar-primary-foreground: 210 40% 98%;
+    --sidebar-accent: 25 95% 55%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 214 32% 91%;
+    --sidebar-ring: 200 85% 45%;
+
+    /* Charts */
+    --chart-1: 200 85% 45%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 25 95% 55%;
+    --chart-4: 270 60% 55%;
+    --chart-5: 38 92% 50%;
+
+    /* Standard Shadows */
+    --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+    --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.08);
+    --shadow-sm: 0 2px 8px 0px hsl(0 0% 0% / 0.1);
+    --shadow: 0 4px 12px 0px hsl(0 0% 0% / 0.1);
+    --shadow-md: 0 6px 20px 0px hsl(0 0% 0% / 0.12);
+    --shadow-lg: 0 10px 30px 0px hsl(0 0% 0% / 0.15);
+    --shadow-xl: 0 20px 50px 0px hsl(0 0% 0% / 0.18);
+    --shadow-2xl: 0 25px 60px 0px hsl(0 0% 0% / 0.22);
+
+    /* Typography */
+    --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+    --tracking-normal: 0em;
+    --spacing: 0.25rem;
+  }
+
+  /* ===== DARK MODE (Glassmorphism) ===== */
+  .dark {
+    /* Dark Base (Slate-950) */
     --background: 222 47% 5%;
     --foreground: 210 40% 98%;
 
-    /* ===== GLASS CARDS ===== */
+    /* Glass Cards */
     --card: 222 47% 8%;
     --card-foreground: 210 40% 98%;
     --popover: 222 47% 10%;
     --popover-foreground: 210 40% 98%;
 
-    /* ===== NEON PRIMARY (Violet) ===== */
+    /* Neon Primary (Violet) */
     --primary: 270 91% 65%;
     --primary-foreground: 210 40% 98%;
-    --primary-glow: 270 91% 75%;
+    --primary-light: 270 91% 75%;
 
-    /* ===== NEON SECONDARY (Cyan) ===== */
+    /* Neon Secondary (Cyan) */
     --secondary: 185 95% 50%;
     --secondary-foreground: 222 47% 5%;
     --secondary-light: 185 95% 85%;
 
-    /* ===== NEON ACCENT (Fuchsia/Pink) ===== */
+    /* Neon Accent (Fuchsia/Pink) */
     --accent: 325 90% 60%;
     --accent-foreground: 210 40% 98%;
 
-    /* ===== CTA HIGHLIGHT ===== */
+    /* CTA Highlight */
     --cta-highlight: 325 90% 60%;
     --cta-highlight-foreground: 210 40% 98%;
 
-    /* ===== SEMANTIC COLORS ===== */
+    /* Semantic Colors */
     --success: 160 84% 50%;
     --success-foreground: 222 47% 5%;
     --warning: 38 92% 50%;
@@ -48,41 +150,34 @@
     --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
 
-    /* ===== MUTED/SUBTLE ===== */
+    /* Muted/Subtle */
     --muted: 222 30% 18%;
     --muted-foreground: 215 20% 65%;
 
-    /* ===== BORDERS & INPUTS ===== */
+    /* Borders & Inputs */
     --border: 222 30% 20%;
     --input: 222 30% 15%;
     --ring: 270 91% 65%;
-    --radius: 1rem;
 
-    /* ===== NEON GRADIENTS ===== */
+    /* Neon Gradients */
     --gradient-primary: linear-gradient(135deg, hsl(270 91% 65%), hsl(325 90% 60%));
     --gradient-header: linear-gradient(135deg, hsl(222 47% 8%), hsl(222 47% 12%));
     --gradient-hero: radial-gradient(ellipse 80% 50% at 50% -20%, hsl(270 91% 25% / 0.5), transparent);
     --gradient-accent: linear-gradient(135deg, hsl(325 90% 60%), hsl(270 91% 65%));
     --gradient-cta: linear-gradient(135deg, hsl(325 90% 55%), hsl(270 91% 60%));
-    --gradient-bg: linear-gradient(180deg, hsl(222 47% 5%), hsl(222 47% 8%));
     --gradient-success: linear-gradient(135deg, hsl(160 84% 50%), hsl(185 95% 50%));
-    --gradient-glass: linear-gradient(135deg, hsl(0 0% 100% / 0.1), hsl(0 0% 100% / 0.05));
 
-    /* ===== GLASSMORPHISM SHADOWS ===== */
-    --shadow-colorful: 0 0 80px -20px hsl(270 91% 65% / 0.5);
+    /* Glassmorphism Shadows */
     --shadow-card: 0 8px 32px hsl(0 0% 0% / 0.3);
     --shadow-hover: 0 20px 50px -15px hsl(270 91% 65% / 0.4);
     --shadow-success: 0 8px 30px -8px hsl(160 84% 50% / 0.4);
     --shadow-accent: 0 8px 30px -8px hsl(325 90% 60% / 0.4);
-    --shadow-neon-violet: 0 0 30px hsl(270 91% 65% / 0.5);
-    --shadow-neon-cyan: 0 0 30px hsl(185 95% 50% / 0.5);
-    --shadow-neon-fuchsia: 0 0 30px hsl(325 90% 60% / 0.5);
 
-    /* ===== FOOTER ===== */
+    /* Footer */
     --footer-bg: 222 47% 5%;
     --footer-foreground: 210 40% 98%;
 
-    /* ===== SIDEBAR ===== */
+    /* Sidebar */
     --sidebar-background: 222 47% 8%;
     --sidebar-foreground: 210 40% 98%;
     --sidebar-primary: 270 91% 65%;
@@ -92,14 +187,14 @@
     --sidebar-border: 222 30% 20%;
     --sidebar-ring: 270 91% 65%;
 
-    /* ===== CHARTS ===== */
+    /* Charts */
     --chart-1: 270 91% 65%;
     --chart-2: 325 90% 60%;
     --chart-3: 185 95% 50%;
     --chart-4: 160 84% 50%;
     --chart-5: 38 92% 50%;
 
-    /* ===== STANDARD SHADOWS ===== */
+    /* Dark Shadows */
     --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.3);
     --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.3);
     --shadow-sm: 0 2px 8px 0px hsl(0 0% 0% / 0.4);
@@ -108,39 +203,12 @@
     --shadow-lg: 0 10px 30px 0px hsl(0 0% 0% / 0.5);
     --shadow-xl: 0 20px 50px 0px hsl(0 0% 0% / 0.5);
     --shadow-2xl: 0 25px 60px 0px hsl(0 0% 0% / 0.6);
-
-    /* ===== TYPOGRAPHY ===== */
-    --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
-    --tracking-normal: 0em;
-    --spacing: 0.25rem;
-  }
-
-  /* Dark mode is the default, but we keep this for compatibility */
-  .dark {
-    /* Same as root - this is a dark-first design */
-  }
-
-  /* Light mode override if needed */
-  .light {
-    --background: 210 40% 98%;
-    --foreground: 222 47% 11%;
-    --card: 0 0% 100%;
-    --card-foreground: 222 47% 11%;
-    --primary: 270 91% 55%;
-    --primary-foreground: 210 40% 98%;
-    --muted: 210 40% 96%;
-    --muted-foreground: 215 20% 45%;
-    --border: 214 32% 91%;
   }
 }
 
 @layer base {
   * {
     @apply border-border;
-  }
-
-  html {
-    color-scheme: dark;
   }
 
   body {
@@ -156,61 +224,58 @@
 }
 
 /* ============================================
-   GLASSMORPHISM UTILITIES
+   GLASSMORPHISM UTILITIES (Dark mode only)
    ============================================ */
 @layer utilities {
-  /* Glass effect base */
+  /* Glass effect base - works in dark mode */
   .glass {
-    @apply bg-white/5 backdrop-blur-xl border border-white/10;
+    @apply bg-card/80 backdrop-blur-xl border border-border;
+  }
+
+  .dark .glass {
+    @apply bg-white/5 backdrop-blur-xl border-white/10;
   }
 
   .glass-strong {
-    @apply bg-white/10 backdrop-blur-2xl border border-white/20;
+    @apply bg-card backdrop-blur-2xl border border-border;
+  }
+
+  .dark .glass-strong {
+    @apply bg-white/10 backdrop-blur-2xl border-white/20;
   }
 
   .glass-subtle {
-    @apply bg-white/[0.03] backdrop-blur-md border border-white/5;
+    @apply bg-card/50 backdrop-blur-md border border-border/50;
+  }
+
+  .dark .glass-subtle {
+    @apply bg-white/[0.03] backdrop-blur-md border-white/5;
   }
 
   .glass-card {
-    @apply bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl shadow-lg;
+    @apply bg-card backdrop-blur-xl border border-border rounded-2xl shadow-lg;
   }
 
-  .glass-button {
-    @apply bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 transition-all;
+  .dark .glass-card {
+    @apply bg-white/5 border-white/10;
   }
 
-  /* Neon glow effects */
-  .neon-violet {
+  /* Neon glow effects (dark mode only) */
+  .dark .neon-violet {
     box-shadow: 0 0 20px hsl(270 91% 65% / 0.4), 0 0 40px hsl(270 91% 65% / 0.2);
   }
 
-  .neon-cyan {
+  .dark .neon-cyan {
     box-shadow: 0 0 20px hsl(185 95% 50% / 0.4), 0 0 40px hsl(185 95% 50% / 0.2);
   }
 
-  .neon-fuchsia {
+  .dark .neon-fuchsia {
     box-shadow: 0 0 20px hsl(325 90% 60% / 0.4), 0 0 40px hsl(325 90% 60% / 0.2);
-  }
-
-  .neon-text-violet {
-    text-shadow: 0 0 20px hsl(270 91% 65% / 0.8), 0 0 40px hsl(270 91% 65% / 0.4);
-  }
-
-  .neon-text-cyan {
-    text-shadow: 0 0 20px hsl(185 95% 50% / 0.8), 0 0 40px hsl(185 95% 50% / 0.4);
   }
 
   /* Text gradients */
   .text-gradient {
     background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .text-gradient-cyan {
-    background: linear-gradient(135deg, hsl(185 95% 50%), hsl(160 84% 50%));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -237,23 +302,6 @@
     background: var(--gradient-accent);
   }
 
-  /* Animated gradient border */
-  .gradient-border {
-    position: relative;
-    background: hsl(222 47% 8%);
-    border-radius: 1rem;
-  }
-
-  .gradient-border::before {
-    content: '';
-    position: absolute;
-    inset: -1px;
-    background: linear-gradient(135deg, hsl(270 91% 65%), hsl(325 90% 60%), hsl(185 95% 50%));
-    border-radius: inherit;
-    z-index: -1;
-    opacity: 0.5;
-  }
-
   /* Shadow utilities */
   .shadow-card {
     box-shadow: var(--shadow-card);
@@ -277,24 +325,11 @@
   }
 
   .card-commercial:hover {
-    @apply shadow-hover -translate-y-1 border-white/20;
+    @apply shadow-hover -translate-y-1;
   }
 
-  .card-best-value {
-    @apply ring-2 ring-success shadow-success;
-  }
-
-  /* Banner styles */
-  .banner-best {
-    @apply bg-success text-success-foreground;
-  }
-
-  .banner-warning {
-    @apply bg-destructive text-destructive-foreground;
-  }
-
-  .banner-info {
-    @apply bg-info text-info-foreground;
+  .dark .card-commercial:hover {
+    @apply border-white/20;
   }
 
   /* Scrollbar */
@@ -322,7 +357,7 @@
 }
 
 /* ============================================
-   BLOB ANIMATIONS (Ambient Background)
+   BLOB ANIMATIONS (Ambient Background - Dark mode)
    ============================================ */
 @layer utilities {
   .animate-blob {
@@ -335,6 +370,10 @@
 
   .animation-delay-4000 {
     animation-delay: 4s;
+  }
+
+  .animation-delay-6000 {
+    animation-delay: 6s;
   }
 
   @keyframes blob {
@@ -382,7 +421,7 @@
 }
 
 /* ============================================
-   CUSTOM SCROLLBAR FOR DARK THEME
+   CUSTOM SCROLLBAR
    ============================================ */
 ::-webkit-scrollbar {
   width: 8px;
@@ -390,22 +429,22 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: hsl(222 47% 8%);
+  background: hsl(var(--muted));
 }
 
 ::-webkit-scrollbar-thumb {
-  background: hsl(222 30% 25%);
+  background: hsl(var(--muted-foreground) / 0.3);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: hsl(270 91% 65%);
+  background: hsl(var(--primary));
 }
 
 /* ============================================
    SELECTION COLORS
    ============================================ */
 ::selection {
-  background: hsl(270 91% 65% / 0.3);
-  color: hsl(210 40% 98%);
+  background: hsl(var(--primary) / 0.3);
+  color: hsl(var(--foreground));
 }

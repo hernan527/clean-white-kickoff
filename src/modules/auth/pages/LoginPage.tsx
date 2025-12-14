@@ -56,16 +56,16 @@ const LoginPage = () => {
     <Layout>
       <div className="min-h-[85vh] flex items-center justify-center px-4 py-12 relative">
         
-        <Card className="w-full max-w-md border border-white/10 shadow-2xl rounded-3xl overflow-hidden bg-white/5 backdrop-blur-xl z-10">
+        <Card className="w-full max-w-md border border-border shadow-2xl rounded-3xl overflow-hidden bg-card/80 backdrop-blur-xl z-10">
           
           {/* HEADER */}
           <CardHeader className="space-y-3 text-center pt-8 pb-6">
-            <div className="mx-auto w-16 h-16 bg-gradient-to-br from-violet-500 to-fuchsia-500 rounded-2xl flex items-center justify-center mb-2 neon-violet">
-              <LogIn className="w-8 h-8 text-white" />
+            <div className="mx-auto w-16 h-16 bg-primary rounded-2xl flex items-center justify-center mb-2 shadow-lg">
+              <LogIn className="w-8 h-8 text-primary-foreground" />
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-white tracking-tight">Iniciar Sesión</h1>
-              <p className="text-slate-400 text-sm mt-1">Ingresa a tu cuenta para continuar</p>
+              <h1 className="text-2xl font-bold text-foreground tracking-tight">Iniciar Sesión</h1>
+              <p className="text-muted-foreground text-sm mt-1">Ingresa a tu cuenta para continuar</p>
             </div>
           </CardHeader>
 
@@ -74,9 +74,9 @@ const LoginPage = () => {
               
               {/* Email */}
               <div className="space-y-2">
-                <Label htmlFor="email" className="text-xs font-bold text-slate-400 uppercase">Correo electrónico</Label>
+                <Label htmlFor="email" className="text-xs font-bold text-muted-foreground uppercase">Correo electrónico</Label>
                 <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500" />
+                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                   <Input
                     id="email"
                     type="email"
@@ -85,7 +85,7 @@ const LoginPage = () => {
                     onChange={(e) => setEmail(e.target.value)}
                     required
                     disabled={isLoading}
-                    className="pl-10 rounded-xl border-white/10 bg-white/5 text-white placeholder:text-slate-500 focus-visible:ring-violet-500 focus:bg-white/10 transition-all"
+                    className="pl-10 rounded-xl"
                   />
                 </div>
               </div>
@@ -93,10 +93,10 @@ const LoginPage = () => {
               {/* Password */}
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                    <Label htmlFor="password" className="text-xs font-bold text-slate-400 uppercase">Contraseña</Label>
+                    <Label htmlFor="password" className="text-xs font-bold text-muted-foreground uppercase">Contraseña</Label>
                 </div>
                 <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500" />
+                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                   <Input
                     id="password"
                     type="password"
@@ -105,7 +105,7 @@ const LoginPage = () => {
                     onChange={(e) => setPassword(e.target.value)}
                     required
                     disabled={isLoading}
-                    className="pl-10 rounded-xl border-white/10 bg-white/5 text-white placeholder:text-slate-500 focus-visible:ring-violet-500 focus:bg-white/10 transition-all"
+                    className="pl-10 rounded-xl"
                   />
                 </div>
               </div>
@@ -118,15 +118,15 @@ const LoginPage = () => {
                     checked={rememberMe}
                     onCheckedChange={(checked) => setRememberMe(checked === true)}
                     disabled={isLoading}
-                    className="border-white/20 data-[state=checked]:bg-violet-600 data-[state=checked]:border-violet-600"
+                    className="border-border data-[state=checked]:bg-primary data-[state=checked]:border-primary"
                   />
-                  <Label htmlFor="rememberMe" className="text-sm text-slate-300 cursor-pointer font-medium">
+                  <Label htmlFor="rememberMe" className="text-sm text-foreground cursor-pointer font-medium">
                     Recordarme
                   </Label>
                 </div>
                 <Link
                   to="/auth/forgot-password"
-                  className="text-sm text-cyan-400 hover:text-cyan-300 font-semibold hover:underline transition-colors"
+                  className="text-sm text-primary hover:text-primary/80 font-semibold hover:underline transition-colors"
                 >
                   ¿Olvidaste tu contraseña?
                 </Link>
@@ -137,7 +137,7 @@ const LoginPage = () => {
             <CardFooter className="flex flex-col space-y-6 px-8 pb-8 pt-2">
               <Button 
                 type="submit" 
-                className="w-full bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-500 hover:to-fuchsia-500 text-white font-bold h-12 rounded-xl shadow-lg neon-violet transition-all active:scale-95" 
+                className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-12 rounded-xl shadow-lg transition-all active:scale-95" 
                 disabled={isLoading}
               >
                 {isLoading ? (
@@ -152,9 +152,9 @@ const LoginPage = () => {
               </Button>
               
               <div className="text-center space-y-2">
-                <p className="text-sm text-slate-400">
+                <p className="text-sm text-muted-foreground">
                   ¿No tienes una cuenta?{' '}
-                  <Link to="/auth/register" className="text-cyan-400 font-bold hover:text-cyan-300 hover:underline transition-colors">
+                  <Link to="/auth/register" className="text-primary font-bold hover:text-primary/80 hover:underline transition-colors">
                     Regístrate gratis
                   </Link>
                 </p>
