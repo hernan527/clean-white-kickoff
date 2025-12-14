@@ -16,6 +16,7 @@ interface ClinicasContentProps {
 
 export const ClinicasContent = ({
   plans,
+  uniqueClinicas,
   regions,
   activeClinicaTab,
   onClinicaTabChange,
@@ -23,9 +24,9 @@ export const ClinicasContent = ({
   planIncludesClinica,
 }: ClinicasContentProps) => {
   
-  // Determinar qué clínicas mostrar
+  // Determinar qué clínicas mostrar - usar uniqueClinicas para "todas"
   const clinicasToShow = activeClinicaTab === "todas" 
-    ? getClinicasByRegion("") // Asumiendo que tu lógica maneja "" como todas, o ajusta aquí
+    ? uniqueClinicas
     : getClinicasByRegion(activeClinicaTab);
 
   // Si tu getClinicasByRegion no maneja "todas", usa uniqueClinicas directamente:
