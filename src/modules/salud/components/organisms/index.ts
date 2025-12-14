@@ -24,6 +24,7 @@ export * from './QuoteModal';
 export * from './QuoteRecoveryModal';
 export * from './ResultsFilterSidebar';
 export * from './ResultsGrid';
+export * from './GroupedPlansList';
 export * from './ResultsHeaderBar';
 export * from './SaveQuoteModal';
 export * from './StickyQuoteCTA';

@@ -1,13 +1,14 @@
 import { Search } from "lucide-react";
 import { PlanCard } from "../molecules/PlanCard";
 import { PlanCardSkeleton } from "../atoms/PlanCardSkeleton";
+import { GroupedPlansList } from "./GroupedPlansList";
 import type { HealthPlan } from "@/core/interfaces/plan/planes";
 
 
 interface ResultsGridProps {
   plans: HealthPlan[];
   loading: boolean;
-  viewMode: "grid" | "list";
+  viewMode: "grid" | "list" | "grouped";
   comparisonPlans: string[];
   onToggleComparison: (planId: string) => void;
   onOpenDetails: (plan: HealthPlan) => void;
@@ -22,9 +23,21 @@ export const ResultsGrid = ({
   onOpenDetails,
 }: ResultsGridProps) => {
 
+  // --- GROUPED VIEW ---
+  if (viewMode === "grouped") {
+    return (
+      <GroupedPlansList
+        plans={plans}
+        loading={loading}
+        comparisonPlans={comparisonPlans}
+        onToggleComparison={onToggleComparison}
+        onOpenDetails={onOpenDetails}
+      />
+    );
+  }
+
   // --- LÓGICA DEL SKELETON ---
   if (loading) {
-    // Array fantasma para simular 6 tarjetas
     const skeletonArray = Array(6).fill(0); 
 
     return (
@@ -34,13 +47,11 @@ export const ResultsGrid = ({
           : "flex flex-col gap-4"
       }>
         {skeletonArray.map((_, index) => (
-          // Renderiza el esqueleto en lugar de la tarjeta real
           <PlanCardSkeleton key={index} viewMode={viewMode} /> 
         ))}
       </div>
     );
   }
-  // --- FIN LÓGICA SKELETON ---
 
   if (plans.length === 0) {
     return (

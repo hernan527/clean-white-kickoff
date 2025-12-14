@@ -60,7 +60,7 @@ const ResultadosPage = () => {
   }, [healthPlans]);
 
   // Estados
-  const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
+  const [viewMode, setViewMode] = useState<"grid" | "list" | "grouped">("grouped");
   const [priceRange, setPriceRange] = useState<number[]>([0, 10000000]);
   const [selectedProviders, setSelectedProviders] = useState<string[]>([]);
   const [minRating, setMinRating] = useState([0]);
