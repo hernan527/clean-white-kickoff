@@ -94,9 +94,22 @@ const fetchCotizacion = useCallback(async (formDataToUse?: QuoteFormData) => {
         setIsLoading(false);
     }
 }, [formData]); // Dependencies remain the same
-  // Check localStorage on mount - only show recovery modal when coming from home
+  // Check localStorage on mount - handle different navigation scenarios
   useEffect(() => {
     if (hasCheckedStorage) return;
+    
+    // Check if coming from quote modal with fresh data
+    const fromQuote = location.state?.fromQuote === true;
+    const formDataFromState = location.state?.formData as QuoteFormData | undefined;
+    
+    if (fromQuote && formDataFromState) {
+      // Coming from quote modal - fetch with that data immediately
+      setFormDataState(formDataFromState);
+      shouldAutoFetch.current = false;
+      fetchCotizacion(formDataFromState);
+      setHasCheckedStorage(true);
+      return;
+    }
     
     // Check if user navigated from home page
     const referrer = document.referrer;
@@ -127,7 +140,7 @@ const fetchCotizacion = useCallback(async (formDataToUse?: QuoteFormData) => {
       localStorage.removeItem(STORAGE_KEY);
     }
     setHasCheckedStorage(true);
-  }, [hasCheckedStorage, location.state]);
+  }, [hasCheckedStorage, location.state, fetchCotizacion]);
 
   // Auto-fetch on mount if no saved form
   useEffect(() => {

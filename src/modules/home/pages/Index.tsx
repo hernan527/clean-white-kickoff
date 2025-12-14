@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import Layout from "@/layouts/Layout";
 
@@ -7,15 +8,28 @@ import { HeroSection } from "../components/organisms/HeroSection";
 import { LogosGrid } from "../components/organisms/LogosGrid";
 import { HowItWorks } from "../components/organisms/HowItWorks";
 import { FAQ } from "../components/organisms/FAQ";
-import { Testimonials } from "../components/organisms/Testimonials"; // Asumo que mantienes este o lo actualizas similar
+import { Testimonials } from "../components/organisms/Testimonials";
 
 // Importamos el Cotizador (que está en modules/salud)
 import { FormQuote } from "@/modules/salud/components/organisms/FormQuote";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import { QuoteFormData } from "@/core/interfaces/plan/quoteFormData";
+
+const STORAGE_KEY = 'last_cotizacion_form';
 
 const Index = () => {
   const [formOpen, setFormOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const handleQuoteComplete = (data: QuoteFormData) => {
+    // Guardar los datos del formulario en localStorage
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    // Cerrar el modal
+    setFormOpen(false);
+    // Navegar a resultados con flag para que cargue los datos
+    navigate('/resultados', { state: { fromQuote: true, formData: data } });
+  };
 
   return (
     <Layout>
@@ -27,7 +41,8 @@ const Index = () => {
       {/* MODAL COTIZADOR GLOBAL */}
       <FormQuote 
         isOpen={formOpen} 
-        onClose={() => setFormOpen(false)} 
+        onClose={() => setFormOpen(false)}
+        onComplete={handleQuoteComplete}
       />
 
       {/* 1. HERO (Video + Cotizador) */}

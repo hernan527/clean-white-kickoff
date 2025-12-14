@@ -191,6 +191,12 @@ export const FormQuote: React.FC<FormQuoteProps> = ({ isOpen, onClose, onComplet
          toast({ title: "Error", description: "Ingresa un sueldo válido", variant: "destructive" });
          return;
       }
+      // Si hay onComplete, ir directo a resultados sin pedir datos personales
+      if (onComplete) {
+        const quoteData = { ...formData, tipo: aportesType === 'rel' ? 'dependencia' : 'particular' };
+        onComplete(quoteData);
+        return;
+      }
       setActiveStep(3);
     }
   };

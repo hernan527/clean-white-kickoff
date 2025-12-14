@@ -1,16 +1,19 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { CheckCircle2, ArrowRight, Star, ShieldCheck, TrendingDown, Clock, Phone, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { FormQuote } from "@/modules/salud/components/organisms/FormQuote";
-import { ClinicZoneSelector } from "@/modules/salud/components/organisms/ClinicZoneSelector"; // Importa el nuevo componente
+import { ClinicZoneSelector } from "@/modules/salud/components/organisms/ClinicZoneSelector";
 import { useToast } from "@/hooks/use-toast";
+import { QuoteFormData } from "@/core/interfaces/plan/quoteFormData";
+
+const STORAGE_KEY = 'last_cotizacion_form';
 
 // DATOS ESPECÍFICOS DE SANCOR (Tu conocimiento experto)
 const SANCOR_DATA = {
   name: "SanCor Salud",
-  logo: "sancorsalud.webp", // Asegúrate de tener este logo
+  logo: "sancorsalud.webp",
   heroTitle: "SanCor Salud: La Cobertura Federal N°1",
   heroSubtitle: "Accedé a los planes Gen 1000, 3000 y 4000 con descuentos exclusivos por derivación de aportes. Te asesoramos con la verdad, sin letra chica.",
   expertTip: "Tip de Ex-Empleado: El Plan 3000 tiene la mejor relación precio-calidad si tenés hijos, por su cobertura en odontología y ortodoncia.",
@@ -39,12 +42,13 @@ const SANCOR_DATA = {
 
 export const ProviderLandingPage = () => {
   const { providerId } = useParams<{ providerId: string }>();
+  const navigate = useNavigate();
   const [formOpen, setFormOpen] = useState(false);
   const [showSticky, setShowSticky] = useState(false);
 
-  // Lógica simple para demo (En prod usarías un objeto map más grande)
+  // Lógica simple para demo
   const isSancor = providerId?.includes("sancor");
-  const data = isSancor ? SANCOR_DATA : SANCOR_DATA; // Fallback a Sancor para demo
+  const data = isSancor ? SANCOR_DATA : SANCOR_DATA;
 
   useEffect(() => {
     const handleScroll = () => setShowSticky(window.scrollY > 500);
@@ -52,13 +56,19 @@ export const ProviderLandingPage = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const handleQuoteComplete = (formData: QuoteFormData) => {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
+    setFormOpen(false);
+    navigate('/resultados', { state: { fromQuote: true, formData } });
+  };
+
   return (
     <div className="min-h-screen bg-slate-50 font-sans text-slate-900">
       <Helmet>
         <title>Cotizar {data.name} 2025 | Precios Oficiales y Descuentos</title>
       </Helmet>
 
-      <FormQuote isOpen={formOpen} onClose={() => setFormOpen(false)} />
+      <FormQuote isOpen={formOpen} onClose={() => setFormOpen(false)} onComplete={handleQuoteComplete} />
 
       {/* 1. HERO SECTION: IMPACTO VISUAL */}
       <header className="relative bg-slate-900 text-white overflow-hidden">
