@@ -226,26 +226,26 @@ export const ComparisonPage = ({
         onSaveClick={() => setSaveModalOpen(true)}
       />
 
-      <div className="flex-1 bg-slate-50 min-h-screen pb-20">
+      <div className="flex-1 min-h-screen pb-20">
         <div className="container mx-auto max-w-7xl px-4 sm:px-6">
             
             {/* 2. STICKY HEADER (PLANES + CONTROLES) */}
-            <div className="sticky top-16 z-30 bg-slate-50/95 backdrop-blur-sm pt-6 pb-4 border-b border-slate-200 shadow-sm transition-all">
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
+            <div className="sticky top-16 z-30 glassmorphism rounded-b-2xl pt-6 pb-4 border-b border-white/10 shadow-xl shadow-black/20 transition-all">
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-4 items-end px-4">
                     
                     {/* Col 1: Switcher */}
                     <div className="col-span-1 pb-2">
-                        <h2 className="text-2xl font-bold text-slate-900 mb-4 hidden md:block">Comparativa</h2>
-                        <div className="bg-white p-1 rounded-xl border border-slate-200 inline-flex shadow-sm w-full">
+                        <h2 className="text-2xl font-bold text-white mb-4 hidden md:block">Comparativa</h2>
+                        <div className="bg-white/5 p-1 rounded-xl border border-white/10 inline-flex shadow-sm w-full">
                             <button 
                                 onClick={() => setViewMode("beneficios")}
-                                className={`flex-1 py-2.5 px-3 rounded-lg text-sm font-bold transition-all ${viewMode === "beneficios" ? "bg-teal-600 text-white shadow-sm" : "text-slate-500 hover:bg-slate-50"}`}
+                                className={`flex-1 py-2.5 px-3 rounded-lg text-sm font-bold transition-all ${viewMode === "beneficios" ? "bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white shadow-lg shadow-violet-500/25" : "text-slate-400 hover:bg-white/5"}`}
                             >
                                 Beneficios
                             </button>
                             <button 
                                 onClick={() => setViewMode("clinicas")}
-                                className={`flex-1 py-2.5 px-3 rounded-lg text-sm font-bold transition-all ${viewMode === "clinicas" ? "bg-teal-600 text-white shadow-sm" : "text-slate-500 hover:bg-slate-50"}`}
+                                className={`flex-1 py-2.5 px-3 rounded-lg text-sm font-bold transition-all ${viewMode === "clinicas" ? "bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white shadow-lg shadow-violet-500/25" : "text-slate-400 hover:bg-white/5"}`}
                             >
                                 Clínicas
                             </button>
@@ -254,37 +254,37 @@ export const ComparisonPage = ({
 
                     {/* Cols 2-4: Planes Seleccionados */}
                     {plansToCompare.map((plan, index) => (
-                        <div key={plan._id} className="col-span-1 bg-white p-4 rounded-t-2xl border-x border-t border-slate-200 shadow-sm relative group animate-in fade-in zoom-in-95 duration-300">
+                        <div key={plan._id} className="col-span-1 glassmorphism p-4 rounded-t-2xl border border-white/10 shadow-lg relative group animate-in fade-in zoom-in-95 duration-300">
                             <button 
                                 onClick={() => onRemovePlan(plan._id)}
-                                className="absolute top-2 right-2 text-slate-300 hover:text-red-500 transition-colors p-1"
+                                className="absolute top-2 right-2 text-slate-500 hover:text-red-400 transition-colors p-1"
                             >
                                 <Trash2 size={16} />
                             </button>
                             
                             <div className="h-8 mb-2 flex items-center gap-2">
                                 {plan.images && plan.images[0] ? (
-                                    <img src={`/${plan.images[0].url}`} alt={plan.empresa} className="h-6 w-auto object-contain" />
+                                    <img src={`/${plan.images[0].url}`} alt={plan.empresa} className="h-6 w-auto object-contain brightness-110" />
                                 ) : (
-                                    <span className="font-bold text-slate-700 text-xs">{plan.empresa}</span>
+                                    <span className="font-bold text-slate-300 text-xs">{plan.empresa}</span>
                                 )}
                             </div>
                             
-                            <div className="text-lg font-bold text-slate-900 leading-tight truncate" title={plan.name}>
+                            <div className="text-lg font-bold text-white leading-tight truncate" title={plan.name}>
                                 {plan.name}
                             </div>
-                            <div className="text-xl font-extrabold text-teal-600 mt-1">
+                            <div className="text-xl font-extrabold bg-gradient-to-r from-cyan-400 to-emerald-400 bg-clip-text text-transparent mt-1">
                                 {formatCurrency(plan.precio)}
                             </div>
                             
-                            {/* Botón Elegir (Opcional) */}
-                            <button className="w-full mt-3 bg-slate-900 text-white text-xs font-bold py-2 rounded-lg hover:bg-slate-800 transition-colors">
+                            {/* Botón Elegir */}
+                            <button className="w-full mt-3 bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white text-xs font-bold py-2 rounded-lg hover:from-violet-500 hover:to-fuchsia-500 transition-all shadow-lg shadow-violet-500/25">
                                 Elegir
                             </button>
 
-                            {/* Badge Recomendado (Ejemplo visual para el primer plan) */}
+                            {/* Badge Recomendado */}
                             {index === 0 && (
-                                <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-orange-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full uppercase shadow-sm">
+                                <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full uppercase shadow-lg">
                                     Destacado
                                 </div>
                             )}
@@ -296,13 +296,13 @@ export const ComparisonPage = ({
                         <div className="col-span-1 h-full min-h-[160px] hidden md:block">
                             <button 
                                 onClick={() => setIsDrawerOpen(true)}
-                                className="w-full h-full border-2 border-dashed border-slate-300 rounded-2xl flex flex-col items-center justify-center text-slate-400 hover:border-teal-400 hover:text-teal-600 hover:bg-teal-50 transition-all cursor-pointer group bg-white/50"
+                                className="w-full h-full border-2 border-dashed border-white/20 rounded-2xl flex flex-col items-center justify-center text-slate-500 hover:border-violet-500/50 hover:text-violet-400 hover:bg-violet-500/5 transition-all cursor-pointer group glassmorphism"
                             >
-                                <div className="w-12 h-12 rounded-full bg-slate-100 group-hover:bg-white flex items-center justify-center mb-2 transition-colors">
+                                <div className="w-12 h-12 rounded-full bg-white/5 group-hover:bg-violet-500/10 flex items-center justify-center mb-2 transition-colors border border-white/10">
                                     <Plus size={24} />
                                 </div>
                                 <span className="font-bold text-sm">Añadir Plan</span>
-                                <span className="text-xs text-slate-400 mt-1">Comparar hasta 4</span>
+                                <span className="text-xs text-slate-500 mt-1">Comparar hasta 4</span>
                             </button>
                         </div>
                     )}
@@ -313,7 +313,7 @@ export const ComparisonPage = ({
             <div className="mt-6 space-y-8">
                 
                 {viewMode === "beneficios" && (
-                    <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+                    <div className="glassmorphism rounded-2xl border border-white/10 overflow-hidden shadow-xl shadow-black/20">
                         <BeneficiosTable
                             plans={plansToCompare}
                             groupedAttributes={groupedAttributes}
@@ -326,7 +326,7 @@ export const ComparisonPage = ({
                 )}
 
                 {viewMode === "clinicas" && (
-                    <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+                    <div className="glassmorphism rounded-2xl border border-white/10 overflow-hidden shadow-xl shadow-black/20">
                         <ClinicasContent
                             plans={plansToCompare}
                             uniqueClinicas={uniqueClinicas}

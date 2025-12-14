@@ -8,9 +8,9 @@ interface AttributeRowProps {
 }
 
 export const AttributeRow = ({ attrName, plans, getPlanAttributeValue }: AttributeRowProps) => (
-  <div className="grid grid-cols-1 md:grid-cols-4 border-b border-slate-100 hover:bg-slate-50/50 transition-colors group">
+  <div className="grid grid-cols-1 md:grid-cols-4 border-b border-white/5 hover:bg-white/5 transition-colors group">
     {/* Columna 1: Nombre del Atributo */}
-    <div className="col-span-1 p-3 flex items-center text-sm font-medium text-slate-600 group-hover:text-slate-900">
+    <div className="col-span-1 p-3 flex items-center text-sm font-medium text-slate-400 group-hover:text-slate-200">
       {attrName}
     </div>
     
@@ -23,7 +23,7 @@ export const AttributeRow = ({ attrName, plans, getPlanAttributeValue }: Attribu
     
     {/* Rellenar columnas vacías si hay menos de 3 planes (para mantener el grid de 4) */}
     {Array.from({ length: 3 - plans.length }).map((_, i) => (
-       <div key={`empty-${i}`} className="col-span-1 border-l border-slate-50 hidden md:block" />
+       <div key={`empty-${i}`} className="col-span-1 border-l border-white/5 hidden md:block" />
     ))}
   </div>
 );

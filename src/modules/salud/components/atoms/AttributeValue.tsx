@@ -5,7 +5,7 @@ interface AttributeValueProps {
 }
 
 export const AttributeValue = ({ value }: AttributeValueProps) => (
-  <td className="px-3 py-1.5 text-center border-l border-border">
+  <div className="px-3 py-3 text-center border-l border-white/5">
     <PlanBadge value={value} />
-  </td>
+  </div>
 );

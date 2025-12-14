@@ -55,7 +55,7 @@ export const PlanCard = ({
 
   const getBannerConfig = () => {
     if (isBestValue) {
-      return { text: "MÁS ELEGIDO", className: "bg-teal-600 text-white" };
+      return { text: "MÁS ELEGIDO", className: "bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white" };
     }
     return null;
   };
@@ -64,48 +64,47 @@ export const PlanCard = ({
 
   const handleCompareClick = useCallback((e: React.MouseEvent) => {
     e.stopPropagation();
-    // Aquí puedes mantener tu lógica de animación de vuelo al carrito si la tienes en un hook o contexto
     onToggleComparison(plan._id);
   }, [isInComparison, plan._id, onToggleComparison]);
 
   // Helper iconos visuales
   const getFeatureIcon = (text: string) => {
       const t = text.toLowerCase();
-      if(t.includes('sanatorio') || t.includes('hospital')) return <Building2 size={12} className="text-blue-600" />;
-      if(t.includes('odonto')) return <Stethoscope size={12} className="text-green-600" />;
-      if(t.includes('viajero')) return <Plane size={12} className="text-purple-600" />;
-      if(t.includes('hab')) return <BedDouble size={12} className="text-slate-500" />;
-      return <Check size={12} className="text-teal-600" />;
+      if(t.includes('sanatorio') || t.includes('hospital')) return <Building2 size={12} className="text-cyan-400" />;
+      if(t.includes('odonto')) return <Stethoscope size={12} className="text-emerald-400" />;
+      if(t.includes('viajero')) return <Plane size={12} className="text-violet-400" />;
+      if(t.includes('hab')) return <BedDouble size={12} className="text-slate-400" />;
+      return <Check size={12} className="text-cyan-400" />;
   };
 
   const getFeatureStyle = (text: string) => {
       const t = text.toLowerCase();
-      if(t.includes('sanatorio') || t.includes('hospital')) return "bg-blue-50 text-blue-700 border-blue-100";
-      if(t.includes('odonto')) return "bg-green-50 text-green-700 border-green-100";
-      if(t.includes('viajero')) return "bg-purple-50 text-purple-700 border-purple-100";
-      return "bg-slate-50 text-slate-700 border-slate-100";
+      if(t.includes('sanatorio') || t.includes('hospital')) return "bg-cyan-500/10 text-cyan-300 border-cyan-500/20";
+      if(t.includes('odonto')) return "bg-emerald-500/10 text-emerald-300 border-emerald-500/20";
+      if(t.includes('viajero')) return "bg-violet-500/10 text-violet-300 border-violet-500/20";
+      return "bg-white/5 text-slate-300 border-white/10";
   };
 
   return (
     <div 
       ref={cardRef}
-      className={`group relative w-full bg-white rounded-3xl border border-slate-200 shadow-sm transition-all duration-300 flex flex-col overflow-hidden hover:shadow-xl hover:-translate-y-1
+      className={`group relative w-full glassmorphism rounded-3xl border border-white/10 shadow-xl shadow-black/20 transition-all duration-300 flex flex-col overflow-hidden hover:shadow-2xl hover:shadow-violet-500/10 hover:-translate-y-1 hover:border-white/20
         ${viewMode === "list" ? "md:flex-row md:items-stretch" : ""}
       `}
     >
       {banner && (
-        <div className={`absolute top-0 left-0 text-[10px] font-bold px-3 py-1.5 rounded-br-xl rounded-tl-2xl z-20 uppercase tracking-wide ${banner.className}`}>
+        <div className={`absolute top-0 left-0 text-[10px] font-bold px-3 py-1.5 rounded-br-xl rounded-tl-2xl z-20 uppercase tracking-wide shadow-lg ${banner.className}`}>
           {banner.text}
         </div>
       )}
 
       {/* HEADER LOGO */}
-      <div className={`h-24 flex items-center justify-center p-4 border-b border-slate-50 relative ${viewMode === 'list' ? 'md:w-56 md:border-r' : ''}`}>
+      <div className={`h-24 flex items-center justify-center p-4 border-b border-white/5 relative bg-white/5 ${viewMode === 'list' ? 'md:w-56 md:border-r md:border-b-0' : ''}`}>
          <div className="flex items-center gap-2 transform transition-transform group-hover:scale-105 duration-300">
            {EMPRESA_LOGOS[plan.empresa] ? (
-              <img src={`/assets/images/card-header/${EMPRESA_LOGOS[plan.empresa]}`} alt={plan.empresa} className="h-10 w-auto object-contain" />
+              <img src={`/assets/images/card-header/${EMPRESA_LOGOS[plan.empresa]}`} alt={plan.empresa} className="h-10 w-auto object-contain brightness-110" />
            ) : (
-              <span className="text-xl font-bold text-slate-800">{plan.empresa}</span>
+              <span className="text-xl font-bold text-white">{plan.empresa}</span>
            )}
         </div>
       </div>
@@ -114,10 +113,10 @@ export const PlanCard = ({
       <div className="p-5 flex flex-col flex-grow relative">
         <div className="flex justify-between items-start mb-1">
             <div>
-                <h3 className="font-bold text-xl text-slate-900 leading-tight">{(plan as any).nombre || plan.name}</h3>
+                <h3 className="font-bold text-xl text-white leading-tight">{(plan as any).nombre || plan.name}</h3>
                 <p className="text-xs text-slate-400 mt-1 font-medium">{plan.linea} • Cartilla Global</p>
             </div>
-            <div className={`px-2 py-1 rounded-md text-[10px] font-bold uppercase tracking-tight ${plan.copagos ? 'bg-slate-100 text-slate-500' : 'bg-green-50 text-green-700'}`}>
+            <div className={`px-2 py-1 rounded-md text-[10px] font-bold uppercase tracking-tight ${plan.copagos ? 'bg-white/5 text-slate-400 border border-white/10' : 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'}`}>
                 {plan.copagos ? 'Con Copagos' : 'Copago $0'}
             </div>
         </div>
@@ -136,37 +135,37 @@ export const PlanCard = ({
                     </span>
                 ))
             )}
-             <span className="px-2.5 py-1.5 rounded-lg bg-slate-50 text-slate-600 border border-slate-100 text-[11px] font-bold flex items-center gap-1.5">
+             <span className="px-2.5 py-1.5 rounded-lg bg-white/5 text-slate-400 border border-white/10 text-[11px] font-bold flex items-center gap-1.5">
                 <Check size={12} /> + Beneficios
             </span>
         </div>
 
-        <div className="border-t border-slate-100 my-auto"></div>
+        <div className="border-t border-white/5 my-auto"></div>
 
         <div className={`pt-4 ${viewMode === 'list' ? 'md:flex md:justify-between md:items-end' : ''}`}>
             <div className="mb-4 md:mb-0">
-                <div className="text-xs text-red-400 line-through font-medium mb-0.5 ml-1">{formatCurrency(priceOriginal)}</div>
+                <div className="text-xs text-red-400/70 line-through font-medium mb-0.5 ml-1">{formatCurrency(priceOriginal)}</div>
                 <div className="flex items-center gap-2">
                     <div className="flex items-baseline gap-1">
-                        <span className="text-2xl font-black text-slate-900">{formatCurrency(priceFinal)}</span>
-                        <span className="text-xs text-slate-400 font-medium">/mes</span>
+                        <span className="text-2xl font-black text-white">{formatCurrency(priceFinal)}</span>
+                        <span className="text-xs text-slate-500 font-medium">/mes</span>
                     </div>
-                    <span className="text-[10px] font-bold text-green-600 bg-green-50 px-2 py-0.5 rounded-full">-{discount}% OFF</span>
+                    <span className="text-[10px] font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">-{discount}% OFF</span>
                 </div>
             </div>
 
             <div className="flex gap-3 items-center mt-4">
                 <Button 
                     onClick={() => onOpenDetails(plan)}
-                    className={`flex-1 font-bold h-11 rounded-xl text-sm shadow-sm transition-all active:scale-95 ${isBestValue ? 'bg-orange-500 hover:bg-orange-600 text-white shadow-orange-100' : 'bg-slate-900 hover:bg-slate-800 text-white'}`}
+                    className={`flex-1 font-bold h-11 rounded-xl text-sm shadow-lg transition-all active:scale-95 ${isBestValue ? 'bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-500 hover:to-fuchsia-500 text-white shadow-violet-500/25' : 'bg-white/10 hover:bg-white/20 text-white border border-white/10'}`}
                 >
                     Ver Detalle
                 </Button>
                 <button onClick={handleCompareClick} className="group/compare flex flex-col items-center justify-center w-14 gap-1 cursor-pointer">
-                    <div className={`w-9 h-9 rounded-lg border flex items-center justify-center transition-all ${isInComparison ? 'bg-teal-50 border-teal-500 text-teal-600' : 'bg-white border-slate-200 text-slate-300 group-hover/compare:border-slate-400 group-hover/compare:text-slate-500'}`}>
+                    <div className={`w-9 h-9 rounded-lg border flex items-center justify-center transition-all ${isInComparison ? 'bg-cyan-500/20 border-cyan-500 text-cyan-400' : 'bg-white/5 border-white/10 text-slate-500 group-hover/compare:border-white/30 group-hover/compare:text-slate-300'}`}>
                         {isInComparison ? <Check size={18} strokeWidth={3} /> : <Scale size={18} />}
                     </div>
-                    <span className="text-[9px] font-medium text-slate-400">Comparar</span>
+                    <span className="text-[9px] font-medium text-slate-500">Comparar</span>
                 </button>
             </div>
         </div>

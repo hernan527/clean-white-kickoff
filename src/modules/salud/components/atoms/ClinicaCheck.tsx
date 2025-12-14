@@ -5,11 +5,15 @@ interface ClinicaCheckProps {
 }
 
 export const ClinicaCheck = ({ included }: ClinicaCheckProps) => (
-  <td className="px-3 py-1.5 text-center border-l border-border">
+  <div className="px-3 py-3 text-center border-l border-white/5 flex items-center justify-center">
     {included ? (
-      <Check className="h-4 w-4 text-success mx-auto" />
+      <div className="w-6 h-6 rounded-full bg-emerald-500/20 flex items-center justify-center">
+        <Check className="h-4 w-4 text-emerald-400" />
+      </div>
     ) : (
-      <X className="h-4 w-4 text-destructive mx-auto" />
+      <div className="w-6 h-6 rounded-full bg-white/5 flex items-center justify-center">
+        <X className="h-4 w-4 text-slate-600" />
+      </div>
     )}
-  </td>
+  </div>
 );

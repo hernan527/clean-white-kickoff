@@ -20,7 +20,7 @@ export const BeneficiosTable = ({
 }: BeneficiosTableProps) => {
   
   return (
-    <div className="w-full bg-white">
+    <div className="w-full">
       {Object.entries(groupedAttributes).map(([groupName, attributes]) => (
         <div key={groupName}>
           {/* Header del Grupo */}
@@ -50,7 +50,7 @@ export const BeneficiosTable = ({
       ))}
       
       {Object.keys(groupedAttributes).length === 0 && (
-        <div className="p-10 text-center text-slate-400">
+        <div className="p-10 text-center text-slate-500">
             No hay beneficios para mostrar.
         </div>
       )}
