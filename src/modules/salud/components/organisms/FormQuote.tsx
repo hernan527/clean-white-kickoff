@@ -85,6 +85,11 @@ export const FormQuote: React.FC<FormQuoteProps> = ({ isOpen, onClose, onComplet
 
   // --- HANDLERS ---
   const selectGroup = (group: number) => {
+    // Si hace click en el grupo ya seleccionado, deseleccionar para mostrar todas las opciones
+    if (selectedGroup === group) {
+      setSelectedGroup(null);
+      return;
+    }
     setSelectedGroup(group);
     updateFormData({ group });
     if (group === 1 || group === 3) setCantidadHijos(0);
@@ -194,7 +199,7 @@ export const FormQuote: React.FC<FormQuoteProps> = ({ isOpen, onClose, onComplet
 
    return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-lg p-0 overflow-hidden bg-white border-0 shadow-2xl rounded-3xl gap-0 outline-none">
+      <DialogContent className="sm:max-w-lg p-0 overflow-hidden bg-card border-0 shadow-2xl rounded-3xl gap-0 outline-none">
         
         {/* ================================================================= */}
         {/* SOLUCIÓN AL ERROR DE ACCESIBILIDAD (Esto elimina el warning)      */}
@@ -207,22 +212,20 @@ export const FormQuote: React.FC<FormQuoteProps> = ({ isOpen, onClose, onComplet
         </DialogHeader>
         {/* ================================================================= */}
 
-        {/* HEADER VISUAL (Tu diseño Vitalia) */}
-        <div className="px-8 pt-2 pb-2 bg-white z-10"> {/* Ajusté el pt-6 a pt-2 porque el DialogHeader ya tiene padding */}
+        {/* HEADER VISUAL */}
+        <div className="px-8 pt-2 pb-2 bg-card z-10">
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-bold text-slate-800">
+            <h2 className="text-xl font-bold text-foreground">
               {activeStep === 1 && "Grupo Familiar"}
               {activeStep === 2 && "Forma de Ingreso"}
               {activeStep === 3 && (cotizacionVisible ? "¡Listo!" : "Tus Datos")}
             </h2>
-            {/* El botón de cerrar X viene por defecto en DialogContent, 
-                pero si quieres usar el tuyo personalizado: */}
           </div>
           
           {/* Barra de Progreso */}
-          <div className="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
+          <div className="h-1.5 w-full bg-muted rounded-full overflow-hidden">
             <div 
-              className="h-full bg-teal-600 transition-all duration-500 ease-out rounded-full" 
+              className="h-full bg-primary transition-all duration-500 ease-out rounded-full" 
               style={{ width: progress }}
             />
           </div>
@@ -234,26 +237,31 @@ export const FormQuote: React.FC<FormQuoteProps> = ({ isOpen, onClose, onComplet
           {/* PASO 1 */}
           {activeStep === 1 && (
             <div className="flex flex-col h-full animate-in slide-in-from-right-8 fade-in duration-300">
-               <p className="text-sm text-slate-500 mb-6 font-medium">Seleccioná quiénes estarán cubiertos.</p>
+               <p className="text-sm text-muted-foreground mb-6 font-medium">Seleccioná quiénes estarán cubiertos.</p>
                
-               <div className="grid grid-cols-2 gap-3 mb-6">
+               <div className={`grid gap-3 mb-6 transition-all duration-300 ${selectedGroup ? 'grid-cols-1' : 'grid-cols-2'}`}>
                  {[ 
-                   { id: 1, label: 'Individual', icon: <User size={28} /> },
-                   { id: 3, label: 'Pareja', icon: <Users size={28} /> },
-                   { id: 2, label: 'Titular + Hijos', icon: <UserPlus size={28} /> },
-                   { id: 4, label: 'Pareja + Hijos', icon: <Users size={28} /> }
-                 ].map(opt => (
+                   { id: 1, label: 'Individual', icon: <User size={24} strokeWidth={2.5} /> },
+                   { id: 3, label: 'Pareja', icon: <Users size={24} strokeWidth={2.5} /> },
+                   { id: 2, label: 'Titular + Hijos', icon: <UserPlus size={24} strokeWidth={2.5} /> },
+                   { id: 4, label: 'Pareja + Hijos', icon: <Users size={24} strokeWidth={2.5} /> }
+                 ]
+                 .filter(opt => !selectedGroup || opt.id === selectedGroup)
+                 .map(opt => (
                     <button 
                       key={opt.id}
                       onClick={() => selectGroup(opt.id)}
-                      className={`p-4 rounded-2xl border-2 flex flex-col items-center gap-2 transition-all 
+                      className={`rounded-2xl border-2 flex items-center gap-3 transition-all duration-300
                         ${selectedGroup === opt.id 
-                            ? 'border-teal-600 bg-teal-50 text-teal-900 shadow-sm' 
-                            : 'border-slate-100 bg-white hover:border-teal-200 text-slate-400'
+                            ? 'p-3 border-primary bg-primary/10 text-primary shadow-sm' 
+                            : 'p-4 flex-col border-border bg-card hover:border-primary/40 text-muted-foreground'
                         }`}
                     >
-                      <div className={selectedGroup === opt.id ? 'text-teal-600' : 'text-current'}>{opt.icon}</div>
-                      <span className="text-xs font-bold">{opt.label}</span>
+                      <div className={`${selectedGroup === opt.id ? 'text-primary' : 'text-foreground/70'}`}>{opt.icon}</div>
+                      <span className={`font-bold ${selectedGroup === opt.id ? 'text-sm' : 'text-xs'}`}>{opt.label}</span>
+                      {selectedGroup === opt.id && (
+                        <span className="ml-auto text-xs text-muted-foreground">(click para cambiar)</span>
+                      )}
                     </button>
                  ))}
                </div>
@@ -271,7 +279,7 @@ export const FormQuote: React.FC<FormQuoteProps> = ({ isOpen, onClose, onComplet
                )}
 
                <div className="mt-8">
-                 <Button onClick={goToNextStep} disabled={!selectedGroup} className="w-full h-12 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-xl text-lg shadow-lg flex items-center justify-center gap-2">
+                 <Button onClick={goToNextStep} disabled={!selectedGroup} className="w-full h-12 bg-foreground hover:bg-foreground/90 text-background font-bold rounded-xl text-lg shadow-lg flex items-center justify-center gap-2">
                     Siguiente <ArrowRight size={20} />
                  </Button>
                </div>
@@ -281,33 +289,33 @@ export const FormQuote: React.FC<FormQuoteProps> = ({ isOpen, onClose, onComplet
           {/* PASO 2 */}
           {activeStep === 2 && (
              <div className="flex flex-col h-full animate-in slide-in-from-right-8 fade-in duration-300">
-                <p className="text-sm text-slate-500 mb-6 font-medium">¿Cómo vas a contratar el plan?</p>
+                <p className="text-sm text-muted-foreground mb-6 font-medium">¿Cómo vas a contratar el plan?</p>
 
-                <div className="grid grid-cols-2 bg-slate-100 p-1.5 rounded-xl mb-10">
-                  <button onClick={() => setAportesType('rel')} className={`py-2.5 rounded-lg text-sm font-bold transition-all ${aportesType === 'rel' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-400'}`}>Rel. Dependencia</button>
-                  <button onClick={() => setAportesType('priv')} className={`py-2.5 rounded-lg text-sm font-bold transition-all ${aportesType === 'priv' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-400'}`}>Particular</button>
+                <div className="grid grid-cols-2 bg-muted p-1.5 rounded-xl mb-10">
+                  <button onClick={() => setAportesType('rel')} className={`py-2.5 rounded-lg text-sm font-bold transition-all ${aportesType === 'rel' ? 'bg-card text-foreground shadow-sm' : 'text-muted-foreground'}`}>Rel. Dependencia</button>
+                  <button onClick={() => setAportesType('priv')} className={`py-2.5 rounded-lg text-sm font-bold transition-all ${aportesType === 'priv' ? 'bg-card text-foreground shadow-sm' : 'text-muted-foreground'}`}>Particular</button>
                 </div>
 
                 {aportesType === 'rel' ? (
                    <div className="animate-in fade-in zoom-in-95">
-                      <label className="block text-xs font-bold text-slate-400 uppercase tracking-wide mb-6 text-center">Ingresá tu Sueldo Bruto</label>
+                      <label className="block text-xs font-bold text-muted-foreground uppercase tracking-wide mb-6 text-center">Ingresá tu Sueldo Bruto</label>
                       <div className="relative max-w-[280px] mx-auto group">
-                         <span className="absolute left-0 top-1/2 -translate-y-1/2 text-3xl font-bold text-slate-300">$</span>
-                         <input type="tel" value={formattedSueldo} onChange={handleSalaryChange} placeholder="0" autoFocus className="w-full pl-8 pr-4 py-2 text-4xl font-bold text-center text-teal-900 border-b-2 border-slate-200 focus:border-teal-600 outline-none bg-transparent" />
+                         <span className="absolute left-0 top-1/2 -translate-y-1/2 text-3xl font-bold text-muted-foreground/50">$</span>
+                         <input type="tel" value={formattedSueldo} onChange={handleSalaryChange} placeholder="0" autoFocus className="w-full pl-8 pr-4 py-2 text-4xl font-bold text-center text-primary border-b-2 border-border focus:border-primary outline-none bg-transparent" />
                       </div>
-                      <p className="text-center text-xs text-slate-400 mt-6">Usaremos esto para calcular tus aportes.</p>
+                      <p className="text-center text-xs text-muted-foreground mt-6">Usaremos esto para calcular tus aportes.</p>
                    </div>
                 ) : (
-                   <div className="text-center py-8 bg-blue-50 rounded-2xl border border-blue-100">
-                      <Info size={32} className="text-blue-600 mx-auto mb-3" />
-                      <h3 className="text-blue-900 font-bold mb-1">Modo Particular</h3>
-                      <p className="text-sm text-blue-700/80 px-4">Abonarás el 100% de la cuota + IVA.</p>
+                   <div className="text-center py-8 bg-secondary/10 rounded-2xl border border-secondary/20">
+                      <Info size={32} className="text-secondary mx-auto mb-3" />
+                      <h3 className="text-foreground font-bold mb-1">Modo Particular</h3>
+                      <p className="text-sm text-muted-foreground px-4">Abonarás el 100% de la cuota + IVA.</p>
                    </div>
                 )}
 
                 <div className="mt-auto pt-6 flex gap-3">
-                   <Button onClick={() => setActiveStep(1)} variant="ghost" className="w-1/3 h-14 rounded-xl font-bold text-slate-500">Atrás</Button>
-                   <Button onClick={goToNextStep} className="w-2/3 h-14 bg-teal-600 hover:bg-teal-700 text-white font-bold rounded-xl shadow-lg">Ver Precios</Button>
+                   <Button onClick={() => setActiveStep(1)} variant="ghost" className="w-1/3 h-14 rounded-xl font-bold text-muted-foreground">Atrás</Button>
+                   <Button onClick={goToNextStep} className="w-2/3 h-14 bg-primary hover:bg-primary/90 text-primary-foreground font-bold rounded-xl shadow-lg">Ver Precios</Button>
                 </div>
              </div>
           )}
@@ -318,42 +326,42 @@ export const FormQuote: React.FC<FormQuoteProps> = ({ isOpen, onClose, onComplet
                {!cotizacionVisible ? (
                  <>
                     <div className="text-center mb-8">
-                       <h3 className="text-2xl font-bold text-slate-900">Datos Personales</h3>
-                       <p className="text-sm text-slate-500">Para enviarte la cotización detallada.</p>
+                       <h3 className="text-2xl font-bold text-foreground">Datos Personales</h3>
+                       <p className="text-sm text-muted-foreground">Para enviarte la cotización detallada.</p>
                     </div>
                     <div className="space-y-4">
                        <div className="relative group">
-                          <input type="text" value={formData.personalData.name} onChange={(e) => updatePersonalData('name', e.target.value)} className="peer w-full bg-slate-50 border border-slate-200 rounded-xl px-4 pt-5 pb-2 font-bold outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500" placeholder=" " />
-                          <label className="absolute left-4 top-3.5 text-xs font-bold text-slate-400 uppercase transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-sm peer-placeholder-shown:normal-case peer-focus:-translate-y-2.5 peer-focus:text-[10px]">Nombre</label>
+                          <input type="text" value={formData.personalData.name} onChange={(e) => updatePersonalData('name', e.target.value)} className="peer w-full bg-muted border border-border rounded-xl px-4 pt-5 pb-2 font-bold outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary text-foreground" placeholder=" " />
+                          <label className="absolute left-4 top-3.5 text-xs font-bold text-muted-foreground uppercase transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-sm peer-placeholder-shown:normal-case peer-focus:-translate-y-2.5 peer-focus:text-[10px]">Nombre</label>
                        </div>
                        <div className="relative group">
-                          <input type="email" value={formData.personalData.email} onChange={(e) => updatePersonalData('email', e.target.value)} className="peer w-full bg-slate-50 border border-slate-200 rounded-xl px-4 pt-5 pb-2 font-bold outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500" placeholder=" " />
-                          <label className="absolute left-4 top-3.5 text-xs font-bold text-slate-400 uppercase transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-sm peer-placeholder-shown:normal-case peer-focus:-translate-y-2.5 peer-focus:text-[10px]">Email</label>
+                          <input type="email" value={formData.personalData.email} onChange={(e) => updatePersonalData('email', e.target.value)} className="peer w-full bg-muted border border-border rounded-xl px-4 pt-5 pb-2 font-bold outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary text-foreground" placeholder=" " />
+                          <label className="absolute left-4 top-3.5 text-xs font-bold text-muted-foreground uppercase transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-sm peer-placeholder-shown:normal-case peer-focus:-translate-y-2.5 peer-focus:text-[10px]">Email</label>
                        </div>
                        <div className="relative group">
-                          <input type="tel" value={formData.personalData.phone} onChange={(e) => updatePersonalData('phone', e.target.value)} className="peer w-full bg-slate-50 border border-slate-200 rounded-xl px-4 pt-5 pb-2 font-bold outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500" placeholder=" " />
-                          <label className="absolute left-4 top-3.5 text-xs font-bold text-slate-400 uppercase transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-sm peer-placeholder-shown:normal-case peer-focus:-translate-y-2.5 peer-focus:text-[10px]">Celular</label>
+                          <input type="tel" value={formData.personalData.phone} onChange={(e) => updatePersonalData('phone', e.target.value)} className="peer w-full bg-muted border border-border rounded-xl px-4 pt-5 pb-2 font-bold outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary text-foreground" placeholder=" " />
+                          <label className="absolute left-4 top-3.5 text-xs font-bold text-muted-foreground uppercase transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-sm peer-placeholder-shown:normal-case peer-focus:-translate-y-2.5 peer-focus:text-[10px]">Celular</label>
                        </div>
                     </div>
                     <div className="mt-8">
-                       <p className="text-[10px] font-bold text-slate-400 uppercase text-center mb-3">¿Cómo te contactamos?</p>
+                       <p className="text-[10px] font-bold text-muted-foreground uppercase text-center mb-3">¿Cómo te contactamos?</p>
                        <div className="grid grid-cols-2 gap-3">
-                          <button onClick={() => selectContactoType('whatsapp')} className="p-3 border-2 rounded-xl flex items-center justify-center gap-2 hover:bg-green-50 hover:border-green-200">
-                             <MessageSquare className="text-green-600 w-5 h-5" /> <span className="text-sm font-bold text-slate-600">WhatsApp</span>
+                          <button onClick={() => selectContactoType('whatsapp')} className="p-3 border-2 border-border rounded-xl flex items-center justify-center gap-2 hover:bg-secondary/10 hover:border-secondary transition-colors">
+                             <MessageSquare className="text-secondary w-5 h-5" /> <span className="text-sm font-bold text-foreground">WhatsApp</span>
                           </button>
-                          <button onClick={() => selectContactoType('phone')} className="p-3 border-2 rounded-xl flex items-center justify-center gap-2 hover:bg-blue-50 hover:border-blue-200">
-                             <Phone className="text-blue-600 w-5 h-5" /> <span className="text-sm font-bold text-slate-600">Llamada</span>
+                          <button onClick={() => selectContactoType('phone')} className="p-3 border-2 border-border rounded-xl flex items-center justify-center gap-2 hover:bg-primary/10 hover:border-primary transition-colors">
+                             <Phone className="text-primary w-5 h-5" /> <span className="text-sm font-bold text-foreground">Llamada</span>
                           </button>
                        </div>
                     </div>
                  </>
                ) : (
                   <div className="flex flex-col items-center justify-center h-full text-center animate-in zoom-in-95">
-                     <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mb-6 shadow-sm">
-                        {contactoType === 'whatsapp' ? <MessageSquare size={40} className="text-green-600" /> : <Phone size={40} className="text-blue-600" />}
+                     <div className="w-20 h-20 bg-secondary/20 rounded-full flex items-center justify-center mb-6 shadow-sm">
+                        {contactoType === 'whatsapp' ? <MessageSquare size={40} className="text-secondary" /> : <Phone size={40} className="text-primary" />}
                      </div>
-                     <h3 className="text-2xl font-bold text-slate-900 mb-2">¡Gracias!</h3>
-                     <p className="text-slate-500 px-8">
+                     <h3 className="text-2xl font-bold text-foreground mb-2">¡Gracias!</h3>
+                     <p className="text-muted-foreground px-8">
                         {contactoType === 'whatsapp' ? 'Te enviaremos la cotización por WhatsApp en breve.' : 'Un asesor te llamará en unos minutos.'}
                      </p>
                   </div>
@@ -376,18 +384,18 @@ interface AgeControlProps {
 }
 
 const AgeControl: React.FC<AgeControlProps> = ({ label, value, onInc, onDec, stop }) => (
-  <div className="flex items-center justify-between p-4 bg-slate-50 rounded-2xl border border-slate-100">
-      <span className="font-bold text-slate-700 text-sm">{label}</span>
+  <div className="flex items-center justify-between p-4 bg-muted rounded-2xl border border-border">
+      <span className="font-bold text-foreground text-sm">{label}</span>
       <div className="flex items-center gap-4">
           <button 
              onMouseDown={onDec} onMouseUp={stop} onMouseLeave={stop} onTouchStart={onDec} onTouchEnd={stop}
-             className="w-9 h-9 rounded-full bg-white border border-slate-200 text-teal-600 flex items-center justify-center hover:bg-teal-600 hover:text-white transition shadow-sm active:scale-95">
+             className="w-9 h-9 rounded-full bg-card border border-border text-primary flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition shadow-sm active:scale-95">
              <Minus size={16} strokeWidth={3} />
           </button>
-          <span className="text-xl font-bold text-slate-900 w-8 text-center">{value}</span>
+          <span className="text-xl font-bold text-foreground w-8 text-center">{value}</span>
           <button 
              onMouseDown={onInc} onMouseUp={stop} onMouseLeave={stop} onTouchStart={onInc} onTouchEnd={stop}
-             className="w-9 h-9 rounded-full bg-white border border-slate-200 text-teal-600 flex items-center justify-center hover:bg-teal-600 hover:text-white transition shadow-sm active:scale-95">
+             className="w-9 h-9 rounded-full bg-card border border-border text-primary flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition shadow-sm active:scale-95">
              <Plus size={16} strokeWidth={3} />
           </button>
       </div>
