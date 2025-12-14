@@ -1,4 +1,4 @@
-import { ArrowRight, Star, Users, ShieldCheck } from "lucide-react";
+import { ArrowRight, Star, Users, ShieldCheck, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 interface HeroSectionProps {
@@ -7,66 +7,104 @@ interface HeroSectionProps {
 
 export const HeroSection = ({ onQuoteClick }: HeroSectionProps) => {
   return (
-    <section className="relative w-full h-[85vh] min-h-[600px] flex items-center justify-center overflow-hidden">
+    <section className="relative w-full min-h-screen flex items-center justify-center overflow-hidden bg-background">
       
-      {/* 1. VIDEO DE FONDO (Efecto Netflix) */}
-      <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-slate-900/50 z-10"></div> {/* Overlay oscuro */}
-        <video 
-          autoPlay 
-          loop 
-          muted 
-          playsInline
-          // Poster mientras carga el video
-          poster="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=2070&auto=format&fit=crop"
-          className="w-full h-full object-cover"
-        >
-          {/* Video de stock gratuito (Pexels/Coverr) - Reemplázalo con el tuyo si tienes */}
-          <source src="src/assets/videos/queplanvideo.mp4" type="video/mp4" />
-        </video>
+      {/* ANIMATED BLOBS (Ambient Background) */}
+      <div className="absolute inset-0 overflow-hidden">
+        {/* Violet Blob */}
+        <div className="absolute top-0 -left-4 w-72 h-72 md:w-96 md:h-96 bg-primary/30 rounded-full mix-blend-screen filter blur-3xl opacity-70 animate-blob" />
+        {/* Cyan Blob */}
+        <div className="absolute top-0 -right-4 w-72 h-72 md:w-96 md:h-96 bg-secondary/30 rounded-full mix-blend-screen filter blur-3xl opacity-70 animate-blob animation-delay-2000" />
+        {/* Fuchsia Blob */}
+        <div className="absolute -bottom-8 left-20 w-72 h-72 md:w-96 md:h-96 bg-accent/30 rounded-full mix-blend-screen filter blur-3xl opacity-70 animate-blob animation-delay-4000" />
+        
+        {/* Radial gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-hero" />
+        
+        {/* Grid pattern */}
+        <div 
+          className="absolute inset-0 opacity-[0.02]"
+          style={{
+            backgroundImage: `linear-gradient(hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--foreground)) 1px, transparent 1px)`,
+            backgroundSize: '50px 50px'
+          }}
+        />
       </div>
 
-      {/* 2. CONTENIDO */}
-      <div className="container mx-auto px-4 relative z-20 flex flex-col md:flex-row items-center justify-between gap-12">
+      {/* CONTENT */}
+      <div className="container mx-auto px-4 relative z-20 flex flex-col lg:flex-row items-center justify-between gap-12 py-20">
         
-        {/* Texto de Impacto */}
-        <div className="text-white max-w-2xl text-center md:text-left">
-          <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-md border border-white/30 rounded-full px-4 py-1.5 mb-6 animate-in fade-in slide-in-from-bottom-4 duration-700">
-            <Star className="text-yellow-400 w-4 h-4 fill-yellow-400" />
-            <span className="text-sm font-medium">Elegido por +10.000 familias</span>
+        {/* Text Content */}
+        <div className="text-foreground max-w-2xl text-center lg:text-left">
+          {/* Badge */}
+          <div className="inline-flex items-center gap-2 glass-button rounded-full px-4 py-2 mb-6 animate-in fade-in slide-in-from-bottom-4 duration-700">
+            <Sparkles className="text-primary w-4 h-4" />
+            <span className="text-sm font-medium text-muted-foreground">Elegido por +10.000 familias</span>
           </div>
           
-          <h1 className="text-4xl md:text-6xl font-black leading-tight mb-6 drop-shadow-lg animate-in fade-in slide-in-from-bottom-6 duration-1000">
-            La salud que querés,<br />
-            al precio que podés.
+          {/* Headline */}
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-black leading-tight mb-6 animate-in fade-in slide-in-from-bottom-6 duration-1000">
+            <span className="text-gradient">La salud</span> que querés,
+            <br />
+            <span className="text-foreground">al precio que podés.</span>
           </h1>
           
-          <p className="text-lg md:text-xl text-slate-100 mb-8 font-medium drop-shadow-md max-w-lg animate-in fade-in slide-in-from-bottom-8 duration-1000 mx-auto md:mx-0">
+          {/* Subheadline */}
+          <p className="text-lg md:text-xl text-muted-foreground mb-8 font-medium max-w-lg animate-in fade-in slide-in-from-bottom-8 duration-1000 mx-auto lg:mx-0">
             Comparamos todas las prepagas del país para que encuentres tu plan ideal en menos de 2 minutos.
           </p>
           
-          {/* Botón Móvil (Solo visible en celular) */}
-          <div className="md:hidden w-full">
+          {/* Mobile CTA */}
+          <div className="lg:hidden w-full">
             <Button 
               onClick={onQuoteClick}
-              className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold h-14 rounded-full text-lg shadow-xl"
+              className="w-full bg-gradient-cta hover:opacity-90 text-white font-bold h-14 rounded-full text-lg shadow-xl neon-fuchsia transition-all hover:scale-105"
             >
-              Cotizar Ahora
+              Cotizar Ahora <ArrowRight className="ml-2" />
             </Button>
+          </div>
+
+          {/* Stats */}
+          <div className="hidden lg:flex items-center gap-8 mt-10 animate-in fade-in slide-in-from-bottom-10 duration-1000">
+            <div className="text-center">
+              <p className="text-3xl font-black text-gradient">15+</p>
+              <p className="text-sm text-muted-foreground">Prepagas</p>
+            </div>
+            <div className="w-px h-12 bg-border" />
+            <div className="text-center">
+              <p className="text-3xl font-black text-gradient-cyan">200+</p>
+              <p className="text-sm text-muted-foreground">Planes</p>
+            </div>
+            <div className="w-px h-12 bg-border" />
+            <div className="text-center">
+              <p className="text-3xl font-black text-gradient">100%</p>
+              <p className="text-sm text-muted-foreground">Gratis</p>
+            </div>
           </div>
         </div>
 
-        {/* 3. TARJETA FLOTANTE (Solo Desktop) */}
-        <div className="hidden md:block w-full max-w-md bg-white rounded-[2.5rem] shadow-2xl p-8 animate-in slide-in-from-right-10 duration-1000">
-          <h3 className="text-2xl font-bold text-slate-900 mb-2">Encontrá tu Plan</h3>
-          <p className="text-slate-500 mb-6 text-sm">Completá tus datos y recibí una comparativa personalizada.</p>
+        {/* GLASS CARD (Desktop) */}
+        <div className="hidden lg:block w-full max-w-md glass-card p-8 animate-in slide-in-from-right-10 duration-1000 animate-float">
+          <div className="flex items-center gap-2 mb-4">
+            <div className="w-2 h-2 rounded-full bg-primary animate-glow" />
+            <span className="text-xs text-muted-foreground uppercase tracking-wider">Cotizador Inteligente</span>
+          </div>
+          
+          <h3 className="text-2xl font-bold text-foreground mb-2">Encontrá tu Plan</h3>
+          <p className="text-muted-foreground mb-6 text-sm">Completá tus datos y recibí una comparativa personalizada.</p>
           
           <div className="space-y-4">
             <div className="grid grid-cols-2 gap-3">
-              <button onClick={onQuoteClick} className="p-4 rounded-2xl border-2 border-teal-600 bg-teal-50 text-teal-900 font-bold text-sm flex flex-col items-center gap-2 transition-all hover:scale-105">
-                <Users size={24} /> Para Mí / Pareja
+              <button 
+                onClick={onQuoteClick} 
+                className="p-4 rounded-2xl glass-strong border-primary/50 text-foreground font-bold text-sm flex flex-col items-center gap-2 transition-all hover:scale-105 hover:neon-violet"
+              >
+                <Users size={24} className="text-primary" /> Para Mí / Pareja
               </button>
-              <button onClick={onQuoteClick} className="p-4 rounded-2xl border-2 border-slate-100 hover:border-teal-200 text-slate-500 font-bold text-sm flex flex-col items-center gap-2 transition-all hover:bg-slate-50">
+              <button 
+                onClick={onQuoteClick} 
+                className="p-4 rounded-2xl glass border-white/10 hover:border-primary/30 text-muted-foreground font-bold text-sm flex flex-col items-center gap-2 transition-all hover:scale-105"
+              >
                 <Users size={24} /> Con Hijos
               </button>
             </div>
@@ -74,26 +112,22 @@ export const HeroSection = ({ onQuoteClick }: HeroSectionProps) => {
             <div className="pt-4">
               <Button 
                 onClick={onQuoteClick}
-                className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold h-14 rounded-xl text-lg shadow-lg shadow-orange-100 transition-transform hover:scale-105"
+                className="w-full bg-gradient-cta hover:opacity-90 text-white font-bold h-14 rounded-xl text-lg shadow-lg neon-fuchsia transition-all hover:scale-105"
               >
                 Comenzar Cotización <ArrowRight className="ml-2" />
               </Button>
             </div>
             
-            <p className="text-center text-xs text-slate-400 mt-4 flex items-center justify-center gap-1">
-              <ShieldCheck size={12} /> Tus datos están 100% protegidos
+            <p className="text-center text-xs text-muted-foreground mt-4 flex items-center justify-center gap-1">
+              <ShieldCheck size={12} className="text-success" /> Tus datos están 100% protegidos
             </p>
           </div>
         </div>
 
       </div>
 
-      {/* Wave Divider (Opcional para suavizar el corte) */}
-      <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none">
-        <svg className="relative block w-full h-[40px] md:h-[60px]" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" className="fill-slate-50"></path>
-        </svg>
-      </div>
+      {/* Bottom fade */}
+      <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-background to-transparent" />
     </section>
   );
 };

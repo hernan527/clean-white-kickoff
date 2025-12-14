@@ -45,12 +45,11 @@ export const ClinicasTable = ({
           </tr>
         </thead>
         <tbody className="bg-background">
-          {clinicas.map((clinica, idx) => (
+          {clinicas.map((clinica) => (
             <ClinicaRow
               key={clinica.item_id}
               clinica={clinica}
               plans={plans}
-              index={idx}
               planIncludesClinica={planIncludesClinica}
             />
           ))}
