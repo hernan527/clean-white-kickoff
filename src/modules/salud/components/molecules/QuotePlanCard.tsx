@@ -27,10 +27,10 @@ export const QuotePlanCard = ({ name, empresa, precio, isRecommended }: QuotePla
   const whatsappLink = `https://wa.me/5491100000000?text=Hola,%20me%20interesa%20el%20plan%20${name}%20de%20${empresa}%20que%20vi%20en%20la%20cotización.`;
 
   return (
-    <div className={`relative bg-white rounded-3xl border transition-all duration-300 overflow-hidden flex flex-col md:flex-row
+    <div className={`relative bg-card rounded-3xl border transition-all duration-300 overflow-hidden flex flex-col md:flex-row
         ${isRecommended 
-            ? 'border-orange-200 shadow-xl scale-[1.02] md:scale-105 z-10 ring-4 ring-orange-50' 
-            : 'border-slate-200 shadow-sm hover:shadow-md'
+            ? 'border-accent/50 shadow-xl scale-[1.02] md:scale-105 z-10 ring-4 ring-accent/10' 
+            : 'border-border shadow-sm hover:shadow-md'
         }
     `}>
       
@@ -42,13 +42,13 @@ export const QuotePlanCard = ({ name, empresa, precio, isRecommended }: QuotePla
       )}
 
       {/* 1. LOGO & INFO */}
-      <div className="p-6 flex-1 flex flex-col justify-center border-b md:border-b-0 md:border-r border-slate-100">
+      <div className="p-6 flex-1 flex flex-col justify-center border-b md:border-b-0 md:border-r border-border">
         <div className="flex items-center gap-4 mb-4">
-            <div className="h-14 w-14 bg-slate-50 rounded-xl flex items-center justify-center p-2 border border-slate-100">
+            <div className="h-14 w-14 bg-white rounded-xl flex items-center justify-center p-2 border border-border/50 shadow-sm">
                 {logoFile ? (
-                    <img src={`/assets/images/card-header/${logoFile}`} alt={empresa} className="h-full w-full object-contain mix-blend-multiply" />
+                    <img src={`/assets/images/card-header/${logoFile}`} alt={empresa} className="h-full w-full object-contain" />
                 ) : (
-                    <span className="font-bold text-slate-400 text-xs">{empresa}</span>
+                    <span className="font-bold text-muted-foreground text-xs">{empresa}</span>
                 )}
             </div>
             <div>
