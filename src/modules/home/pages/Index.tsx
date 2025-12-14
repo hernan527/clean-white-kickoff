@@ -46,18 +46,28 @@ const Index = () => {
       <FAQ />
 
       {/* 6. CTA FINAL */}
-      <section className="py-20 bg-slate-900 text-white text-center">
-        <div className="container mx-auto px-4 max-w-3xl">
-            <h2 className="text-3xl md:text-4xl font-black mb-6">¿Listo para mejorar tu cobertura?</h2>
-            <p className="text-slate-300 text-lg mb-10">
+      <section className="py-20 relative overflow-hidden">
+        {/* Background blobs */}
+        <div className="absolute inset-0">
+          <div className="absolute top-1/2 left-1/4 w-64 h-64 bg-primary/20 rounded-full filter blur-3xl opacity-50 animate-blob" />
+          <div className="absolute top-1/2 right-1/4 w-64 h-64 bg-accent/20 rounded-full filter blur-3xl opacity-50 animate-blob animation-delay-2000" />
+        </div>
+        
+        <div className="container mx-auto px-4 max-w-3xl relative z-10">
+          <div className="glass-card p-10 text-center">
+            <h2 className="text-3xl md:text-4xl font-black mb-6">
+              <span className="text-gradient">¿Listo para mejorar</span> tu cobertura?
+            </h2>
+            <p className="text-muted-foreground text-lg mb-10">
                 Unite a las miles de personas que ya eligieron cuidar su salud y su bolsillo con Vitalia.
             </p>
             <Button 
                 onClick={() => setFormOpen(true)}
-                className="bg-orange-500 hover:bg-orange-600 text-white font-bold h-16 px-10 rounded-full text-xl shadow-2xl shadow-orange-500/20 transition-transform hover:scale-105"
+                className="bg-gradient-cta hover:opacity-90 text-white font-bold h-16 px-10 rounded-full text-xl shadow-2xl neon-fuchsia transition-all hover:scale-105"
             >
                 Cotizar Gratis Ahora <ArrowRight className="ml-2" />
             </Button>
+          </div>
         </div>
       </section>
 
