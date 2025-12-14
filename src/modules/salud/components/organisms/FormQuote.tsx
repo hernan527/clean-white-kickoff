@@ -192,8 +192,9 @@ export const FormQuote: React.FC<FormQuoteProps> = ({ isOpen, onClose, onComplet
          return;
       }
       // Si hay onComplete, ir directo a resultados sin pedir datos personales
+      // IMPORTANTE: El servidor espera tipo 'P' (particular) o 'D' (dependencia)
       if (onComplete) {
-        const quoteData = { ...formData, tipo: aportesType === 'rel' ? 'dependencia' : 'particular' };
+        const quoteData = { ...formData, tipo: aportesType === 'rel' ? 'D' : 'P' };
         onComplete(quoteData);
         return;
       }
