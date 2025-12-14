@@ -1,10 +1,11 @@
 import { useState, useEffect, useCallback, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import { Search, Grid3x3, Plus, Heart, Shield, Users, Building2, Stethoscope, Baby } from "lucide-react";
+import { Search, Grid3x3, Plus, Heart, Shield, Users, Building2, Stethoscope, Baby, Filter } from "lucide-react";
 import { type HealthPlan } from "@/core/interfaces/plan/planes";
 import { type Clinica } from "@/core/interfaces/plan/clinicas";
 import { Helmet } from "react-helmet-async";
 import Layout from "@/layouts/Layout";
+import { Button } from "@/components/ui/button";
 
 // Componentes Organisms
 import { FormQuote } from "@/modules/salud/components/organisms/FormQuote"; // Importación corregida (sin default si es named export)
@@ -163,10 +164,19 @@ const ResultadosPage = () => {
       />
 
       {/* 2. CARRITO FLOTANTE */}
- <FloatingComparisonBar 
+      <FloatingComparisonBar 
         plans={comparisonPlansList}
         onCompare={handleCompare}
       />
+
+      {/* 3. BOTÓN FLOTANTE DE FILTROS - Mobile Only */}
+      <Button
+        onClick={() => setFilterDrawerOpen(true)}
+        className="fixed bottom-6 right-6 z-50 lg:hidden rounded-full h-14 w-14 shadow-xl bg-primary hover:bg-primary/90"
+        size="icon"
+      >
+        <Filter className="h-6 w-6" />
+      </Button>
 
 
       <ResultsHeroBanner
