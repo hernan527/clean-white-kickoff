@@ -65,7 +65,7 @@ const RegisterPage = () => {
         toast({
           title: '¡Bienvenido!',
           description: 'Tu cuenta ha sido creada exitosamente.',
-          action: <div className="h-8 w-8 bg-green-500/20 rounded-full flex items-center justify-center"><CheckCircle2 className="text-green-400 h-5 w-5" /></div>
+          action: <div className="h-8 w-8 bg-success/20 rounded-full flex items-center justify-center"><CheckCircle2 className="text-success h-5 w-5" /></div>
         });
         navigate('/');
       } else if (user) {
@@ -90,16 +90,16 @@ const RegisterPage = () => {
     <Layout>
       <div className="min-h-[85vh] flex items-center justify-center px-4 py-12 relative">
         
-        <Card className="w-full max-w-md border border-white/10 shadow-2xl rounded-3xl overflow-hidden bg-white/5 backdrop-blur-xl z-10">
+        <Card className="w-full max-w-md border border-border shadow-2xl rounded-3xl overflow-hidden bg-card/80 backdrop-blur-xl z-10">
           
           {/* HEADER */}
           <CardHeader className="space-y-3 text-center pt-8 pb-6">
-            <div className="mx-auto w-16 h-16 bg-gradient-to-br from-cyan-500 to-violet-500 rounded-2xl flex items-center justify-center mb-2 neon-cyan">
-              <UserPlus className="w-8 h-8 text-white" />
+            <div className="mx-auto w-16 h-16 bg-secondary rounded-2xl flex items-center justify-center mb-2 shadow-lg">
+              <UserPlus className="w-8 h-8 text-secondary-foreground" />
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-white tracking-tight">Crear Cuenta</h1>
-              <p className="text-slate-400 text-sm mt-1">Únete para gestionar tus planes</p>
+              <h1 className="text-2xl font-bold text-foreground tracking-tight">Crear Cuenta</h1>
+              <p className="text-muted-foreground text-sm mt-1">Únete para gestionar tus planes</p>
             </div>
           </CardHeader>
 
@@ -109,30 +109,30 @@ const RegisterPage = () => {
               {/* Nombres */}
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="firstName" className="text-xs font-bold text-slate-400 uppercase">Nombre</Label>
+                  <Label htmlFor="firstName" className="text-xs font-bold text-muted-foreground uppercase">Nombre</Label>
                   <div className="relative">
-                    <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500" />
+                    <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                     <Input
                       id="firstName"
                       placeholder="Juan"
                       value={firstName}
                       onChange={(e) => setFirstName(e.target.value)}
                       disabled={isLoading}
-                      className="pl-10 rounded-xl border-white/10 bg-white/5 text-white placeholder:text-slate-500 focus-visible:ring-violet-500 focus:bg-white/10 transition-all"
+                      className="pl-10 rounded-xl"
                     />
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="lastName" className="text-xs font-bold text-slate-400 uppercase">Apellido</Label>
+                  <Label htmlFor="lastName" className="text-xs font-bold text-muted-foreground uppercase">Apellido</Label>
                   <div className="relative">
-                    <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500" />
+                    <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                     <Input
                       id="lastName"
                       placeholder="Pérez"
                       value={lastName}
                       onChange={(e) => setLastName(e.target.value)}
                       disabled={isLoading}
-                      className="pl-10 rounded-xl border-white/10 bg-white/5 text-white placeholder:text-slate-500 focus-visible:ring-violet-500 focus:bg-white/10 transition-all"
+                      className="pl-10 rounded-xl"
                     />
                   </div>
                 </div>
@@ -140,9 +140,9 @@ const RegisterPage = () => {
 
               {/* Email */}
               <div className="space-y-2">
-                <Label htmlFor="email" className="text-xs font-bold text-slate-400 uppercase">Correo electrónico</Label>
+                <Label htmlFor="email" className="text-xs font-bold text-muted-foreground uppercase">Correo electrónico</Label>
                 <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500" />
+                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                   <Input
                     id="email"
                     type="email"
@@ -151,16 +151,16 @@ const RegisterPage = () => {
                     onChange={(e) => setEmail(e.target.value)}
                     required
                     disabled={isLoading}
-                    className="pl-10 rounded-xl border-white/10 bg-white/5 text-white placeholder:text-slate-500 focus-visible:ring-violet-500 focus:bg-white/10 transition-all"
+                    className="pl-10 rounded-xl"
                   />
                 </div>
               </div>
 
               {/* Password */}
               <div className="space-y-2">
-                <Label htmlFor="password" className="text-xs font-bold text-slate-400 uppercase">Contraseña</Label>
+                <Label htmlFor="password" className="text-xs font-bold text-muted-foreground uppercase">Contraseña</Label>
                 <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500" />
+                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                   <Input
                     id="password"
                     type="password"
@@ -169,16 +169,16 @@ const RegisterPage = () => {
                     onChange={(e) => setPassword(e.target.value)}
                     required
                     disabled={isLoading}
-                    className="pl-10 rounded-xl border-white/10 bg-white/5 text-white placeholder:text-slate-500 focus-visible:ring-violet-500 focus:bg-white/10 transition-all"
+                    className="pl-10 rounded-xl"
                   />
                 </div>
               </div>
 
               {/* Confirm Password */}
               <div className="space-y-2">
-                <Label htmlFor="confirmPassword" className="text-xs font-bold text-slate-400 uppercase">Confirmar contraseña</Label>
+                <Label htmlFor="confirmPassword" className="text-xs font-bold text-muted-foreground uppercase">Confirmar contraseña</Label>
                 <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500" />
+                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                   <Input
                     id="confirmPassword"
                     type="password"
@@ -187,7 +187,7 @@ const RegisterPage = () => {
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     required
                     disabled={isLoading}
-                    className="pl-10 rounded-xl border-white/10 bg-white/5 text-white placeholder:text-slate-500 focus-visible:ring-violet-500 focus:bg-white/10 transition-all"
+                    className="pl-10 rounded-xl"
                   />
                 </div>
               </div>
@@ -197,7 +197,7 @@ const RegisterPage = () => {
             <CardFooter className="flex flex-col space-y-6 px-8 pb-8 pt-2">
               <Button 
                 type="submit" 
-                className="w-full bg-gradient-to-r from-cyan-500 to-violet-600 hover:from-cyan-400 hover:to-violet-500 text-white font-bold h-12 rounded-xl shadow-lg neon-cyan transition-all active:scale-95" 
+                className="w-full bg-secondary hover:bg-secondary/90 text-secondary-foreground font-bold h-12 rounded-xl shadow-lg transition-all active:scale-95" 
                 disabled={isLoading}
               >
                 {isLoading ? (
@@ -212,9 +212,9 @@ const RegisterPage = () => {
               </Button>
               
               <div className="text-center space-y-2">
-                <p className="text-sm text-slate-400">
+                <p className="text-sm text-muted-foreground">
                     ¿Ya tienes una cuenta?{' '}
-                    <Link to="/auth/login" className="text-cyan-400 font-bold hover:text-cyan-300 hover:underline transition-colors">
+                    <Link to="/auth/login" className="text-primary font-bold hover:text-primary/80 hover:underline transition-colors">
                       Inicia sesión
                     </Link>
                 </p>

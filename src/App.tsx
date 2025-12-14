@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
+import { ThemeProvider } from "next-themes";
 import Index from "./modules/home/pages/Index";
 import ResultadosPage from "./modules/salud/pages/ResultadosPage";
 import { ComparisonPage } from "./modules/salud/pages/ComparisonPage";
@@ -19,53 +20,53 @@ import {
   VendorQuotesPage,
   VendorMarketingPage,
 } from "./modules/vendor/pages";
-import { ChatwootWidget } from "@/components/ChatwootWidget"; // <--- IMPORTAR
+import { ChatwootWidget } from "@/components/ChatwootWidget";
 
 const queryClient = new QueryClient();
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <HelmetProvider>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-         <ChatwootWidget /> 
-<Routes>
-  <Route path="/" element={<Index />} />
-  <Route path="/resultados" element={<ResultadosPage />} />
-  <Route path="/comparar" element={<ComparisonPage />} />
-  
-  {/* LANDING PAGES DINÁMICAS (SEO & ADS) */}
-  {/* Esta ruta captura /planes/swiss-medical, /planes/osde, etc. */}
-  <Route path="/planes/:providerId" element={<ProviderLandingPage />} />
+  <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
+    <QueryClientProvider client={queryClient}>
+      <HelmetProvider>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <ChatwootWidget /> 
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/resultados" element={<ResultadosPage />} />
+              <Route path="/comparar" element={<ComparisonPage />} />
+              
+              {/* LANDING PAGES DINÁMICAS (SEO & ADS) */}
+              <Route path="/planes/:providerId" element={<ProviderLandingPage />} />
 
-  {/* Public quote view */}
-  <Route path="/cotizacion/:token" element={<PublicQuotePage />} />
-  
-  {/* Auth routes */}
-  <Route path="/auth/login" element={<LoginPage />} />
-  <Route path="/auth/register" element={<RegisterPage />} />
-  <Route path="/auth/forgot-password" element={<ForgotPasswordPage />} />
-  
-  {/* Vendor routes */}
-  <Route path="/vendedor/registro" element={<VendorRegistrationPage />} />
-  <Route path="/vendedor/dashboard" element={<VendorDashboardPage />} />
-  <Route path="/vendedor/perfil" element={<VendorProfilePage />} />
-  <Route path="/vendedor/cotizaciones" element={<VendorQuotesPage />} />
-  <Route path="/vendedor/marketing" element={<VendorMarketingPage />} />
-  
-  {/* Styleguide */}
-  <Route path="/styleguide" element={<StyleGuidePage />} />
-  
-  {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-  <Route path="*" element={<NotFound />} />
-</Routes>
-        </BrowserRouter>
-      </TooltipProvider>
-    </HelmetProvider>
-  </QueryClientProvider>
-  
+              {/* Public quote view */}
+              <Route path="/cotizacion/:token" element={<PublicQuotePage />} />
+              
+              {/* Auth routes */}
+              <Route path="/auth/login" element={<LoginPage />} />
+              <Route path="/auth/register" element={<RegisterPage />} />
+              <Route path="/auth/forgot-password" element={<ForgotPasswordPage />} />
+              
+              {/* Vendor routes */}
+              <Route path="/vendedor/registro" element={<VendorRegistrationPage />} />
+              <Route path="/vendedor/dashboard" element={<VendorDashboardPage />} />
+              <Route path="/vendedor/perfil" element={<VendorProfilePage />} />
+              <Route path="/vendedor/cotizaciones" element={<VendorQuotesPage />} />
+              <Route path="/vendedor/marketing" element={<VendorMarketingPage />} />
+              
+              {/* Styleguide */}
+              <Route path="/styleguide" element={<StyleGuidePage />} />
+              
+              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </BrowserRouter>
+        </TooltipProvider>
+      </HelmetProvider>
+    </QueryClientProvider>
+  </ThemeProvider>
 );
 
 export default App;

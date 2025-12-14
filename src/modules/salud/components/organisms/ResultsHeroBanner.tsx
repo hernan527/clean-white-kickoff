@@ -17,9 +17,9 @@ export const ResultsHeroBanner = ({
   providersCount,
   onWhatsAppClick,
 }: ResultsHeroBannerProps) => (
-  <div className="relative bg-gradient-to-br from-slate-900 via-violet-950/50 to-slate-900 overflow-hidden border-b border-white/10">
+  <div className="relative bg-card overflow-hidden border-b border-border">
     {/* Gradient overlay */}
-    <div className="absolute inset-0 bg-gradient-to-r from-violet-600/10 via-transparent to-cyan-600/10" />
+    <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-secondary/5" />
     
     <div className="container mx-auto px-4 py-8 lg:py-10 relative">
       <div className="flex flex-col md:flex-row items-center justify-between gap-6">
@@ -39,16 +39,16 @@ export const ResultsHeroBanner = ({
 
         <div className="flex flex-col items-center md:items-end gap-3 shrink-0">
           <div className="flex gap-2">
-            <Badge className="bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white border-0 font-bold text-sm px-4 py-1.5 shadow-lg shadow-violet-500/25">
+            <Badge className="bg-primary text-primary-foreground border-0 font-bold text-sm px-4 py-1.5 shadow-lg">
               🔥 {plansCount} planes disponibles
             </Badge>
-            <Badge className="bg-white/10 text-white border-white/20 hover:bg-white/20 font-semibold backdrop-blur-sm">
+            <Badge className="bg-muted text-muted-foreground border-border font-semibold">
               {providersCount} prepagas
             </Badge>
           </div>
           
           <Button 
-            className="bg-gradient-to-r from-emerald-600 to-cyan-600 text-white font-bold rounded-full px-6 py-2 shadow-lg shadow-emerald-500/25 hover:shadow-xl hover:shadow-emerald-500/30 transition-all"
+            className="bg-success text-success-foreground font-bold rounded-full px-6 py-2 shadow-lg hover:bg-success/90 transition-all"
             onClick={onWhatsAppClick}
           >
             📱 Consultar por WhatsApp

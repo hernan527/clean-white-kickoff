@@ -53,22 +53,22 @@ const ForgotPasswordPage = () => {
     <Layout>
       <div className="min-h-[85vh] flex items-center justify-center px-4 py-12 relative">
         
-        <Card className="w-full max-w-md border border-white/10 shadow-2xl rounded-3xl overflow-hidden bg-white/5 backdrop-blur-xl z-10">
+        <Card className="w-full max-w-md border border-border shadow-2xl rounded-3xl overflow-hidden bg-card/80 backdrop-blur-xl z-10">
           
           {/* HEADER */}
           <CardHeader className="space-y-3 text-center pt-8 pb-2">
-            <div className="mx-auto w-16 h-16 bg-gradient-to-br from-fuchsia-500 to-violet-500 rounded-2xl flex items-center justify-center mb-2 neon-fuchsia">
+            <div className="mx-auto w-16 h-16 bg-accent rounded-2xl flex items-center justify-center mb-2 shadow-lg">
               {emailSent ? (
-                <CheckCircle2 className="w-8 h-8 text-white" />
+                <CheckCircle2 className="w-8 h-8 text-accent-foreground" />
               ) : (
-                <KeyRound className="w-8 h-8 text-white" />
+                <KeyRound className="w-8 h-8 text-accent-foreground" />
               )}
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-white tracking-tight">
+              <h1 className="text-2xl font-bold text-foreground tracking-tight">
                 {emailSent ? '¡Correo Enviado!' : 'Recuperar Contraseña'}
               </h1>
-              <p className="text-slate-400 text-sm mt-1 px-4">
+              <p className="text-muted-foreground text-sm mt-1 px-4">
                 {emailSent
                   ? `Hemos enviado las instrucciones a ${email}`
                   : 'Ingresa tu correo y te enviaremos un enlace para volver a entrar.'}
@@ -80,9 +80,9 @@ const ForgotPasswordPage = () => {
             <form onSubmit={handleSubmit}>
               <CardContent className="space-y-5 px-8 pt-4">
                 <div className="space-y-2">
-                  <Label htmlFor="email" className="text-xs font-bold text-slate-400 uppercase">Correo electrónico</Label>
+                  <Label htmlFor="email" className="text-xs font-bold text-muted-foreground uppercase">Correo electrónico</Label>
                   <div className="relative">
-                    <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500" />
+                    <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                     <Input
                       id="email"
                       type="email"
@@ -91,7 +91,7 @@ const ForgotPasswordPage = () => {
                       onChange={(e) => setEmail(e.target.value)}
                       required
                       disabled={isLoading}
-                      className="pl-10 rounded-xl border-white/10 bg-white/5 text-white placeholder:text-slate-500 focus-visible:ring-violet-500 focus:bg-white/10 transition-all"
+                      className="pl-10 rounded-xl"
                     />
                   </div>
                 </div>
@@ -100,7 +100,7 @@ const ForgotPasswordPage = () => {
               <CardFooter className="flex flex-col space-y-6 px-8 pb-8">
                 <Button 
                     type="submit" 
-                    className="w-full bg-gradient-to-r from-fuchsia-600 to-violet-600 hover:from-fuchsia-500 hover:to-violet-500 text-white font-bold h-12 rounded-xl shadow-lg neon-fuchsia transition-all active:scale-95" 
+                    className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-bold h-12 rounded-xl shadow-lg transition-all active:scale-95" 
                     disabled={isLoading}
                 >
                   {isLoading ? (
@@ -116,7 +116,7 @@ const ForgotPasswordPage = () => {
                 
                 <Link
                   to="/auth/login"
-                  className="flex items-center gap-2 text-sm text-slate-400 hover:text-cyan-400 font-medium transition-colors"
+                  className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary font-medium transition-colors"
                 >
                   <ArrowLeft className="h-4 w-4" /> Volver a iniciar sesión
                 </Link>
@@ -124,21 +124,21 @@ const ForgotPasswordPage = () => {
             </form>
           ) : (
             <CardFooter className="flex flex-col space-y-6 px-8 pb-8 pt-4">
-              <div className="bg-white/5 border border-white/10 p-4 rounded-xl text-center">
-                <p className="text-xs text-slate-400">
+              <div className="bg-muted p-4 rounded-xl text-center border border-border">
+                <p className="text-xs text-muted-foreground">
                   Si no recibes el correo en unos minutos, revisa tu carpeta de spam o intenta nuevamente.
                 </p>
               </div>
               
               <Link to="/auth/login" className="w-full">
-                <Button variant="outline" className="w-full h-12 rounded-xl border-white/20 bg-white/5 text-slate-200 hover:text-white hover:border-violet-500/50 hover:bg-white/10 font-bold transition-all">
+                <Button variant="outline" className="w-full h-12 rounded-xl font-bold transition-all">
                   Volver a iniciar sesión
                 </Button>
               </Link>
               
               <button 
                 onClick={() => setEmailSent(false)}
-                className="text-xs text-slate-500 hover:text-slate-300 underline"
+                className="text-xs text-muted-foreground hover:text-foreground underline"
               >
                 Probar con otro correo
               </button>
