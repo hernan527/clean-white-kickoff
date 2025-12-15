@@ -166,6 +166,78 @@ export type Database = {
         }
         Relationships: []
       }
+      user_activity: {
+        Row: {
+          browser: string | null
+          city: string | null
+          clicks: number | null
+          country: string | null
+          created_at: string | null
+          device_type: string | null
+          event_data: Json | null
+          event_type: string
+          id: string
+          ip_address: string | null
+          latitude: number | null
+          longitude: number | null
+          os: string | null
+          page_url: string | null
+          referrer: string | null
+          scroll_depth: number | null
+          session_id: string | null
+          session_start: string | null
+          time_on_page: number | null
+          user_agent: string | null
+          user_id: string | null
+        }
+        Insert: {
+          browser?: string | null
+          city?: string | null
+          clicks?: number | null
+          country?: string | null
+          created_at?: string | null
+          device_type?: string | null
+          event_data?: Json | null
+          event_type: string
+          id?: string
+          ip_address?: string | null
+          latitude?: number | null
+          longitude?: number | null
+          os?: string | null
+          page_url?: string | null
+          referrer?: string | null
+          scroll_depth?: number | null
+          session_id?: string | null
+          session_start?: string | null
+          time_on_page?: number | null
+          user_agent?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          browser?: string | null
+          city?: string | null
+          clicks?: number | null
+          country?: string | null
+          created_at?: string | null
+          device_type?: string | null
+          event_data?: Json | null
+          event_type?: string
+          id?: string
+          ip_address?: string | null
+          latitude?: number | null
+          longitude?: number | null
+          os?: string | null
+          page_url?: string | null
+          referrer?: string | null
+          scroll_depth?: number | null
+          session_id?: string | null
+          session_start?: string | null
+          time_on_page?: number | null
+          user_agent?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           created_at: string | null
@@ -243,7 +315,17 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      admin_dashboard_stats: {
+        Row: {
+          active_sessions_24h: number | null
+          quotes_last_7_days: number | null
+          total_quote_views: number | null
+          total_quotes: number | null
+          total_users: number | null
+          total_vendors: number | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       has_role: {
