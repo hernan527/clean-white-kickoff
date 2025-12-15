@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useMemo } from "react";
+import { useState, useEffect, useCallback, useMemo, useLayoutEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Search, Grid3x3, Plus, Heart, Shield, Users, Building2, Stethoscope, Baby, Filter } from "lucide-react";
 import { type HealthPlan } from "@/core/interfaces/plan/planes";
@@ -146,6 +146,11 @@ const ResultadosPage = () => {
     setMinRating([0]);
     setSelectedClinicas([]);
   };
+
+  // Scroll to top on page load
+  useLayoutEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <Layout>
