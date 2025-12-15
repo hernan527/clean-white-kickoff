@@ -21,7 +21,16 @@ import {
   VendorMarketingPage,
 } from "./modules/vendor/pages";
 import { ChatwootWidget } from "@/components/ChatwootWidget";
-
+import { ActivityTracker } from "@/components/ActivityTracker";
+import { AdminLayout } from "./modules/admin/layouts/AdminLayout";
+import {
+  AdminDashboardPage,
+  AdminEmpresasPage,
+  AdminClinicasPage,
+  AdminPlanesPage,
+  AdminUsuariosPage,
+  AdminActividadPage,
+} from "./modules/admin/pages";
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -32,6 +41,7 @@ const App = () => (
           <Toaster />
           <Sonner />
           <BrowserRouter>
+            <ActivityTracker />
             <ChatwootWidget /> 
             <Routes>
               <Route path="/" element={<Index />} />
@@ -58,6 +68,14 @@ const App = () => (
               
               {/* Styleguide */}
               <Route path="/styleguide" element={<StyleGuidePage />} />
+              
+              {/* Admin routes */}
+              <Route path="/admin" element={<AdminLayout><AdminDashboardPage /></AdminLayout>} />
+              <Route path="/admin/empresas" element={<AdminLayout><AdminEmpresasPage /></AdminLayout>} />
+              <Route path="/admin/clinicas" element={<AdminLayout><AdminClinicasPage /></AdminLayout>} />
+              <Route path="/admin/planes" element={<AdminLayout><AdminPlanesPage /></AdminLayout>} />
+              <Route path="/admin/usuarios" element={<AdminLayout><AdminUsuariosPage /></AdminLayout>} />
+              <Route path="/admin/actividad" element={<AdminLayout><AdminActividadPage /></AdminLayout>} />
               
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
