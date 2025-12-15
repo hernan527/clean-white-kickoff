@@ -70,16 +70,21 @@ const fetchCotizacion = useCallback(async (formDataToUse?: QuoteFormData) => {
         const plansArray = result.data?.data;
         
         if (result.success && Array.isArray(plansArray)) {
-            // Deduplicate plans by _id to prevent duplicates
+            // Deduplicate plans by unique composite key (_id + precio + empresa)
+            // This catches duplicates even if _id is different but the plan is the same
             const typedPlans = plansArray as HealthPlan[];
-            const uniquePlans = typedPlans.reduce((acc: HealthPlan[], plan: HealthPlan) => {
-              if (!acc.find(p => p._id === plan._id)) {
-                acc.push(plan);
+            const seenKeys = new Set<string>();
+            const uniquePlans = typedPlans.filter((plan) => {
+              // Create composite key for better deduplication
+              const key = `${plan._id}-${plan.empresa}-${plan.linea}-${plan.precio}`;
+              if (seenKeys.has(key)) {
+                return false;
               }
-              return acc;
-            }, []);
+              seenKeys.add(key);
+              return true;
+            });
             
-            // SUCCESS: Handle data and state updates
+            // SUCCESS: Handle data and state updates - REPLACE instead of merge
             setCotizacionData(uniquePlans);
             setHasFetched(true);
             

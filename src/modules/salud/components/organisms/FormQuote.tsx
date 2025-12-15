@@ -191,8 +191,15 @@ export const FormQuote: React.FC<FormQuoteProps> = ({ isOpen, onClose, onComplet
   };
 
   const goToNextStep = () => {
-    if (activeStep === 1 && selectedGroup) setActiveStep(2);
-    else if (activeStep === 2) {
+    if (activeStep === 1) {
+      if (!selectedGroup) return;
+      // Validar edad de pareja si es grupo 3 o 4
+      if ((selectedGroup === 3 || selectedGroup === 4) && edadConyuge < 18) {
+        toast({ title: "Error", description: "La edad de la pareja debe ser al menos 18 años", variant: "destructive" });
+        return;
+      }
+      setActiveStep(2);
+    } else if (activeStep === 2) {
       if (aportesType === 'rel' && (!sueldoInput || parseInt(sueldoInput) === 0)) {
          toast({ title: "Error", description: "Ingresa un sueldo válido", variant: "destructive" });
          return;
