@@ -172,10 +172,17 @@ const ResultadosPage = () => {
       {/* 3. BOTÓN FLOTANTE DE FILTROS - Mobile Only */}
       <Button
         onClick={() => setFilterDrawerOpen(true)}
-        className="fixed bottom-6 right-6 z-50 lg:hidden rounded-full h-14 w-14 shadow-xl bg-primary hover:bg-primary/90"
+        className="fixed bottom-6 right-6 z-50 lg:hidden rounded-full h-14 w-14 shadow-xl bg-primary hover:bg-primary/90 animate-pulse"
         size="icon"
+        aria-label="Abrir filtros"
       >
         <Filter className="h-6 w-6" />
+        <span className="absolute -top-1 -right-1 flex h-5 w-5">
+          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
+          <span className="relative inline-flex rounded-full h-5 w-5 bg-accent items-center justify-center text-[10px] font-bold text-accent-foreground">
+            ↑
+          </span>
+        </span>
       </Button>
 
 
