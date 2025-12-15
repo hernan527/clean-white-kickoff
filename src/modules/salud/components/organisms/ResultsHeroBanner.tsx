@@ -3,6 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { HeroSlideContent, HeroSlide } from "../molecules/HeroSlideContent";
 import Autoplay from "embla-carousel-autoplay";
+import heroFamilyImage from "@/assets/images/hero/hero-family-outdoor.jpg";
 
 interface ResultsHeroBannerProps {
   slides: HeroSlide[];
@@ -17,11 +18,18 @@ export const ResultsHeroBanner = ({
   providersCount,
   onWhatsAppClick,
 }: ResultsHeroBannerProps) => (
-  <div className="relative bg-card overflow-hidden border-b border-border">
-    {/* Gradient overlay */}
-    <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-secondary/5" />
+  <div className="relative overflow-hidden border-b border-border">
+    {/* Background Image with overlay */}
+    <div 
+      className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+      style={{ backgroundImage: `url(${heroFamilyImage})` }}
+    />
     
-    <div className="container mx-auto px-4 py-8 lg:py-10 relative">
+    {/* Gradient overlays for readability */}
+    <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/80 to-background/60 dark:from-primary/90 dark:via-primary/70 dark:to-primary/50" />
+    <div className="absolute inset-0 bg-gradient-to-t from-background/50 to-transparent dark:from-black/30" />
+    
+    <div className="container mx-auto px-4 py-8 lg:py-10 relative z-10">
       <div className="flex flex-col md:flex-row items-center justify-between gap-6">
         <Carousel
           opts={{ align: "start", loop: true }}

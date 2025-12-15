@@ -9,10 +9,10 @@ interface HeroSlideContentProps {
 
 export const HeroSlideContent = ({ slide }: HeroSlideContentProps) => (
   <>
-    <h1 className="text-3xl lg:text-4xl font-extrabold text-primary-foreground drop-shadow-lg">
+    <h1 className="text-3xl lg:text-4xl font-extrabold text-foreground dark:text-primary-foreground drop-shadow-lg">
       {slide.title}
     </h1>
-    <p className="text-primary-foreground/90 text-base mt-2 font-medium">
+    <p className="text-muted-foreground dark:text-primary-foreground/90 text-base mt-2 font-medium">
       {slide.subtitle}
     </p>
   </>
