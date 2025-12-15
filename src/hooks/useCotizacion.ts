@@ -70,11 +70,20 @@ const fetchCotizacion = useCallback(async (formDataToUse?: QuoteFormData) => {
         const plansArray = result.data?.data;
         
         if (result.success && Array.isArray(plansArray)) {
+            // Deduplicate plans by _id to prevent duplicates
+            const typedPlans = plansArray as HealthPlan[];
+            const uniquePlans = typedPlans.reduce((acc: HealthPlan[], plan: HealthPlan) => {
+              if (!acc.find(p => p._id === plan._id)) {
+                acc.push(plan);
+              }
+              return acc;
+            }, []);
+            
             // SUCCESS: Handle data and state updates
-            setCotizacionData(plansArray as HealthPlan[]);
+            setCotizacionData(uniquePlans);
             setHasFetched(true);
             
-            console.log('✅ Cotización fetched successfully:', plansArray.length, 'planes');
+            console.log('✅ Cotización fetched successfully:', uniquePlans.length, 'planes (deduplicados de', typedPlans.length, ')');
 
             // Save the form data used for this fetch
             if (formToSend.group !== null) {
