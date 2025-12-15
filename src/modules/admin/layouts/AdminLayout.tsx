@@ -22,7 +22,8 @@ interface AdminLayoutProps {
 
 const navItems = [
   { path: '/admin', label: 'Dashboard', icon: LayoutDashboard },
-  { path: '/admin/empresas', label: 'Empresas', icon: Building2 },
+  { path: '/admin/companies', label: 'Empresas SaaS', icon: Building2 },
+  { path: '/admin/empresas', label: 'Proveedores', icon: Building2 },
   { path: '/admin/clinicas', label: 'Clínicas', icon: Stethoscope },
   { path: '/admin/planes', label: 'Planes', icon: FileText },
   { path: '/admin/usuarios', label: 'Usuarios', icon: Users },
