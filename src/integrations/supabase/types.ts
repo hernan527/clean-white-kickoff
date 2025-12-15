@@ -315,19 +315,44 @@ export type Database = {
       }
     }
     Views: {
-      admin_dashboard_stats: {
-        Row: {
-          active_sessions_24h: number | null
-          quotes_last_7_days: number | null
-          total_quote_views: number | null
-          total_quotes: number | null
-          total_users: number | null
-          total_vendors: number | null
-        }
-        Relationships: []
-      }
+      [_ in never]: never
     }
     Functions: {
+      get_admin_dashboard_stats: { Args: never; Returns: Json }
+      get_admin_user_activity: {
+        Args: { p_limit?: number; p_offset?: number; p_user_id?: string }
+        Returns: {
+          browser: string
+          city: string
+          country: string
+          created_at: string
+          device_type: string
+          event_data: Json
+          event_type: string
+          id: string
+          ip_address: string
+          os: string
+          page_url: string
+          session_id: string
+          time_on_page: number
+          user_email: string
+          user_id: string
+        }[]
+      }
+      get_admin_users_list: {
+        Args: never
+        Returns: {
+          avatar_url: string
+          created_at: string
+          email: string
+          first_name: string
+          id: string
+          last_name: string
+          last_sign_in: string
+          phone: string
+          role: string
+        }[]
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
