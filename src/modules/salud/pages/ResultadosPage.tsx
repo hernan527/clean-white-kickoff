@@ -94,8 +94,15 @@ const ResultadosPage = () => {
       const matchesPrice = plan.precio >= priceRange[0] && plan.precio <= priceRange[1];
       const matchesProvider = selectedProviders.length === 0 || selectedProviders.includes(plan.empresa);
       const matchesRating = plan.rating >= minRating[0];
+      
+      // Filter by clinics: plan must be covered by ALL selected clinics
+      // Each clinic has an array of item_ids (plan IDs) it serves
       const matchesClinica = selectedClinicas.length === 0 || 
-        selectedClinicas.some(sc => plan.clinicas?.some(pc => pc.item_id === sc.item_id));
+        selectedClinicas.every(selectedClinic => 
+          // Check if this clinic covers this plan (clinic has plan._id in its item_ids array)
+          selectedClinic.item_id && plan.clinicas?.some(pc => pc.item_id === selectedClinic.item_id)
+        );
+      
       return matchesPrice && matchesProvider && matchesRating && matchesClinica;
     }).sort((a, b) => {
       if (sortBy === "price-asc") return a.precio - b.precio;
