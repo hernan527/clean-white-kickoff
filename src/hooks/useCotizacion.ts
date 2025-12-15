@@ -135,13 +135,8 @@ const fetchCotizacion = useCallback(async (formDataToUse?: QuoteFormData) => {
         if (parsedForm.group !== null && parsedForm.group !== undefined) {
           setSavedFormData(parsedForm);
           setShowRecoveryModal(true);
-          shouldAutoFetch.current = false;
-          
-          // Auto-fetch with saved data immediately when modal opens
-          setRecoveryDataLoading(true);
-          fetchCotizacion(parsedForm).finally(() => {
-            setRecoveryDataLoading(false);
-          });
+          // NO bloquear ni auto-fetch aquí - solo mostrar modal como bienvenida
+          // El fetch se hace cuando el usuario elige "Continuar"
         }
       }
     } catch (error) {
@@ -197,14 +192,19 @@ const fetchCotizacion = useCallback(async (formDataToUse?: QuoteFormData) => {
     });
   }, [saveFormToStorage]);
 
-  // Recover saved form - data already fetched when modal opened
+  // Recover saved form - fetch when user confirms
   const handleRecoverForm = useCallback(() => {
     if (savedFormData) {
       setFormDataState(savedFormData);
       setShowRecoveryModal(false);
-      // Data already pre-fetched, no need to fetch again
+      shouldAutoFetch.current = false;
+      // Fetch con los datos guardados cuando el usuario confirma
+      setRecoveryDataLoading(true);
+      fetchCotizacion(savedFormData).finally(() => {
+        setRecoveryDataLoading(false);
+      });
     }
-  }, [savedFormData]);
+  }, [savedFormData, fetchCotizacion]);
 
   // Start with new form and fetch initial cotización
   const handleStartNew = useCallback(() => {
