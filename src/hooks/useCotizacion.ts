@@ -70,25 +70,21 @@ const fetchCotizacion = useCallback(async (formDataToUse?: QuoteFormData) => {
         const plansArray = result.data?.data;
         
         if (result.success && Array.isArray(plansArray)) {
-            // Deduplicate plans by unique composite key (_id + precio + empresa)
-            // This catches duplicates even if _id is different but the plan is the same
+            // Deduplicate plans by _id
             const typedPlans = plansArray as HealthPlan[];
-            const seenKeys = new Set<string>();
+            const seenIds = new Set<string>();
             const uniquePlans = typedPlans.filter((plan) => {
-              // Create composite key for better deduplication
-              const key = `${plan._id}-${plan.empresa}-${plan.linea}-${plan.precio}`;
-              if (seenKeys.has(key)) {
+              if (seenIds.has(plan._id)) {
                 return false;
               }
-              seenKeys.add(key);
+              seenIds.add(plan._id);
               return true;
             });
             
-            // SUCCESS: Handle data and state updates - REPLACE instead of merge
             setCotizacionData(uniquePlans);
             setHasFetched(true);
             
-            console.log('✅ Cotización fetched successfully:', uniquePlans.length, 'planes (deduplicados de', typedPlans.length, ')');
+            console.log('✅ Cotización fetched:', uniquePlans.length, 'planes');
 
             // Save the form data used for this fetch
             if (formToSend.group !== null) {
