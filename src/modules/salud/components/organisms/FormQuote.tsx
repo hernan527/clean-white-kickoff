@@ -98,7 +98,10 @@ export const FormQuote: React.FC<FormQuoteProps> = ({ isOpen, onClose, onComplet
 
   const incrementar = (member: 'titular' | 'conyuge' | 'hijos') => {
     if (member === 'titular') setEdadTitular(p => p + 1);
-    else if (member === 'conyuge') setEdadConyuge(p => p + 1);
+    else if (member === 'conyuge') {
+      // Si está en 0, saltar directamente a 18 (edad mínima)
+      setEdadConyuge(p => p === 0 ? 18 : p + 1);
+    }
     else if (member === 'hijos' && cantidadHijos < 5) {
       setCantidadHijos(p => { updateChildAge(p, 1); return p + 1; });
     }
@@ -106,7 +109,10 @@ export const FormQuote: React.FC<FormQuoteProps> = ({ isOpen, onClose, onComplet
 
   const decrementar = (member: 'titular' | 'conyuge' | 'hijos') => {
     if (member === 'titular' && edadTitular > 18) setEdadTitular(p => p - 1);
-    else if (member === 'conyuge' && edadConyuge > 18) setEdadConyuge(p => p - 1);
+    else if (member === 'conyuge') {
+      // Si está en 18, saltar a 0 (no hay pareja); si no, decrementar
+      setEdadConyuge(p => p <= 18 ? 0 : p - 1);
+    }
     else if (member === 'hijos' && cantidadHijos > 0) {
       setCantidadHijos(p => { updateChildAge(p - 1, 0); return p - 1; });
     }
