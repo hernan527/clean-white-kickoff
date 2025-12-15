@@ -33,8 +33,8 @@ export const ClinicasContent = ({
     <div className="w-full">
       
       {/* Header de Filtros de Región */}
-      <div className="p-4 border-b border-white/10 bg-white/5 flex items-center gap-3 overflow-x-auto no-scrollbar">
-        <div className="flex items-center gap-2 text-slate-400 text-sm font-bold mr-2">
+      <div className="p-4 border-b border-border bg-muted/50 flex items-center gap-3 overflow-x-auto no-scrollbar">
+        <div className="flex items-center gap-2 text-muted-foreground text-sm font-bold mr-2">
             <MapPin size={16} /> Zona:
         </div>
         
@@ -42,8 +42,8 @@ export const ClinicasContent = ({
             onClick={() => onClinicaTabChange("todas")}
             className={`px-4 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all border ${
                 activeClinicaTab === "todas"
-                ? "bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white border-transparent shadow-lg shadow-violet-500/25"
-                : "bg-white/5 text-slate-400 border-white/10 hover:border-violet-500/50"
+                ? "bg-primary text-primary-foreground border-transparent shadow-lg"
+                : "bg-muted text-muted-foreground border-border hover:border-primary/50"
             }`}
         >
             Todas
@@ -55,8 +55,8 @@ export const ClinicasContent = ({
                 onClick={() => onClinicaTabChange(region)}
                 className={`px-4 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all border ${
                     activeClinicaTab === region
-                    ? "bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white border-transparent shadow-lg shadow-violet-500/25"
-                    : "bg-white/5 text-slate-400 border-white/10 hover:border-violet-500/50"
+                    ? "bg-primary text-primary-foreground border-transparent shadow-lg"
+                    : "bg-muted text-muted-foreground border-border hover:border-primary/50"
                 }`}
             >
                 {region}
@@ -76,7 +76,7 @@ export const ClinicasContent = ({
                 />
             ))
         ) : (
-            <div className="p-10 text-center text-slate-500">
+            <div className="p-10 text-center text-muted-foreground">
                 No se encontraron clínicas en esta zona.
             </div>
         )}
