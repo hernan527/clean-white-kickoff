@@ -1,12 +1,70 @@
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { UserCheck, LayoutDashboard, Search } from "lucide-react";
+import { LayoutDashboard, Search, LogIn, Shield } from "lucide-react";
 import { useVendorAuth } from "@/modules/vendor/hooks/useVendorAuth";
+import { useAdminAuth } from "@/modules/admin/hooks/useAdminAuth";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
 const Header = () => {
   const navigate = useNavigate();
-  const { user, isVendor, isLoading } = useVendorAuth();
+  const { user, isVendor, isLoading: vendorLoading } = useVendorAuth();
+  const { isAdmin, isLoading: adminLoading } = useAdminAuth();
+  
+  const isLoading = vendorLoading || adminLoading;
+
+  const handleAuthClick = () => {
+    if (user) {
+      // User is logged in - navigate to appropriate dashboard
+      if (isAdmin) {
+        navigate('/admin');
+      } else if (isVendor) {
+        navigate('/vendedor/dashboard');
+      } else {
+        navigate('/vendedor/registro');
+      }
+    } else {
+      // User not logged in - go to login
+      navigate('/auth/login');
+    }
+  };
+
+  const getAuthButtonContent = () => {
+    if (!user) {
+      return (
+        <>
+          <LogIn className="h-4 w-4 mr-2" />
+          <span className="hidden sm:inline">Ingresar</span>
+        </>
+      );
+    }
+    
+    if (isAdmin) {
+      return (
+        <>
+          <Shield className="h-4 w-4 mr-2" />
+          <span className="hidden sm:inline">Admin Panel</span>
+          <span className="sm:hidden">Admin</span>
+        </>
+      );
+    }
+    
+    if (isVendor) {
+      return (
+        <>
+          <LayoutDashboard className="h-4 w-4 mr-2" />
+          <span className="hidden sm:inline">Mi Dashboard</span>
+          <span className="sm:hidden">Dash</span>
+        </>
+      );
+    }
+
+    return (
+      <>
+        <LogIn className="h-4 w-4 mr-2" />
+        <span className="hidden sm:inline">Mi Cuenta</span>
+      </>
+    );
+  };
 
   return (
     <header className="border-b border-border bg-background/80 backdrop-blur-xl sticky top-0 z-50 transition-all">
@@ -33,26 +91,13 @@ const Header = () => {
           <ThemeToggle />
           
           {!isLoading && (
-            user && isVendor ? (
-              <Button 
-                variant="ghost" 
-                onClick={() => navigate('/vendedor/dashboard')} 
-                className="text-muted-foreground hover:text-primary hover:bg-primary/5 font-medium"
-              >
-                <LayoutDashboard className="h-4 w-4 mr-2" />
-                <span className="hidden sm:inline">Mi Dashboard</span>
-                <span className="sm:hidden">Dash</span>
-              </Button>
-            ) : (
-              <Button 
-                variant="ghost" 
-                onClick={() => navigate('/vendedor/registro')} 
-                className="text-muted-foreground hover:text-primary hover:bg-primary/5 font-medium hidden sm:flex"
-              >
-                <UserCheck className="h-4 w-4 mr-2" />
-                Soy Asesor
-              </Button>
-            )
+            <Button 
+              variant="ghost" 
+              onClick={handleAuthClick} 
+              className="text-muted-foreground hover:text-primary hover:bg-primary/5 font-medium"
+            >
+              {getAuthButtonContent()}
+            </Button>
           )}
 
           {/* CTA PRINCIPAL */}
