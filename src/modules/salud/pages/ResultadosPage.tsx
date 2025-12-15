@@ -172,7 +172,7 @@ const ResultadosPage = () => {
       {/* 3. BOTÓN FLOTANTE DE FILTROS - Mobile Only */}
       <Button
         onClick={() => setFilterDrawerOpen(true)}
-        className="fixed bottom-6 right-6 z-50 lg:hidden rounded-full h-14 w-14 shadow-xl bg-primary hover:bg-primary/90 animate-pulse"
+        className="fixed bottom-6 left-6 z-50 lg:hidden rounded-full h-14 w-14 shadow-xl bg-primary hover:bg-primary/90 animate-pulse"
         size="icon"
         aria-label="Abrir filtros"
       >
