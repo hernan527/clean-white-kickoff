@@ -47,7 +47,8 @@ const ResultadosPage = () => {
     handleStartNew,
     cotizacionData,
     isLoading,
-    recoveryDataLoading
+    recoveryDataLoading,
+    fetchCotizacion
   } = useCotizacion();
 
   // --- LOGICA DE PRECIOS Y FILTROS (Mantenida igual) ---
@@ -159,7 +160,9 @@ const ResultadosPage = () => {
         onComplete={(data) => {
             console.log("Recotización:", data);
             setFormQuoteOpen(false);
-            toast({ title: "Precios actualizados", description: "Se han actualizado los planes según tu perfil." });
+            // Ejecutar fetchCotizacion con los nuevos datos del formulario
+            fetchCotizacion(data);
+            toast({ title: "Actualizando precios...", description: "Buscando planes según tu nuevo perfil." });
         }}
       />
 
