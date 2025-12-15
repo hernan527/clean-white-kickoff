@@ -30,6 +30,8 @@ import {
   AdminPlanesPage,
   AdminUsuariosPage,
   AdminActividadPage,
+  AdminCompaniesPage,
+  AdminCompanyMembersPage,
 } from "./modules/admin/pages";
 const queryClient = new QueryClient();
 
@@ -71,6 +73,8 @@ const App = () => (
               
               {/* Admin routes */}
               <Route path="/admin" element={<AdminLayout><AdminDashboardPage /></AdminLayout>} />
+              <Route path="/admin/companies" element={<AdminLayout><AdminCompaniesPage /></AdminLayout>} />
+              <Route path="/admin/empresas/:companyId/miembros" element={<AdminLayout><AdminCompanyMembersPage /></AdminLayout>} />
               <Route path="/admin/empresas" element={<AdminLayout><AdminEmpresasPage /></AdminLayout>} />
               <Route path="/admin/clinicas" element={<AdminLayout><AdminClinicasPage /></AdminLayout>} />
               <Route path="/admin/planes" element={<AdminLayout><AdminPlanesPage /></AdminLayout>} />

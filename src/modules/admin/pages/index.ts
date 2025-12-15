@@ -4,3 +4,5 @@ export { AdminClinicasPage } from './AdminClinicasPage';
 export { AdminPlanesPage } from './AdminPlanesPage';
 export { AdminUsuariosPage } from './AdminUsuariosPage';
 export { AdminActividadPage } from './AdminActividadPage';
+export { AdminCompaniesPage } from './AdminCompaniesPage';
+export { AdminCompanyMembersPage } from './AdminCompanyMembersPage';
