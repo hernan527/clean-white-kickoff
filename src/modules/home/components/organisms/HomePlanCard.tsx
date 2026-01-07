@@ -15,6 +15,18 @@ const TAGLINES = [
   "Alta inmediata",
 ];
 
+// Estructura de clínica con información de ubicación
+export interface ClinicData {
+  id?: number;
+  nombre: string;
+  nombre_abreviado?: string;
+  ubicaciones?: {
+    barrio?: string;
+    region?: string;
+    direccion?: string;
+  };
+}
+
 export interface HomePlanData {
   id: string;
   name: string;
@@ -24,7 +36,8 @@ export interface HomePlanData {
   price: number;
   originalPrice: number;
   attributes: string[];
-  clinics: string[];
+  clinics: string[]; // Nombres para mostrar en cards (limitado)
+  clinicsData: ClinicData[]; // Data completa para el modal
   copago: boolean;
 }
 

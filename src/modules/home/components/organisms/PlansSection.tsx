@@ -4,7 +4,7 @@ import { Scale, Sparkles, User, Users as UsersIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { HomePlanCard, HomePlanData } from "./HomePlanCard";
 import { HomeComparisonModal } from "./HomeComparisonModal";
-import { useFetchAllPlans } from "@/modules/salud/hooks/useFetchAllPlans";
+import { usePlans } from "@/hooks/usePlans";
 import masterQuotes from '@/data/cotizaciones_maestras_rows.json';
 import { normalizeLogoPath } from "@/lib/supabase-helpers";
 
@@ -13,8 +13,8 @@ export const PlansSection = () => {
   const [showModal, setShowModal] = useState(false);
   const [profile, setProfile] = useState({ edad1: 18, edad2: 0, hijos: 0, tipo: 'P' });
 
-  // 1. Obtenemos la data del Hook
-  const { data, isLoading } = useFetchAllPlans();
+  // 1. Obtenemos la data del Hook (usePlans procesa las relaciones de clínicas)
+  const { data, isLoading } = usePlans();
 
   // 2. Metemos la lógica de extracción y combinación TODO dentro del useMemo
   const livePlans = useMemo(() => {
@@ -42,6 +42,14 @@ export const PlansSection = () => {
       const infoPrecio = preciosMock.find((p: any) => p.item_id === dbPlan.item_id);
       if (!infoPrecio) return null;
 
+      // Extraer clínicas completas con datos de ubicación
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const clinicsData = dbPlan.plan_clinica?.map((pc: any) => pc.clinicas).filter(Boolean) || [];
+      
+      // Nombres para mostrar en cards (limitado a 3)
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const clinicNames = clinicsData.map((c: any) => c.nombre || c.nombre_abreviado).slice(0, 3);
+
       return {
         id: dbPlan.id.toString(),
         item_id: dbPlan.item_id,
@@ -51,8 +59,8 @@ export const PlansSection = () => {
         price: infoPrecio.precio,
         originalPrice: Math.round(infoPrecio.precio * 1.25),
         attributes: dbPlan.slogans || ["Cobertura Médica Premium"],
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        clinics: dbPlan.plan_clinica?.map((pc: any) => pc.clinicas?.nombre).filter(Boolean).slice(0, 3) || [],
+        clinics: clinicNames,
+        clinicsData: clinicsData, // Data completa para el modal
         copago: dbPlan.tiene_copagos || false
       };
     }).filter(Boolean) as HomePlanData[];
