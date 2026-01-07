@@ -8,9 +8,10 @@ import Layout from "@/layouts/Layout";
 import { Button } from "@/components/ui/button";
 
 // Componentes Organisms
-import { FormQuote } from "@/modules/salud/components/organisms/FormQuote"; // Importación corregida (sin default si es named export)
+import { FormQuote } from "@/modules/salud/components/organisms/FormQuote";
 import { StickyQuoteCTA } from "@/modules/salud/components/organisms/StickyQuoteCTA";
-import { FloatingComparisonBar } from "@/modules/salud/components/organisms/FloatingComparisonBar"; 
+import { FloatingBattleBar } from "@/modules/salud/components/organisms/FloatingBattleBar";
+import { ComparisonBattleModal } from "@/modules/salud/components/organisms/ComparisonBattleModal";
 import { PlanDetailsModal } from "@/modules/salud/components/organisms/PlanDetailsModal";
 import QuoteRecoveryModal from "@/modules/salud/components/organisms/QuoteRecoveryModal";
 import { QuickNavBar, QuickNavItem } from "@/modules/salud/components/organisms/QuickNavBar";
@@ -31,7 +32,7 @@ const HERO_SLIDES: HeroSlide[] = [
 
 const FEATURES: Feature[] = [
   { icon: Search, title: "Búsqueda inteligente", description: "Filtrá por precio, cobertura y clínicas" },
-  { icon: Grid3x3, title: "Comparación fácil", description: "Compará hasta 4 planes lado a lado" },
+  { icon: Grid3x3, title: "Batalla de planes", description: "Compará 2 planes lado a lado" },
   { icon: Plus, title: "Cotización gratuita", description: "Solicitá tu cotización sin compromiso" },
 ];
 
@@ -74,6 +75,7 @@ const ResultadosPage = () => {
   const [selectedClinicas, setSelectedClinicas] = useState<Clinica[]>([]);
   const [openClinicSearch, setOpenClinicSearch] = useState(false);
   const [comparisonPlans, setComparisonPlans] = useState<string[]>([]);
+  const [battleModalOpen, setBattleModalOpen] = useState(false);
 
   // Efecto precio inicial
   useEffect(() => {
@@ -133,8 +135,8 @@ const ResultadosPage = () => {
   const toggleComparison = (id: string) => {
     setComparisonPlans(prev => {
       if (prev.includes(id)) return prev.filter(x => x !== id);
-      if (prev.length >= 3) {
-        toast({ title: "Límite alcanzado", description: "Máximo 3 planes para comparar.", variant: "destructive" });
+      if (prev.length >= 2) {
+        toast({ title: "Límite alcanzado", description: "Máximo 2 planes para batalla.", variant: "destructive" });
         return prev;
       }
       return [...prev, id];
@@ -142,9 +144,16 @@ const ResultadosPage = () => {
   };
 
   const handleCompare = () => {
-    sessionStorage.setItem('comparisonPlans', JSON.stringify(comparisonPlansList));
-    sessionStorage.setItem('allPlans', JSON.stringify(healthPlans));
-    navigate('/comparar');
+    if (comparisonPlansList.length === 2) {
+      setBattleModalOpen(true);
+    }
+  };
+
+  const handleRemoveFromBattle = (planId: string) => {
+    setComparisonPlans(prev => prev.filter(x => x !== planId));
+    if (comparisonPlans.length <= 1) {
+      setBattleModalOpen(false);
+    }
   };
 
   const clearFilters = () => {
@@ -178,10 +187,20 @@ const ResultadosPage = () => {
         }}
       />
 
-      {/* 2. CARRITO FLOTANTE */}
-      <FloatingComparisonBar 
+      {/* 2. BATTLE BAR FLOTANTE */}
+      <FloatingBattleBar 
         plans={comparisonPlansList}
         onCompare={handleCompare}
+        onRemove={handleRemoveFromBattle}
+        maxPlans={2}
+      />
+
+      {/* 3. MODAL DE BATALLA */}
+      <ComparisonBattleModal
+        plansToCompare={comparisonPlansList}
+        onRemovePlan={handleRemoveFromBattle}
+        open={battleModalOpen}
+        onOpenChange={setBattleModalOpen}
       />
 
       {/* 3. BOTÓN FLOTANTE DE FILTROS - Mobile Only */}

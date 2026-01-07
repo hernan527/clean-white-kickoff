@@ -28,4 +28,6 @@ export * from './GroupedPlansList';
 export * from './ResultsHeaderBar';
 export * from './SaveQuoteModal';
 export * from './StickyQuoteCTA';
+export * from './ComparisonBattleModal';
+export * from './FloatingBattleBar';
 
