@@ -1,6 +1,6 @@
 // src/modules/salud/hooks/usePlansMaster.ts
 import { useQuery } from '@tanstack/react-query';
-import { supabaseData } from "@/integrations/supabase/client";
+import { supabaseData } from "@/lib/supabase-data";
 
 export const usePlansMaster = () => {
   return useQuery({

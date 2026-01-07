@@ -1,9 +1,7 @@
-import { createClient } from '@supabase/supabase-js';
+import { supabase } from "@/integrations/supabase/client";
 
-const supabaseUrl = 'https://xlawekkklkpxyxywfoee.supabase.co';
-const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhsYXdla2trbGtweHl4eXdmb2VlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjcwMjk3MTEsImV4cCI6MjA4MjYwNTcxMX0.6bPpEou8RQ0w7THWBDkDV8qsMclGRe06N01fVu8gyAA';
-
-export const supabaseData = createClient(supabaseUrl, supabaseAnonKey);
+// Use the project's configured backend client (Lovable Cloud)
+export const supabaseData = supabase;
 
 // Types based on expected schema
 export interface Empresa {
