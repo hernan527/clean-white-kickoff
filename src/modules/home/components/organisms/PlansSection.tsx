@@ -1,251 +1,174 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Scale, Sparkles, X } from "lucide-react";
+import { Scale, Sparkles, User, Users as UsersIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { HomePlanCard, HomePlanData } from "./HomePlanCard";
 import { HomeComparisonModal } from "./HomeComparisonModal";
-import { cn } from "@/lib/utils";
-
-// Sample plan data - replace with API data
-const SAMPLE_PLANS: HomePlanData[] = [
-  {
-    id: "1",
-    name: "Plan 220",
-    empresa: "Galeno",
-    logo: "galeno.webp",
-    price: 89000,
-    originalPrice: 115000,
-    attributes: ["Hab. Individual", "Sin Copago", "Emergencias 24hs"],
-    clinics: ["Hospital Italiano", "Sanatorio Güemes", "Trinidad"],
-    copago: false,
-  },
-  {
-    id: "2",
-    name: "SMG 30",
-    empresa: "Swiss Medical",
-    logo: "swissmedical.webp",
-    price: 95000,
-    originalPrice: 120000,
-    attributes: ["Hab. Compartida", "Odontología", "Cobertura Internacional"],
-    clinics: ["Clínica Favaloro", "Sanatorio Otamendi"],
-    copago: true,
-  },
-  {
-    id: "3",
-    name: "Plan 310",
-    empresa: "OSDE",
-    logo: "osde.png",
-    price: 120000,
-    originalPrice: 150000,
-    attributes: ["Hab. Individual", "PMI", "Sin Carencias"],
-    clinics: ["Hospital Alemán", "Fleni", "Hospital Británico"],
-    copago: false,
-  },
-  {
-    id: "4",
-    name: "Omint 4500",
-    empresa: "Omint",
-    logo: "omint.webp",
-    price: 110000,
-    originalPrice: 140000,
-    attributes: ["Premium", "Hab. Suite", "Viajero Plus"],
-    clinics: ["Sanatorio Güemes", "Trinidad Palermo"],
-    copago: false,
-  },
-  {
-    id: "5",
-    name: "Azul 3000",
-    empresa: "Medife",
-    logo: "medife.webp",
-    price: 75000,
-    originalPrice: 95000,
-    attributes: ["Cobertura Básica", "Odontología", "Urgencias"],
-    clinics: ["Hospital Italiano", "Clínica del Valle"],
-    copago: true,
-  },
-  {
-    id: "6",
-    name: "Plan 3500",
-    empresa: "Sancor Salud",
-    logo: "sancorsalud.webp",
-    price: 72000,
-    originalPrice: 90000,
-    attributes: ["Hab. Compartida", "Maternidad", "Pediatría"],
-    clinics: ["Sanatorio Central", "Hospital Regional"],
-    copago: true,
-  },
-];
-
-const WHATSAPP_NUMBER = "5491112345678"; // Cambiar por número real
+import { useFetchAllPlans } from "@/modules/salud/hooks/useFetchAllPlans";
+import masterQuotes from '@/data/cotizaciones_maestras_rows.json';
 
 export const PlansSection = () => {
   const [selectedPlans, setSelectedPlans] = useState<string[]>([]);
   const [showModal, setShowModal] = useState(false);
+  const [profile, setProfile] = useState({ edad1: 18, edad2: 0, hijos: 0, tipo: 'P' });
 
+  // 1. Obtenemos la data del Hook
+  const { data, isLoading } = useFetchAllPlans();
+
+  // 2. Metemos la lógica de extracción y combinación TODO dentro del useMemo
+  const livePlans = useMemo(() => {
+    // EXTRAER LOS PLANES (Soluciona el error de TypeScript y de dependencias)
+    // Usamos una aserción de tipo 'any' temporal para que no proteste por la propiedad .planes
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const rawData: any = data;
+    const dbPlans = Array.isArray(rawData) ? rawData : rawData?.planes || [];
+
+    if (!dbPlans || dbPlans.length === 0) return [];
+
+    // Generamos el ID matemático (ej: 1800000)
+    const targetId = parseInt(
+      `${profile.edad1}${String(profile.edad2).padStart(2, '0')}${String(profile.hijos).padStart(2, '0')}${profile.tipo === 'P' ? '0' : '1'}`
+    );
+    
+    const quoteRow = masterQuotes.find(q => q.id === targetId);
+    if (!quoteRow || !quoteRow.respuesta) return [];
+
+    const preciosMock = JSON.parse(quoteRow.respuesta);
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return dbPlans.map((dbPlan: any) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const infoPrecio = preciosMock.find((p: any) => p.item_id === dbPlan.item_id);
+      if (!infoPrecio) return null;
+
+      return {
+        id: dbPlan.id.toString(),
+        item_id: dbPlan.item_id,
+        name: dbPlan.nombre_plan || dbPlan.name,
+        empresa: dbPlan.empresas?.nombre || "Empresa",
+        logo: dbPlan.empresas?.imagenes?.logo || "placeholder.png",        price: infoPrecio.precio,
+        originalPrice: Math.round(infoPrecio.precio * 1.25),
+        attributes: dbPlan.slogans || ["Cobertura Médica Premium"],
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        clinics: dbPlan.plan_clinica?.map((pc: any) => pc.clinicas?.nombre).filter(Boolean).slice(0, 3) || [],
+        copago: dbPlan.tiene_copagos || false
+      };
+    }).filter(Boolean) as HomePlanData[];
+    
+    // Agregamos 'data' a las dependencias para que useMemo se dispare cuando cargue el Mock
+  }, [data, profile]);
+
+  // 4. HANDLERS
   const togglePlan = (planId: string) => {
-    setSelectedPlans((prev) => {
-      if (prev.includes(planId)) {
-        return prev.filter((id) => id !== planId);
-      }
-      if (prev.length >= 2) {
-        return [prev[1], planId]; // Replace oldest
-      }
-      return [...prev, planId];
-    });
+    setSelectedPlans(prev => 
+      prev.includes(planId) 
+        ? prev.filter(id => id !== planId) 
+        : (prev.length >= 2 ? [prev[1], planId] : [...prev, planId])
+    );
   };
 
-  // Auto-open modal when 2 plans selected
+  const selectedPlanData = selectedPlans
+    .map((id) => livePlans.find((p) => p.id === id))
+    .filter(Boolean) as HomePlanData[];
+
+  // 5. EFECTOS
   useEffect(() => {
     if (selectedPlans.length === 2) {
-      const timer = setTimeout(() => setShowModal(true), 300);
+      const timer = setTimeout(() => setShowModal(true), 400);
       return () => clearTimeout(timer);
     }
   }, [selectedPlans]);
 
-  const selectedPlanData = selectedPlans
-    .map((id) => SAMPLE_PLANS.find((p) => p.id === id))
-    .filter(Boolean) as HomePlanData[];
-
-  const handleWhatsApp = (planName?: string) => {
-    const message = planName
-      ? `Hola! Me interesa cotizar el plan ${planName}. ¿Podrían darme más información?`
-      : `Hola! Me interesa cotizar planes de salud. ¿Podrían ayudarme?`;
-    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-    window.open(url, "_blank");
-  };
-
-  const clearSelection = () => {
-    setSelectedPlans([]);
-    setShowModal(false);
-  };
+  if (isLoading) return (
+    <div className="py-20 text-center font-bold text-primary animate-pulse">
+      Cargando planes profesionales...
+    </div>
+  );
 
   return (
     <section className="py-20 bg-background relative overflow-hidden">
-      {/* Background effects */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-0 w-96 h-96 bg-primary/10 rounded-full filter blur-[100px] opacity-50" />
-        <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-accent/10 rounded-full filter blur-[100px] opacity-50" />
-      </div>
-
       <div className="container mx-auto px-4 relative z-10">
-        {/* Section header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-12"
-        >
-          <div className="inline-flex items-center gap-2 bg-primary/10 rounded-full px-4 py-2 mb-4">
+        <div className="text-center mb-12">
+          <div className="inline-flex items-center gap-2 bg-primary/10 rounded-full px-4 py-2 mb-6">
             <Sparkles className="w-4 h-4 text-primary" />
-            <span className="text-sm font-bold text-primary">PLANES DESTACADOS</span>
+            <span className="text-sm font-bold text-primary uppercase tracking-wider">
+              Cotización Real Instantánea
+            </span>
           </div>
-          <h2 className="text-3xl md:text-4xl font-black text-foreground mb-4">
-            Elegí <span className="text-gradient">2 planes</span> y compará
+          <h2 className="text-3xl md:text-5xl font-black text-foreground mb-4">
+            Elegí tu <span className="text-primary italic">Perfil</span>
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            Seleccioná dos planes para ver una batalla lado a lado. O cotizá directo por WhatsApp.
-          </p>
-        </motion.div>
 
-        {/* Plans grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-          {SAMPLE_PLANS.map((plan, index) => (
-            <HomePlanCard
-              key={plan.id}
-              plan={plan}
-              isSelected={selectedPlans.includes(plan.id)}
-              onSelect={() => togglePlan(plan.id)}
-              onWhatsApp={() => handleWhatsApp(plan.name)}
-              index={index}
-            />
-          ))}
+          {/* BOTONES DE PERFIL */}
+          <div className="flex flex-wrap justify-center gap-3 mt-8">
+            <Button 
+              variant={profile.edad1 === 18 && profile.hijos === 0 ? "default" : "outline"}
+              className="rounded-full shadow-sm"
+              onClick={() => setProfile({ edad1: 18, edad2: 0, hijos: 0, tipo: 'P' })}
+            >
+              <User className="mr-2 h-4 w-4" /> Soltero 18 años
+            </Button>
+            <Button 
+              variant={profile.hijos === 2 ? "default" : "outline"}
+              className="rounded-full shadow-sm"
+              onClick={() => setProfile({ edad1: 30, edad2: 30, hijos: 2, tipo: 'P' })}
+            >
+              <UsersIcon className="mr-2 h-4 w-4" /> Familia (2 hijos)
+            </Button>
+          </div>
         </div>
 
-        {/* Floating selection bar */}
+{/* GRILLA DE PLANES */}
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+  {livePlans.map((plan, index) => (
+    <HomePlanCard
+      key={plan.id}
+      plan={plan}
+      isSelected={selectedPlans.includes(plan.id)}
+      onSelect={() => togglePlan(plan.id)}
+      onWhatsApp={() => window.open(`https://wa.me/549...?text=Hola, quiero info del ${plan.name}`)} 
+      index={index}
+    />
+  ))}
+</div>
+
+        {/* BARRA FLOTANTE DE COMPARACIÓN */}
         <AnimatePresence>
           {selectedPlans.length > 0 && (
-            <motion.div
-              initial={{ y: 100, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              exit={{ y: 100, opacity: 0 }}
-              className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50"
+            <motion.div 
+              initial={{ y: 100, x: "-50%" }} 
+              animate={{ y: 0, x: "-50%" }} 
+              exit={{ y: 100, x: "-50%" }} 
+              className="fixed bottom-8 left-1/2 z-50 w-[90%] max-w-md"
             >
-              <div className="bg-card/95 backdrop-blur-lg border border-border rounded-2xl shadow-2xl p-4 flex items-center gap-4">
-                {/* Selected plans */}
-                <div className="flex items-center gap-3">
-                  {selectedPlanData.map((plan, idx) => (
-                    <motion.div
-                      key={plan.id}
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      className="relative"
-                    >
-                      <div className="w-12 h-12 bg-white rounded-xl p-1.5 shadow-md border border-border">
-                        <img
-                          src={`/assets/images/card-header/${plan.logo}`}
-                          alt={plan.empresa}
-                          className="w-full h-full object-contain"
-                        />
-                      </div>
-                      <button
-                        onClick={() => togglePlan(plan.id)}
-                        className="absolute -top-1 -right-1 w-5 h-5 bg-destructive text-destructive-foreground rounded-full flex items-center justify-center text-xs"
-                      >
-                        <X size={12} />
-                      </button>
-                    </motion.div>
-                  ))}
-
-                  {/* VS badge or empty slot */}
-                  {selectedPlans.length === 2 ? (
-                    <motion.div
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      className="w-10 h-10 rounded-full bg-gradient-to-br from-primary via-accent to-primary flex items-center justify-center"
-                    >
-                      <span className="text-sm font-black text-white">VS</span>
-                    </motion.div>
-                  ) : (
-                    <div className="w-12 h-12 rounded-xl border-2 border-dashed border-muted-foreground/30 flex items-center justify-center">
-                      <span className="text-muted-foreground text-lg">+</span>
+              <div className="bg-card/95 backdrop-blur-xl border border-primary/20 rounded-3xl shadow-2xl p-4 flex items-center justify-between">
+                <div className="flex -space-x-3">
+                  {selectedPlanData.map((p) => (
+                    <div key={p.id} className="w-10 h-10 rounded-full border-2 border-background bg-muted flex items-center justify-center overflow-hidden">
+                      <img src={p.logo} alt="" className="w-6 h-6 object-contain" />
                     </div>
-                  )}
+                  ))}
                 </div>
-
-                {/* Action button */}
-                <Button
-                  onClick={() => selectedPlans.length === 2 && setShowModal(true)}
-                  disabled={selectedPlans.length < 2}
-                  className={cn(
-                    "font-bold h-12 px-6 rounded-xl transition-all",
-                    selectedPlans.length === 2
-                      ? "bg-gradient-cta text-white shadow-lg"
-                      : "bg-muted text-muted-foreground"
-                  )}
+                
+                <Button 
+                  onClick={() => setShowModal(true)} 
+                  disabled={selectedPlans.length < 2} 
+                  className="font-bold rounded-xl bg-primary text-primary-foreground shadow-lg hover:scale-105 transition-transform"
                 >
                   <Scale className="w-4 h-4 mr-2" />
-                  {selectedPlans.length === 2 ? "¡Batalla!" : `${selectedPlans.length}/2 seleccionados`}
+                  {selectedPlans.length === 2 ? "¡Ver Comparativa!" : `${selectedPlans.length}/2 seleccionados`}
                 </Button>
-
-                {/* Clear button */}
-                <button
-                  onClick={clearSelection}
-                  className="text-xs text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  Limpiar
-                </button>
               </div>
             </motion.div>
           )}
         </AnimatePresence>
       </div>
 
-      {/* Comparison modal */}
       <HomeComparisonModal
         isOpen={showModal}
         onClose={() => setShowModal(false)}
         plans={selectedPlanData}
-        onWhatsApp={handleWhatsApp}
+        onWhatsApp={(name) => window.open(`https://wa.me/549...?text=Hola, comparé planes y me interesa el ${name}`)}
       />
     </section>
   );

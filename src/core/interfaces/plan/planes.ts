@@ -1,6 +1,8 @@
 
 import { Image } from './interfaces';
 import { Clinica } from './clinicas';
+import { PlanClinica } from './clinicas';
+import { PlanEmpresa } from './empresas';
 
 export interface HealthPlan {
     _id: string; // Coincide
@@ -46,4 +48,45 @@ export interface Attribute {
     attribute_name_order?: number | null; // Asegurar que acepte "" (string) o number
     display?: string;
     value?: string;
+}
+
+
+
+
+
+export interface Atributo {
+  id: string;
+  nombre: string;
+  valor: string;
+  categoria?: string;
+  icono?: string;
+}
+
+
+export interface PlanAtributo {
+  id: string;
+  plan_id: string;
+  atributo_id: string;
+  valor?: string;
+  atributos?: Atributo;
+}
+
+export interface Plan {
+  id: string;
+  nombre?: string;
+  nombre_plan?: string;
+  item_id?: string; // Opcional, si se usa
+  name?: string;
+  titulo?: string;
+  title?: string;
+  precio?: number;
+  price?: number;
+  descripcion?: string;
+  description?: string;
+  empresa_id?: string;
+  empresas?: PlanEmpresa;
+  plan_clinica?: PlanClinica[];
+  plan_atributo?: PlanAtributo[];
+  plan_clinicas?: PlanClinica[];
+  plan_atributos?: PlanAtributo[];
 }

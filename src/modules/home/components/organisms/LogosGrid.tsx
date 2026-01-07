@@ -1,10 +1,10 @@
 const BRANDS = [
-  { name: "Swiss Medical", logo: "/assets/images/card-header/swissmedical.webp" },
-  { name: "Galeno", logo: "/assets/images/card-header/galeno.webp" },
-  { name: "Osde", logo: "/assets/images/card-header/osde.png" },
-  { name: "Sancor", logo: "/assets/images/card-header/sancorsalud.webp" },
-  { name: "Omint", logo: "/assets/images/card-header/omint.webp" },
-  { name: "Medife", logo: "/assets/images/card-header/medife.webp" },
+  { name: "Swiss Medical", logo: "/assets/imagenes/card-header/swissmedical.webp" },
+  { name: "Galeno", logo: "/assets/imagenes/card-header/galeno.webp" },
+  { name: "Osde", logo: "/assets/imagenes/card-header/osde.png" },
+  { name: "Sancor", logo: "/assets/imagenes/card-header/sancorsalud.webp" },
+  { name: "Omint", logo: "/assets/imagenes/card-header/omint.webp" },
+  { name: "Medife", logo: "/assets/imagenes/card-header/medife.webp" },
 ];
 
 export const LogosGrid = () => {

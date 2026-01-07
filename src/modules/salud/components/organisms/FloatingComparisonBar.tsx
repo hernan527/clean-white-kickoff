@@ -43,7 +43,7 @@ export const FloatingComparisonBar = ({ plans, onCompare }: FloatingComparisonBa
                 >
                     {logoFile ? (
                         <img 
-                            src={`/assets/images/card-header/${logoFile}`} 
+                            src={`/assets/imagenes/card-header/${logoFile}`} 
                             alt={plan.empresa} 
                             className="w-full h-full object-contain p-1" 
                         />

@@ -50,3 +50,11 @@ export interface CoberturaInterface {
         id?: string;
     }[]; 
 }
+
+
+export interface PlanClinica {
+  id: string;
+  plan_id: string;
+  clinica_id: string;
+  clinicas?: Clinica;
+}

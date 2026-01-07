@@ -161,7 +161,7 @@ const PlanSlot = ({
       <div className="w-14 h-14 rounded-xl bg-white border border-border flex items-center justify-center p-1.5 shadow-md overflow-hidden">
         {logoFile ? (
           <img
-            src={`/assets/images/card-header/${logoFile}`}
+            src={`/assets/imagenes/card-header/${logoFile}`}
             alt={plan.empresa}
             className="w-full h-full object-contain"
           />

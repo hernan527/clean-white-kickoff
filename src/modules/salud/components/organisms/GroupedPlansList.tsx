@@ -66,7 +66,7 @@ const CompanyGroup = ({
           <div className="w-16 h-12 md:w-20 md:h-14 flex items-center justify-center bg-white rounded-xl p-2 border border-border/50 shadow-sm">
             {logoFile ? (
               <img
-                src={`/assets/images/card-header/${logoFile}`}
+                src={`/assets/imagenes/card-header/${logoFile}`}
                 alt={empresa}
                 className="max-h-full max-w-full object-contain"
               />

@@ -126,7 +126,7 @@ export const BattleHeroSection = ({ onQuoteClick }: BattleHeroSectionProps) => {
               >
                 <div className="w-16 h-16 md:w-20 md:h-20 mx-auto bg-white rounded-xl p-2 mb-4 shadow-md">
                   <img 
-                    src={`/assets/images/card-header/${pair.left.logo}`} 
+                    src={`/assets/imagenes/card-header/${pair.left.logo}`} 
                     alt={pair.left.name}
                     className="w-full h-full object-contain"
                   />
@@ -176,7 +176,7 @@ export const BattleHeroSection = ({ onQuoteClick }: BattleHeroSectionProps) => {
               >
                 <div className="w-16 h-16 md:w-20 md:h-20 mx-auto bg-white rounded-xl p-2 mb-4 shadow-md">
                   <img 
-                    src={`/assets/images/card-header/${pair.right.logo}`} 
+                    src={`/assets/imagenes/card-header/${pair.right.logo}`} 
                     alt={pair.right.name}
                     className="w-full h-full object-contain"
                   />

@@ -46,7 +46,7 @@ export const QuotePlanCard = ({ name, empresa, precio, isRecommended }: QuotePla
         <div className="flex items-center gap-4 mb-4">
             <div className="h-14 w-14 bg-white rounded-xl flex items-center justify-center p-2 border border-border/50 shadow-sm">
                 {logoFile ? (
-                    <img src={`/assets/images/card-header/${logoFile}`} alt={empresa} className="h-full w-full object-contain" />
+                    <img src={`/assets/imagenes/card-header/${logoFile}`} alt={empresa} className="h-full w-full object-contain" />
                 ) : (
                     <span className="font-bold text-muted-foreground text-xs">{empresa}</span>
                 )}

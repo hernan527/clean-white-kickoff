@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useRef, useCallback } from "react";
 import { Check, ShoppingCart } from "lucide-react";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
@@ -113,7 +114,7 @@ export const PlanCard = ({
         
         // Clone card content as mini card with logo
         const logoSrc = EMPRESA_LOGOS[plan.empresa] 
-          ? `/assets/images/card-header/${EMPRESA_LOGOS[plan.empresa]}`
+          ? `/assets/imagenes/card-header/${EMPRESA_LOGOS[plan.empresa]}`
           : null;
         
         clone.innerHTML = `
@@ -158,9 +159,10 @@ export const PlanCard = ({
             <div className="flex-1 min-w-0">
               <div className="flex flex-col gap-1">
                 <div className="flex justify-center">
-                  {EMPRESA_LOGOS[plan.empresa] ? <img src={`/assets/images/card-header/${EMPRESA_LOGOS[plan.empresa]}`} alt={plan.empresa} className="h-10 w-auto object-contain" /> : <span className="text-sm font-semibold text-foreground">{plan.empresa}</span>}
+                  {EMPRESA_LOGOS[plan.empresa] ? <img src={`${EMPRESA_LOGOS[plan.empresa]}`} alt={plan.empresa} className="h-10 w-auto object-contain" /> : <span className="text-sm font-semibold text-foreground">{plan.empresa}</span>}
                   
                 </div>
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 {(plan as any).nombre && <span className="text-sm font-medium text-muted-foreground">
                     {(plan as any).nombre}
                   </span>}

@@ -123,7 +123,7 @@ const BattlePlanCard = ({
         <div className="w-20 h-20 rounded-xl bg-white border border-border flex items-center justify-center p-2 shadow-sm">
           {logoFile ? (
             <img
-              src={`/assets/images/card-header/${logoFile}`}
+              src={`${logoFile}`}
               alt={plan.empresa}
               className="w-full h-full object-contain"
             />

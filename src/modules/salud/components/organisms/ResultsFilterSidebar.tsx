@@ -41,7 +41,7 @@ const providerLogoMap: Record<string, string> = {
 const getProviderLogo = (provider: string): string | null => {
   // Direct match
   if (providerLogoMap[provider]) {
-    return `/assets/images/card-header/${providerLogoMap[provider]}`;
+    return `/assets/imagenes/card-header/${providerLogoMap[provider]}`;
   }
   
   // Fuzzy match - check if provider name contains or is contained by a key
@@ -49,7 +49,7 @@ const getProviderLogo = (provider: string): string | null => {
   for (const [key, filename] of Object.entries(providerLogoMap)) {
     const normalizedKey = key.toLowerCase().replace(/\s+/g, '');
     if (normalizedProvider.includes(normalizedKey) || normalizedKey.includes(normalizedProvider)) {
-      return `/assets/images/card-header/${filename}`;
+      return `/assets/imagenes/card-header/${filename}`;
     }
   }
   
