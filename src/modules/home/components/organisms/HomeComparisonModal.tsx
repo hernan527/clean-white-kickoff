@@ -1,11 +1,12 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { X, MessageCircle, Trophy, Check, MapPin, Building2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
-import type { HomePlanData } from "./HomePlanCard";
-import { useState, useEffect, useMemo } from "react";
+import type { HomePlanData, ClinicData } from "./HomePlanCard";
+import { useMemo } from "react";
+import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 
 interface HomeComparisonModalProps {
   isOpen: boolean;
@@ -14,37 +15,57 @@ interface HomeComparisonModalProps {
   onWhatsApp: (planName: string) => void;
 }
 
+// Orden de regiones para mostrar
+const REGION_ORDER = ["CABA", "GBA Norte", "GBA Oeste", "GBA Sur", "Interior"];
+
 export const HomeComparisonModal = ({ isOpen, onClose, plans, onWhatsApp }: HomeComparisonModalProps) => {
   // 1. PRIMERO LOS HOOKS (SIEMPRE)
-  // Aunque plans esté vacío, el Hook se debe ejecutar
   const clinicsByZone = useMemo(() => {
     if (!plans || plans.length < 2) return {};
 
     const [planA, planB] = plans;
-    const zones: Record<string, { planA: string[], planB: string[] }> = {};
+    const zones: Record<string, { planA: ClinicData[], planB: ClinicData[] }> = {};
 
     const processPlan = (plan: HomePlanData, side: 'planA' | 'planB') => {
-      plan.clinics?.forEach((clinicName: string) => {
-        const zone = "Cobertura General"; 
+      // Usar clinicsData que tiene la info completa
+      const clinics = plan.clinicsData || [];
+      
+      clinics.forEach((clinic: ClinicData) => {
+        const zone = clinic.ubicaciones?.region || "Sin región";
         if (!zones[zone]) zones[zone] = { planA: [], planB: [] };
-        zones[zone][side].push(clinicName);
+        zones[zone][side].push(clinic);
       });
     };
 
     processPlan(planA, 'planA');
     processPlan(planB, 'planB');
-    return zones;
+    
+    // Ordenar las zonas según REGION_ORDER
+    const sortedZones: Record<string, { planA: ClinicData[], planB: ClinicData[] }> = {};
+    
+    REGION_ORDER.forEach(region => {
+      if (zones[region]) {
+        sortedZones[region] = zones[region];
+      }
+    });
+    
+    // Agregar regiones que no están en el orden predefinido
+    Object.keys(zones).forEach(region => {
+      if (!sortedZones[region]) {
+        sortedZones[region] = zones[region];
+      }
+    });
+    
+    return sortedZones;
   }, [plans]);
 
   // 2. RECIÉN AHORA EL RETURN TEMPRANO
-  // Si no hay suficientes planes, no mostramos nada, pero los Hooks ya corrieron
   if (!plans || plans.length < 2) return null;
 
   // 3. VARIABLES DE APOYO
   const [planA, planB] = plans;
   const cheaperPlan = planA.price <= planB.price ? "A" : "B";
 
- 
   const formatCurrency = (value: number) =>
     new Intl.NumberFormat("es-AR", { style: "currency", currency: "ARS", maximumFractionDigits: 0 }).format(value);
 
@@ -87,9 +108,17 @@ export const HomeComparisonModal = ({ isOpen, onClose, plans, onWhatsApp }: Home
     </div>
   );
 
+  // Contar clínicas por plan
+  const totalClinicsA = planA.clinicsData?.length || 0;
+  const totalClinicsB = planB.clinicsData?.length || 0;
+
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-3xl max-h-[95vh] md:max-h-[90vh] overflow-hidden p-0 bg-background border-border shadow-2xl">
+        <VisuallyHidden>
+          <DialogTitle>Comparación de Planes de Salud</DialogTitle>
+          <DialogDescription>Comparación detallada entre {planA.name} y {planB.name}</DialogDescription>
+        </VisuallyHidden>
         
         {/* Header Seccion */}
         <div className="p-6 border-b border-border bg-muted/20">
@@ -107,8 +136,12 @@ export const HomeComparisonModal = ({ isOpen, onClose, plans, onWhatsApp }: Home
         {/* Cuerpo con Tabs */}
         <Tabs defaultValue="beneficios" className="flex-1 flex flex-col overflow-hidden">
           <TabsList className="w-full justify-start px-6 pt-4 bg-transparent gap-4">
-            <TabsTrigger value="beneficios" className="font-black text-xs uppercase data-[state=active]:text-primary">Beneficios</TabsTrigger>
-            <TabsTrigger value="clinicas" className="font-black text-xs uppercase data-[state=active]:text-primary">Sanatorios</TabsTrigger>
+            <TabsTrigger value="beneficios" className="font-black text-xs uppercase data-[state=active]:text-primary">
+              Beneficios
+            </TabsTrigger>
+            <TabsTrigger value="clinicas" className="font-black text-xs uppercase data-[state=active]:text-primary">
+              Sanatorios ({totalClinicsA} vs {totalClinicsB})
+            </TabsTrigger>
           </TabsList>
 
           <div className="overflow-y-auto flex-1 px-6 py-4">
@@ -130,32 +163,76 @@ export const HomeComparisonModal = ({ isOpen, onClose, plans, onWhatsApp }: Home
             </TabsContent>
 
             <TabsContent value="clinicas" className="mt-0 outline-none">
-              {Object.entries(clinicsByZone).map(([zone, data]) => (
-                <div key={zone} className="mb-8">
-                  <div className="flex items-center gap-2 mb-4 border-l-4 border-primary pl-3">
-                    <h4 className="font-black text-foreground uppercase text-[10px] tracking-widest">{zone}</h4>
-                  </div>
-                  
-                  <div className="grid grid-cols-2 gap-6">
-                    <div className="space-y-2">
-                      {data.planA.map((clinic, idx) => (
-                        <div key={idx} className="flex items-start gap-2 text-[10px] bg-muted/40 rounded-lg p-2.5 border border-border/50">
-                          <Building2 className="w-3 h-3 text-primary shrink-0" />
-                          <span className="font-bold uppercase opacity-80">{clinic}</span>
-                        </div>
-                      ))}
-                    </div>
-                    <div className="space-y-2">
-                      {data.planB.map((clinic, idx) => (
-                        <div key={idx} className="flex items-start gap-2 text-[10px] bg-muted/40 rounded-lg p-2.5 border border-border/50">
-                          <Building2 className="w-3 h-3 text-primary shrink-0" />
-                          <span className="font-bold uppercase opacity-80">{clinic}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
+              {Object.keys(clinicsByZone).length === 0 ? (
+                <div className="text-center py-8 text-muted-foreground">
+                  <Building2 className="w-12 h-12 mx-auto mb-4 opacity-30" />
+                  <p className="text-sm">No hay información de clínicas disponible</p>
                 </div>
-              ))}
+              ) : (
+                Object.entries(clinicsByZone).map(([zone, data]) => (
+                  <div key={zone} className="mb-8">
+                    <div className="flex items-center gap-2 mb-4 border-l-4 border-primary pl-3">
+                      <MapPin className="w-4 h-4 text-primary" />
+                      <h4 className="font-black text-foreground uppercase text-xs tracking-widest">{zone}</h4>
+                      <span className="text-[10px] text-muted-foreground ml-auto">
+                        {data.planA.length} vs {data.planB.length}
+                      </span>
+                    </div>
+                    
+                    <div className="grid grid-cols-2 gap-4">
+                      {/* Plan A Clinics */}
+                      <div className="space-y-2">
+                        {data.planA.length === 0 ? (
+                          <div className="text-[10px] text-muted-foreground/50 italic p-2">
+                            Sin cobertura en esta zona
+                          </div>
+                        ) : (
+                          data.planA.map((clinic, idx) => (
+                            <div key={idx} className="flex items-start gap-2 text-[10px] bg-muted/40 rounded-lg p-2.5 border border-border/50">
+                              <Building2 className="w-3 h-3 text-primary shrink-0 mt-0.5" />
+                              <div className="flex flex-col">
+                                <span className="font-bold uppercase opacity-80 leading-tight">
+                                  {clinic.nombre_abreviado || clinic.nombre}
+                                </span>
+                                {clinic.ubicaciones?.barrio && (
+                                  <span className="text-muted-foreground text-[9px]">
+                                    {clinic.ubicaciones.barrio}
+                                  </span>
+                                )}
+                              </div>
+                            </div>
+                          ))
+                        )}
+                      </div>
+                      
+                      {/* Plan B Clinics */}
+                      <div className="space-y-2">
+                        {data.planB.length === 0 ? (
+                          <div className="text-[10px] text-muted-foreground/50 italic p-2">
+                            Sin cobertura en esta zona
+                          </div>
+                        ) : (
+                          data.planB.map((clinic, idx) => (
+                            <div key={idx} className="flex items-start gap-2 text-[10px] bg-muted/40 rounded-lg p-2.5 border border-border/50">
+                              <Building2 className="w-3 h-3 text-primary shrink-0 mt-0.5" />
+                              <div className="flex flex-col">
+                                <span className="font-bold uppercase opacity-80 leading-tight">
+                                  {clinic.nombre_abreviado || clinic.nombre}
+                                </span>
+                                {clinic.ubicaciones?.barrio && (
+                                  <span className="text-muted-foreground text-[9px]">
+                                    {clinic.ubicaciones.barrio}
+                                  </span>
+                                )}
+                              </div>
+                            </div>
+                          ))
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                ))
+              )}
             </TabsContent>
           </div>
         </Tabs>
