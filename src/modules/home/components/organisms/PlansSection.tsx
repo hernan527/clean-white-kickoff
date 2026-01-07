@@ -6,6 +6,7 @@ import { HomePlanCard, HomePlanData } from "./HomePlanCard";
 import { HomeComparisonModal } from "./HomeComparisonModal";
 import { useFetchAllPlans } from "@/modules/salud/hooks/useFetchAllPlans";
 import masterQuotes from '@/data/cotizaciones_maestras_rows.json';
+import { normalizeLogoPath } from "@/lib/supabase-helpers";
 
 export const PlansSection = () => {
   const [selectedPlans, setSelectedPlans] = useState<string[]>([]);
@@ -46,7 +47,8 @@ export const PlansSection = () => {
         item_id: dbPlan.item_id,
         name: dbPlan.nombre_plan || dbPlan.name,
         empresa: dbPlan.empresas?.nombre || "Empresa",
-        logo: dbPlan.empresas?.imagenes?.logo || "placeholder.png",        price: infoPrecio.precio,
+        logo: normalizeLogoPath(dbPlan.empresas?.imagenes?.logo || "/placeholder.svg"),
+        price: infoPrecio.precio,
         originalPrice: Math.round(infoPrecio.precio * 1.25),
         attributes: dbPlan.slogans || ["Cobertura Médica Premium"],
         // eslint-disable-next-line @typescript-eslint/no-explicit-any

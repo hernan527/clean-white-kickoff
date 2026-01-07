@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { MessageCircle, Scale, Check, Building2, Stethoscope, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { normalizeLogoPath } from "@/lib/supabase-helpers";
 
 // Rotating taglines for each plan
 const TAGLINES = [
@@ -86,7 +87,7 @@ export const HomePlanCard = ({ plan, isSelected, onSelect, onWhatsApp, index }: 
       <div className="h-20 flex items-center justify-center p-4 bg-muted/30 border-b border-border">
         <div className="bg-white rounded-xl p-2 shadow-sm border border-border/50 transition-transform group-hover:scale-110">
           <img
-            src={`/assets/imagenes/card-header/${plan.logo}`}
+            src={normalizeLogoPath(plan.logo)}
             alt={plan.empresa}
             className="h-10 w-auto object-contain"
           />
