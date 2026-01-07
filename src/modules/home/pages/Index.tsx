@@ -4,7 +4,7 @@ import { Helmet } from "react-helmet-async";
 import Layout from "@/layouts/Layout";
 
 // Importamos los Organismos
-import { HeroSection } from "../components/organisms/HeroSection";
+import { BattleHeroSection } from "../components/organisms/BattleHeroSection";
 import { LogosGrid } from "../components/organisms/LogosGrid";
 import { HowItWorks } from "../components/organisms/HowItWorks";
 import { FAQ } from "../components/organisms/FAQ";
@@ -13,7 +13,7 @@ import { Testimonials } from "../components/organisms/Testimonials";
 // Importamos el Cotizador (que está en modules/salud)
 import { FormQuote } from "@/modules/salud/components/organisms/FormQuote";
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Swords } from "lucide-react";
 import { QuoteFormData } from "@/core/interfaces/plan/quoteFormData";
 
 const STORAGE_KEY = 'last_cotizacion_form';
@@ -45,8 +45,8 @@ const Index = () => {
         onComplete={handleQuoteComplete}
       />
 
-      {/* 1. HERO (Video + Cotizador) */}
-      <HeroSection onQuoteClick={() => setFormOpen(true)} />
+      {/* 1. HERO BATTLE (Propuesta de valor principal) */}
+      <BattleHeroSection onQuoteClick={() => setFormOpen(true)} />
 
       {/* 2. LOGOS (Prueba Social) */}
       <LogosGrid />
@@ -80,7 +80,8 @@ const Index = () => {
                 onClick={() => setFormOpen(true)}
                 className="bg-gradient-cta hover:opacity-90 text-white font-bold h-16 px-10 rounded-full text-xl shadow-2xl neon-fuchsia transition-all hover:scale-105"
             >
-                Cotizar Gratis Ahora <ArrowRight className="ml-2" />
+                <Swords className="mr-2" />
+                Armar Mi Batalla <ArrowRight className="ml-2" />
             </Button>
           </div>
         </div>
