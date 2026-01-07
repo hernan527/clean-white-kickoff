@@ -4,3 +4,6 @@ export * from './HowItWorks';
 export * from './LogosGrid';
 export * from './Testimonials';
 export * from './FAQ';
+export * from './HomePlanCard';
+export * from './HomeComparisonModal';
+export * from './PlansSection';
