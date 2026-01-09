@@ -1,6 +1,7 @@
 import { Helmet } from "react-helmet-async";
 import Layout from "@/layouts/Layout";
-
+import masterPlanes from "@/data/planes_mock.json"; // Succionamos la data maestra
+// ... tus otros componentes (Hero, Search, etc)
 // Organismos del Home
 import { BattleHeroSection } from "../components/organisms/BattleHeroSection";
 import { PlansSection } from "../components/organisms/PlansSection";
@@ -17,13 +18,29 @@ const Index = () => {
   const handleWhatsApp = () => {
     const message = "Hola! Quiero comparar planes de salud y encontrar el mejor para mí.";
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, "_blank");
+  
   };
-
+// 1. Limpiamos las empresas para que el Meta Tag no sea infinito
+// Solo agarramos las primeras 10 para que Google no se atore
+const empresasArray = [...new Set(masterPlanes.planes.map(p => p.empresas.nombre))];
+const empresasShort = empresasArray.slice(0, 10).join(", ") + "...";
+const cantidadPlanes = masterPlanes.planes.length;
   return (
     <Layout>
       <Helmet>
-        <title>Vitalia | Comparador de Salud N°1 de Argentina</title>
-        <meta name="description" content="Encontrá tu plan de salud ideal. Compará precios y coberturas de las mejores prepagas." />
+<meta 
+        name="description" 
+        content={`Compará planes de ${empresasShort}. Precios actualizados 2025. ¡Ahorrá hasta un 30% derivando aportes!`} 
+      />
+      
+      {/* 📱 Open Graph (WhatsApp/Social) - Sin comentarios entre tags */}
+      <meta property="og:title" content="Vitalia: El Cotizador de Salud #1 de Argentina" />
+      <meta property="og:description" content="Encontrá tu plan de salud ideal entre miles de opciones. Simple y rápido." />
+      <meta property="og:image" content="https://tusitio.com/assets/imagenes/og-home.webp" />
+      <meta property="og:type" content="website" />
+      <meta property="og:url" content="https://tusitio.com" />
+      
+      <link rel="canonical" href="https://tusitio.com" />
       </Helmet>
 
       {/* 1. HERO BATTLE - Ahora lleva a WhatsApp */}
