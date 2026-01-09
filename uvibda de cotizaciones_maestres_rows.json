@@ -1,0 +1,2703 @@
+[33mcommit a3dfb7d076a40590a4cc1aa47a0b15fbbe074901[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: hernan527 <hernan527@gmail.com>
+Date:   Fri Jan 9 01:56:31 2026 -0300
+
+    conf/default.conf
+
+[33mcommit b351bf6c825003bddc21bd144b4eb653760d4b13[m
+Author: hernan527 <hernan527@gmail.com>
+Date:   Fri Jan 9 01:17:03 2026 -0300
+
+    quite la suvibda de cotizaciones_maestres_rows.json
+
+[33mcommit 4785abca3b3b339e7a0a1e9fbceb8d3c3416d72d[m
+Author: hernan527 <hernan527@gmail.com>
+Date:   Fri Jan 9 01:04:57 2026 -0300
+
+    version co barra lateral
+
+[33mcommit cd8c84ef3b9266d18032db5dd15e88c44cb708c7[m
+Merge: bb32628 e63895f
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Wed Jan 7 21:37:54 2026 +0000
+
+    Mostrar clínicas reales en modal
+    
+    Actualiza el modal de comparación para mostrar las clínicas asociadas a cada plan usando las relaciones del mock (plan_clinica y clinicas), agrupa por región real y ajusta componentes relacionados para consumir los datos completos. Incluye mejoras de accesibilidad con DialogTitle y utiliza usePlans para obtener clínicas.
+    
+    X-Lovable-Edit-ID: edt-ed84221a-b4f5-4c8f-94f6-6f6bbf05990f
+
+[33mcommit e63895fad5d9e3e472ec7519b2824d2f02d1ef4f[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Wed Jan 7 21:37:54 2026 +0000
+
+    Changes
+
+[33mcommit bb3262838b9682b9b4f032a47f75bd4daa6c12e0[m
+Merge: d16d314 d4e97b7
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Wed Jan 7 21:29:13 2026 +0000
+
+    Clean up legacy supabase data
+    
+    - Remove external Supabase usage and rely on mock data
+    - Centralize logo path handling with normalizeLogoPath helper
+    - Update components to use new logo helper and mock data sources
+    
+    X-Lovable-Edit-ID: edt-737e798a-114b-41f4-9f3f-b3ce7f654e3e
+
+[33mcommit d4e97b7a32e33e25615f2004bc23f2cf1557bc56[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Wed Jan 7 21:29:12 2026 +0000
+
+    Changes
+
+[33mcommit d16d3149ae910ecad83830b9b09921dd79c498fb[m
+Merge: a732c64 c55d229
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Wed Jan 7 21:22:40 2026 +0000
+
+    Add supabase config fixes
+    
+    Update environment and type layers to restore build
+    - Add new Supabase URLs/keys to .env
+    - Align supabase data source import to use local lib variant
+    - Fix deno.json compiler options for deno function runtime
+    
+    X-Lovable-Edit-ID: edt-8f0b09d7-f822-4b6e-94aa-7c6b6830ad0b
+
+[33mcommit c55d2292a625fe1ab79534f5cd17f46c767d27bd[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Wed Jan 7 21:22:40 2026 +0000
+
+    Changes
+
+[33mcommit a732c64b5f90aa92df985e5c030aa466e539cb23[m
+Author: hernan527 <hernan527@gmail.com>
+Date:   Wed Jan 7 15:47:16 2026 -0300
+
+    al nuevo lovebla
+
+[33mcommit 73df23110741b0bdcb89a091a6f8b98db8620616[m
+Merge: 48fe87b 164ef11
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Wed Jan 7 06:26:46 2026 +0000
+
+    Refocus landing to leads
+    
+    - Reworked home page to showcase plan cards with WhatsApp CTAs
+    - Removed logos section; added plan cards with rotating attributes, badges, and two-plan comparison modal
+    - Implemented HomePlanCard and HomeComparisonModal; integrated into Index with animated flows
+    - All actions route to WhatsApp for lead capture and simplified navigation
+    - Preserved existing /resultados page for now
+    
+    X-Lovable-Edit-ID: edt-9a3ef139-0a3f-487c-ac07-e8ef5020c802
+
+[33mcommit 164ef11c64a0d5419dfb5933a53dc9ef5a105c73[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Wed Jan 7 06:26:45 2026 +0000
+
+    Changes
+
+[33mcommit 48fe87bab32367553d80c49437a1a3e1a033ab62[m
+Merge: b4b83c5 827d423
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Wed Jan 7 06:09:47 2026 +0000
+
+    Revamp home lead capture
+    
+    Implement a battle-style comparison hero on the homepage to boost leads:
+    - Introduce BattleHeroSection for live clinic comparison visuals and animations
+    - Replace hero with lead-focused CTA and updated copy
+    - Add BattleHeroSection export and integrate in home index
+    - Update CTA text to encourage immediate quotes
+    - Remove older BattleHero references from home components as needed
+    
+    X-Lovable-Edit-ID: edt-8a7d8b1b-94da-4a31-83e7-fe9784257e76
+
+[33mcommit 827d42329d4c7eba54d24e82202c2dc61ee262e1[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Wed Jan 7 06:09:46 2026 +0000
+
+    Changes
+
+[33mcommit b4b83c5d175130e223da2b7257826a29c7196dab[m
+Merge: e7a7dd8 882d842
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Wed Jan 7 06:04:52 2026 +0000
+
+    Transform to Comparison Battle
+    
+    - Implemented new Comparison Battle module with up to 2 plans selection
+    - Added animated modal for side-by-side clinic comparison by zones
+    - Replaced previous battle flow with animated BattleModal and zone-based ClinicasContent
+    - Updated Resultados page to use new system and added related UI components and exports
+    
+    X-Lovable-Edit-ID: edt-4fa44b9e-cd3f-4e57-bb3e-5e9b636276a9
+
+[33mcommit 882d8425b9cea62ab3fe100a2528eaa30bcd9938[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Wed Jan 7 06:04:52 2026 +0000
+
+    Changes
+
+[33mcommit e7a7dd8aafbe9b76158f2d8de11c0bd99ffe9beb[m
+Merge: a749f3f 1845a2a
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 15 12:24:38 2025 +0000
+
+    Implement admin company module
+    
+    Add multi-tenant company management scaffolding: types, services, admin pages, and routes integration for managing companies and their members.
+    
+    X-Lovable-Edit-ID: edt-e0b996e7-9374-46ee-89f4-b32e24d8d65f
+
+[33mcommit 1845a2a57629225598d4dcc187837e9ecfdd021e[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 15 12:24:38 2025 +0000
+
+    Changes
+
+[33mcommit a749f3f7bbc543776053aab542dbf4dd81cd6707[m
+Merge: 4101206 604b668
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 15 04:13:19 2025 +0000
+
+    Asign admin rol y ajustar header
+    
+    - Otorga rol de admin al usuario con email hjernan.pro@gmail.com
+    - Actualiza header para mostrar texto/acciones de admin y cambiar botón “Soy asesor” a “Ingresar” cuando procede
+    - Ajusta lógica de reconocimiento de rol para dirigir a panel admin o dashboard vendedor según rol del usuario
+    
+    X-Lovable-Edit-ID: edt-62418ae7-94e2-40cc-a1c4-8423a5a62128
+
+[33mcommit 604b66894f1dfcf621f8386d79fcd83e338ff6b6[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 15 04:13:18 2025 +0000
+
+    Changes
+
+[33mcommit 4101206b7e283eea56cf1b5740c38b52fba888e8[m
+Merge: d15c5f0 d880351
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 15 04:08:29 2025 +0000
+
+    Add admin routes to App
+    
+    - Extend App.tsx with admin routes and integrate the new admin module
+    - Create activity tracking hook to log user interactions across the app
+    
+    X-Lovable-Edit-ID: edt-aa420c51-c1dc-41b2-84a6-2fabece714c9
+
+[33mcommit d8803512357a997fa289ebfce9cb283496921f72[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 15 04:08:28 2025 +0000
+
+    Changes
+
+[33mcommit d15c5f075cfb25bea5cc41a1de1cfdb103ed8d0d[m
+Merge: 6b78eff 00b6294
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 15 04:03:50 2025 +0000
+
+    Implement admin module
+    
+    - Create admin module scaffolding with CRUD services/types for empresas, clinicas, planes
+    - Build admin dashboard pages, layouts, and components for managing users, quotes, and activity
+    - Include image/file uploads, directions, specialties, and inline editing features
+    - Add auth guard and admin layout, plus basic analytics/users activity hooks and admin services integration
+    
+    X-Lovable-Edit-ID: edt-7520ba6a-a2d8-458b-b12e-1274d8456aac
+
+[33mcommit 00b6294ef0a3420af1199f23c544add4abde0cb3[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 15 04:03:50 2025 +0000
+
+    Changes
+
+[33mcommit 6b78eff68db6ca906c38df1818acd7824c0f7af4[m
+Merge: 013475d 46cba35
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 15 03:57:08 2025 +0000
+
+    Corregir vista admin segura
+    
+    Elimine la vista problemática de admin_dashboard_stats y agregué una función segura con SECURITY DEFINER para obtener estadísticas del dashboard (requiere rol de admin). Incluye verificación de permisos y estructura para retornar conteos de usuarios, vendedores y cotizaciones.
+    
+    X-Lovable-Edit-ID: edt-08c27ffd-ebf4-47f1-93e4-5ff74fb6ece4
+
+[33mcommit 46cba355b95b2c8a3e876909c6a14f50ff23f42c[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 15 03:57:07 2025 +0000
+
+    Changes
+
+[33mcommit 013475d237027e26f8a92213c2ee1bce966dfc0d[m
+Merge: 4b04a3f 41fc9a4
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 15 03:31:47 2025 +0000
+
+    Ajustar colores modo claro
+    
+    Corrige contraste en lista de comparación de clínicas para modo claro al usar tokens semánticos en ClinicasContent, ClinicasTable y ClinicaRow, evitando colores hardcodeados que desentonan con el tema.
+    
+    X-Lovable-Edit-ID: edt-ec42d99c-8ecd-4e0a-a95f-065f586acf68
+
+[33mcommit 41fc9a4263cdcd1da05cbfc3b78d9b2c8e1bc0f4[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 15 03:31:46 2025 +0000
+
+    Changes
+
+[33mcommit 4b04a3fe3841d5de420c2c0984b2e05373e06217[m
+Merge: 94c2b6e f6200e2
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 15 03:21:55 2025 +0000
+
+    Invitar a recotizar desde Ver Planes
+    
+    Ajusta el flujo para usuarios que ya cotizaron: al hacer clic en Ver Planes, se mostrará el modal de recuperación pero ahora invita a recotizar en lugar de continuar con datos anteriores. Incluye mensaje de bienvenida, muestra datos guardados y opciones para iniciar una nueva cotización o continuar, con estado de carga y visuales actualizados.
+    
+    X-Lovable-Edit-ID: edt-f0ac7744-d1d6-473a-8362-b80192936c41
+
+[33mcommit f6200e21a26656a7d038cded81f64119044a42b2[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 15 03:21:55 2025 +0000
+
+    Changes
+
+[33mcommit 94c2b6e978287509e5c29ebc8c3808eb2ed8a826[m
+Merge: 2ad668a db84b16
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 15 03:11:03 2025 +0000
+
+    Filtrar clínicas por intersección
+    
+    Ajusta el filtro de clínicas para que, al seleccionar varias, solo se muestren planes cubiertos por todas las clínicas seleccionadas. Implementa la intersección de listas de item_id (planes) por clínica y aplica en la filtración de healthPlans.
+    
+    X-Lovable-Edit-ID: edt-b426329f-9149-4efb-ac81-0a5aa62b143a
+
+[33mcommit db84b16ce854111f2dd62bf48bc0ddc7dd4e6d9e[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 15 03:11:03 2025 +0000
+
+    Changes
+
+[33mcommit 2ad668a14dd1caa2d5fdb5ef1ed8e51401c16d67[m
+Merge: 905102b 3c03bbd
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 15 03:09:19 2025 +0000
+
+    Transforma prepagas en badges
+    
+    - Reemplaza los checkboxes de las prepagas por badges apaisados con bordes curvados y logo a la izquierda, mostrando el nombre junto al logo.
+    - Ajusta el modo claro del hero para mejorar contraste y prepara el fondo con imágenes de familias y jóvenes al aire libre (enfoque de bienvenida/felicidad).
+    
+    X-Lovable-Edit-ID: edt-3e0f21ac-ac83-4da7-9d89-a007959fe853
+
+[33mcommit 3c03bbddd38cf3da181510c2c1d7540b10350355[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 15 03:09:19 2025 +0000
+
+    Changes
+
+[33mcommit 905102b89a47f663a302164c6c6e5fa6f6d8a5ce[m
+Merge: f482b86 c775b67
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 15 03:00:31 2025 +0000
+
+    Simplify dedup by item_id
+    
+    Use _id for deduplicating quotes; replace composite key with simple _id check in useCotizacion.ts.
+    
+    X-Lovable-Edit-ID: edt-1b86d027-8fe4-4f84-979e-ed4e3251f070
+
+[33mcommit c775b67ef62355108035f30da726f78ac4029a48[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 15 03:00:31 2025 +0000
+
+    Changes
+
+[33mcommit f482b86dcc7dd076e83cc810ff9e2179c6ce0db5[m
+Merge: db56617 56eb4cd
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 15 02:56:29 2025 +0000
+
+    Validate age and align results
+    
+    - Enforce partner age minimum 18 in FormQuote flow
+    - Scroll to top when navigating to results (align from HERO)
+    - Deduplicate repeated plans in cotizacion data to prevent duplicates
+    
+    X-Lovable-Edit-ID: edt-71ae3ed3-3339-42bc-88e4-188cbc72a9e2
+
+[33mcommit 56eb4cde0a1623e713edeac3deda37950a340287[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 15 02:56:29 2025 +0000
+
+    Changes
+
+[33mcommit db566178d7f30d1ab7dfc84056aeec644a0ce316[m
+Merge: db83c2e e84706d
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 15 02:44:14 2025 +0000
+
+    Ajusta cotización y edad
+    
+    - Set partner minimum age to 18 (start at 18 when 0) and increment thereafter
+    - Make recovery modal friendly: show welcome state without blocking interaction; trigger fetch only on user confirmation
+    
+    X-Lovable-Edit-ID: edt-c736fb71-24ff-4502-8b85-80381f3c7ce3
+
+[33mcommit e84706dc04c28b1dd76360c97579d93d00a4b1b6[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 15 02:44:13 2025 +0000
+
+    Changes
+
+[33mcommit db83c2e6c0f76bca10c458908bbbf5a3ac33ad94[m
+Merge: df1f286 22a5894
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 15 02:29:19 2025 +0000
+
+    Deduplicate cotizacion planes
+    
+    Prevent duplicate plan entries in cotizacion results by deduplicating by _id when fetching quotes; ensure state replaces previous data instead of accumulating.
+    
+    X-Lovable-Edit-ID: edt-e82e68f4-b56e-466d-a20d-fc37a9ca91dd
+
+[33mcommit 22a589442831aecd8563ce7b0d85aefc2eb1519e[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 15 02:29:18 2025 +0000
+
+    Changes
+
+[33mcommit df1f286e08ea030216280d7960641c4533a69600[m
+Merge: 7ef8b3c fe0e2b3
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 15 02:23:40 2025 +0000
+
+    Asegurar cotización desde modal
+    
+    Sinopsis:
+    - Arregla flujo de recotización desde la página de resultados para que, al enviar el FormQuote desde el modal, realmente dispare la acción de cotización y la lista entre en estado de cargando (loading). Incluye ejecución de fetchCotizacion tras completar el formulario y manejo adecuado de onComplete para disparar la cotización en lugar de solo mostrar un toast.
+    
+    X-Lovable-Edit-ID: edt-32770072-5730-40f9-b790-4ff8c115a542
+
+[33mcommit fe0e2b354bbb965ef93831246042aa6a62a7fc71[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 15 02:23:39 2025 +0000
+
+    Changes
+
+[33mcommit 7ef8b3c589eae588dd80a53ec1c312dc044a34ed[m
+Merge: c283048 9094973
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 15 02:16:35 2025 +0000
+
+    Colocar filtro a la izquierda
+    
+    Ajusta el botón de filtros para mostrarse en la izquierda (left-6) en móviles, reemplazando la posición previa a la derecha. mantiene visibilidad solo en dispositivos pequeños y conserva estilos y comportamiento del drawer.
+    
+    X-Lovable-Edit-ID: edt-90d60a38-f461-4b72-ab0f-1dfd24e015e6
+
+[33mcommit 909497356d3fa815e62b3e4af048a5a9991d6a50[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 15 02:16:35 2025 +0000
+
+    Changes
+
+[33mcommit c2830487622de0cd982383ae544247a4451e5e9f[m
+Merge: f6e08d6 2f3d15e
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 15 02:14:41 2025 +0000
+
+    Add mobile filter button
+    
+    Make the filter toggle button visible only on mobile in ResultadosPage, using a floating action style to invite users to open the filter sidebar.
+    
+    X-Lovable-Edit-ID: edt-6f30d76c-0049-4928-91c0-9ce7eacf11f7
+
+[33mcommit 2f3d15eacfd8674e3ef4cf6ae2f62c8ac07f6af9[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 15 02:14:41 2025 +0000
+
+    Changes
+
+[33mcommit f6e08d674b1ee4590b803cb42ca4d44eabac8ceb[m
+Merge: 0d7da24 fa218c6
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sun Dec 14 23:52:42 2025 +0000
+
+    Fix quote form mapping
+    
+    Map modal quote type to server-compatible values (P/D) and ensure onComplete sends correct data to results flow, adding loading skeleton flow for quotes.
+    
+    X-Lovable-Edit-ID: edt-afc56681-8566-4d5e-bad0-bbd264623c3d
+
+[33mcommit fa218c65f77f14b9ec04509f685f00a7e912331d[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sun Dec 14 23:52:41 2025 +0000
+
+    Changes
+
+[33mcommit 0d7da24a26fb3e164ff4b23f0478e508cde83949[m
+Merge: 244c36a 93e1b2e
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sun Dec 14 23:40:38 2025 +0000
+
+    Mover filtro flotante
+    
+    Move the mobile filter floating button out of ResultsHeaderBar to the layout root to ensure fixed positioning works correctly and remains visible on mobile. Adjustments ensure the filter icon sidebar toggle remains functional on resultados.
+    
+    X-Lovable-Edit-ID: edt-912b2835-1987-456e-9a8c-7fc8a3ccb4a0
+
+[33mcommit 93e1b2ec91437fead61e141a29d457bbd5e68450[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sun Dec 14 23:40:38 2025 +0000
+
+    Changes
+
+[33mcommit 244c36a5d18d91a41b5e28fdd0d03057d11b217b[m
+Merge: 0626583 a7248f2
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sun Dec 14 23:38:33 2025 +0000
+
+    Integrate quote modal flow
+    
+    Conecta el modal de cotización FormQuote con la página de resultados:
+    - Al completar el formulario, navega a /resultados.
+    - Cierra el modal una vez que se carguen los planes en la página de resultados.
+    - Se prepara el onComplete para disparar la navegación y la carga de cotización.
+    
+    X-Lovable-Edit-ID: edt-34a5944d-2f09-42bd-ab08-1dd08ffcaf63
+
+[33mcommit a7248f26764a166bd4747fbe65e4293eda953599[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sun Dec 14 23:38:33 2025 +0000
+
+    Changes
+
+[33mcommit 06265839efce294703942f199109a32d499d4a63[m
+Merge: 71327f5 5187673
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sun Dec 14 23:35:58 2025 +0000
+
+    Ajustar logos y contraste
+    
+    Mejorar logos de empresas en tarjetas de planes: añadir fondo blanco a logos, aumentar contraste de tarjetas y adaptar para fondo oscuro, manteniendo consistencia en modo claro/duro.
+    
+    X-Lovable-Edit-ID: edt-8acc451d-3b2d-4523-a9f1-e3f96a50f75c
+
+[33mcommit 5187673658ae4cec714cbf1f6cfa705f3e43e521[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sun Dec 14 23:35:57 2025 +0000
+
+    Changes
+
+[33mcommit 71327f52089cd604ec5609c84817de9b8d5cb985[m
+Merge: e027888 086f25c
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sun Dec 14 23:30:37 2025 +0000
+
+    Mejorar FormQuote modal
+    
+    Ajusta el modal de cotización para:
+    - ocultar las otras tres opciones al seleccionar un tipo de grupo familiar y mostrar nuevamente las cuatro al hacer clic en la opción ya elegida
+    - mejorar contraste de iconos y líneas de familias y corregir hover al nuevo design system
+    - aplicar tokens semánticos y estilos actuales en todos los botones/inputs del modal
+    
+    X-Lovable-Edit-ID: edt-eb79b6af-a4b3-482a-bb92-a23888b8db26
+
+[33mcommit 086f25c92bade94f228048ae28d5a3e68ba6630e[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sun Dec 14 23:30:37 2025 +0000
+
+    Changes
+
+[33mcommit e0278881cc1e2dc438256423d60389c5db2dbf28[m
+Merge: 9f0ecf8 f0e6a87
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sun Dec 14 22:53:30 2025 +0000
+
+    Agrupar planes por empresa
+    
+    Implementa nuevo diseño de lista de planes agrupados por empresa con tarjetas expansibles (mini-cards) en versión escritorio y vista compacta en pantallas angostas. Se añade estructura para expandir por empresa, mostrar logo, nombre y precio mínimo, y detalles ampliables; prepara para integración con nuevo modo de visualización y mantiene compatibilidad con funcionalidades de comparación.
+    
+    X-Lovable-Edit-ID: edt-2c04cfc9-9d32-4498-92e7-845eb95709b5
+
+[33mcommit f0e6a874f8de835a2317f097e9b3e94d3a3f9d7e[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sun Dec 14 22:53:29 2025 +0000
+
+    Changes
+
+[33mcommit 9f0ecf80e1aaf19d6197c74fae634fb109e7541f[m
+Merge: 9178750 e3b77f8
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sun Dec 14 21:51:30 2025 +0000
+
+    Implement dual theme support
+    
+    Add dark and light modes with a theme toggle in header, update layout/auth components to use semantic tokens, and ensure semantic styling works across pages (Resultados/Comparison) with glassmorphism.
+    
+    X-Lovable-Edit-ID: edt-9b73cb30-1036-4fe5-a7c0-1df1e74da502
+
+[33mcommit e3b77f88c3212fd81f949fe724b10cdc52785507[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sun Dec 14 21:51:29 2025 +0000
+
+    Changes
+
+[33mcommit 9178750e041244734d2da2e7073d356ee56277e1[m
+Merge: af59720 7616a6a
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sun Dec 14 21:45:20 2025 +0000
+
+    Mejorar auth y contraste
+    
+    Actualizar páginas de autenticación al estilo glassmorphism oscuro, corregir contraste de inputs white-on-white, y ajustar breadcrumbs y modales para lectura. Implementar entrada de color adecuada en inputs y mantener modales con buen contraste.
+    
+    X-Lovable-Edit-ID: edt-8f0473c3-3d24-4e2c-add7-6f7d464f5cb5
+
+[33mcommit 7616a6a567532bde987016d5f45d6abacf3a35b8[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sun Dec 14 21:45:20 2025 +0000
+
+    Changes
+
+[33mcommit af59720d130a8073650f0178451a2b813ce6bcae[m
+Merge: d109db3 2404379
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sun Dec 14 21:30:31 2025 +0000
+
+    Limitar comparación a 3
+    
+    Reduce el límite de elementos para comparar de 4 a 3 y oculta el botón Añadir Plan cuando ya haya 3 seleccionados en la página de resultados/Comparación. Se ajusta la lógica en ResultadosPage.tsx y se aplica la condicion de visibilidad en ComparisonPage.tsx para reflejar el nuevo tope.
+    
+    X-Lovable-Edit-ID: edt-b4f14abc-e244-413c-be10-ab93861294e6
+
+[33mcommit 240437950f0710287557538e9503784bfc0c77ef[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sun Dec 14 21:30:31 2025 +0000
+
+    Changes
+
+[33mcommit d109db3938670477503c75d437dab3217ed50cf5[m
+Merge: 90136d1 6840658
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sun Dec 14 21:29:29 2025 +0000
+
+    Extender glassmorphism
+    
+    Propaga el estilo Modern Dark Glassmorphism a la página de comparación y sus componentes, ajustando Layout, Header, Footer y CTA para consistencia visual, y actualizar el contenido de Comparación para usar clústeres de clínicas y tarjetas con efectos glass.
+    
+    X-Lovable-Edit-ID: edt-189f14cb-adcc-4a1c-a77c-ca4092cc6743
+
+[33mcommit 684065897d303546635682b9e9eb8587b0f10144[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sun Dec 14 21:29:29 2025 +0000
+
+    Changes
+
+[33mcommit 90136d1ec43a7ccd2c7b5466ded170dd62638449[m
+Merge: 13daff7 f64b94e
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sun Dec 14 21:22:26 2025 +0000
+
+    Fix clinics data load
+    
+    Reproduce:
+    - Investigated why clinics list not loading on Comparativa page.
+    - Reviewed console logs and ComparisonPage/ClinicasContent rendering.
+    - Prepared adjustments to ensure ClinicasContent receives and renders clinic data properly in the comparison view.
+    
+    X-Lovable-Edit-ID: edt-6d005ea1-4c11-4d1c-a3c4-d26cb8004e14
+
+[33mcommit f64b94ef534363fd5f3e78c9316b5663daeefe0f[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sun Dec 14 21:22:25 2025 +0000
+
+    Changes
+
+[33mcommit 13daff7ce2152d00466df1894de999889433ca5f[m
+Merge: 594d7a2 a79482e
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sun Dec 14 21:12:46 2025 +0000
+
+    Apply Modern Dark Glassmorphism
+    
+    Implement visual style using Tailwind CSS with Glassmorphism (frosted cards), neon accents, and ambient blob animations. Add CSS variables and Tailwind config for dark theme, introduce animated blobs and glass utilities, and update HeroSection, Index, Clinica components to showcase the new SaaS Dark Mode design.
+    
+    X-Lovable-Edit-ID: edt-dd00107a-83ab-4c8b-b71e-9ffceace1128
+
+[33mcommit a79482ec8443201f95a72ef5b888dff07994f6a9[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sun Dec 14 21:12:46 2025 +0000
+
+    Changes
+
+[33mcommit 594d7a2b325029d8a45a48a37ae689d85fabb92e[m
+Author: hernan527 <hernan527@gmail.com>
+Date:   Thu Dec 11 11:58:02 2025 -0300
+
+    dsdsf
+
+[33mcommit 39fd01c446b1b281eebdc287b89b8b73d0c213ac[m
+Author: hernan527 <hernan527@gmail.com>
+Date:   Thu Dec 11 09:29:47 2025 -0300
+
+    home editaDA
+
+[33mcommit a0cf780e0df9e4e4fb6db9d1c968abd6d9daf616[m
+Author: hernan527 <hernan527@gmail.com>
+Date:   Thu Dec 11 07:33:51 2025 -0300
+
+    cotizacion
+
+[33mcommit 4c95619e525304a0bf0ea076e16630b927037ff6[m
+Author: hernan527 <hernan527@gmail.com>
+Date:   Thu Dec 11 06:54:08 2025 -0300
+
+    primera actualizacion, lefo que gemini 3
+
+[33mcommit 3b34fdd84b9e490d43fb64b277f9e784e0956428[m
+Merge: 93639f1 4e088b8
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Tue Dec 9 15:40:14 2025 +0000
+
+    Mejorar animación fly-to-cart
+    
+    Añade una animación de arrojar al carrito con progresiva transparencia y reducción de tamaño desde el primer plan agregado, proporcionando un efecto de movimiento más dinámico y suave hacia el carrito. Ajustes en PlanCard.tsx y Tailwind para soporte de nuevas keyframes y lógica de clonación/animación.
+    
+    X-Lovable-Edit-ID: edt-7bf812c1-29cf-4cf8-a5f5-96ec70312b4c
+
+[33mcommit 4e088b82d7302952778bcb88fb3f1f1bdf0d6da3[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Tue Dec 9 15:40:14 2025 +0000
+
+    Changes
+
+[33mcommit 93639f1241452a4247cc9baea0927ae9a23c747b[m
+Merge: 85fcb03 7924c51
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Tue Dec 9 15:36:32 2025 +0000
+
+    Add compare button and animation
+    
+    Implement a subtle bottom-left Compare/Added button on PlanCard and add a fly-to-cart animation keyframes in tailwind.config.ts to support the cart transition when adding a plan to comparison.
+    
+    X-Lovable-Edit-ID: edt-d0fb6738-3d81-4350-abbc-30ecf2652fd8
+
+[33mcommit 7924c5121f4b53ff7f16aaf6b1960d5668981e13[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Tue Dec 9 15:36:32 2025 +0000
+
+    Changes
+
+[33mcommit 85fcb036976ad9577ba1edd19174a523dfd2048f[m
+Merge: 7538256 f7a7d88
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Tue Dec 9 15:29:21 2025 +0000
+
+    Show logo in modal header
+    
+    - Replace dialog title text with the company logo in PlanDetailsModal header, using the same EMPRESA_LOGOS mapping from PlanCard to display the corresponding logo image. Ensure logo appears centered and sized consistently with card.
+    
+    X-Lovable-Edit-ID: edt-e430bc6e-51c1-4941-8073-04d7b5787ceb
+
+[33mcommit f7a7d888e44e0b5148a3f6d7a62989f02271b5cb[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Tue Dec 9 15:29:21 2025 +0000
+
+    Changes
+
+[33mcommit 75382565726107f13fa09dbf166706b16b8fa490[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Tue Dec 9 15:22:28 2025 +0000
+
+    Visual edit in Lovable
+    
+    Edited UI in Lovable
+
+[33mcommit 23363877f4af9b67224f205c81e62533b46a355d[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Tue Dec 9 13:07:03 2025 +0000
+
+    Visual edit in Lovable
+    
+    Edited UI in Lovable
+
+[33mcommit 8bb895650a96ff3a2f959ac24d0f23d76aa3a37b[m
+Merge: 5789041 163b10b
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Tue Dec 9 13:01:38 2025 +0000
+
+    Agrandar y centrar logo
+    
+    Ajusta el tamaño de la imagen del logo en PlanCard.tsx (de h-6 a h-12) y centra su posición para mejorar visibilidad del logo de la empresa en las tarjetas de planes.
+    
+    X-Lovable-Edit-ID: edt-494ff4db-b17c-47b3-93d1-e9b379962d6f
+
+[33mcommit 163b10b8a5317ef20ef691192fbc2fbb10edcfdb[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Tue Dec 9 13:01:38 2025 +0000
+
+    Changes
+
+[33mcommit 578904100a20d1fa03084cd65a006b1acfe341db[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Tue Dec 9 13:00:32 2025 +0000
+
+    Visual edit in Lovable
+    
+    Edited UI in Lovable
+
+[33mcommit fedef3d5e6b20881bafd1548f563b59fba650e8e[m
+Merge: 145ea06 0cb3898
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Tue Dec 9 12:53:39 2025 +0000
+
+    Ajusta nombre de plan a SMG50
+    
+    Mejoro lógica para eliminar prefijo de empresa del nombre del plan y mostrar solo SMG50, manejando variaciones como SwissMedical, Swiss Medical, Swiss-Medical, etc. Actualizado PlanCard.tsx con expresión regular para limpiar prefijo de empresa en plan.name.
+    
+    X-Lovable-Edit-ID: edt-a190c68d-6b41-4d4e-8195-6b4776193ca4
+
+[33mcommit 0cb38987660527a3898a9db0a1c4385b6e59ffea[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Tue Dec 9 12:53:38 2025 +0000
+
+    Changes
+
+[33mcommit 145ea06689df5e065c6951d28ed19c758928683d[m
+Merge: efa6a42 ad46dc0
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Tue Dec 9 12:52:07 2025 +0000
+
+    Mostrar solo nombre del plan
+    
+    Ajusta PlanCard para presentar únicamente la parte del nombre del plan sin el prefijo de la empresa:
+    - En CardTitle, renderizar plan.name con eliminación del prefijo plan.empresa y guiones, dejando solo el nombre del plan.
+    - Mantiene la lógica de mostrar logo si existe, y fallback al nombre limpio cuando no hay logo.
+    
+    X-Lovable-Edit-ID: edt-2c00c4af-385e-46fb-9108-786b9d91388c
+
+[33mcommit ad46dc080511bba80c9c30d2f143ca8c620ca37d[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Tue Dec 9 12:52:07 2025 +0000
+
+    Changes
+
+[33mcommit efa6a42020145fcd86ee88c107c77cbec783e95e[m
+Merge: 823305c 0f4fa4d
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Tue Dec 9 12:49:46 2025 +0000
+
+    Mostrar nombre debajo del logo
+    
+    Añade plan.nombre (opcional) debajo del logo de la empresa en PlanCard.tsx, para que pueda mostrarse junto al nombre del plan. Se mantiene como campo opcional para no romper datos existentes.
+    
+    X-Lovable-Edit-ID: edt-562648ad-3b8b-474a-9722-8a01dee4660f
+
+[33mcommit 0f4fa4db63686ae683b56661df1620b9d02013f6[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Tue Dec 9 12:49:45 2025 +0000
+
+    Changes
+
+[33mcommit 823305cdda2274c8ec451206b0378be44dc219a3[m
+Merge: e0bf6ca 0cda192
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Tue Dec 9 12:37:40 2025 +0000
+
+    Show logo then name
+    
+    Mostrar logo de empresa y nombre debajo
+    
+    - Ajusta PlanCard para que el logo de la empresa aparezca primero y el nombre del plan se renderice debajo del logo.
+    - Mantiene la estructura existente del header, colocando la etiqueta del logo above y el nombre del plan en una línea separada debajo.
+    - Reemplaza texto de empresa por imagen cuando existe logo en EMPRESA_LOGOS; si no hay logo, muestra el nombre.
+    
+    X-Lovable-Edit-ID: edt-1ac3eb29-44fa-4b0a-b16a-4f714d12407b
+
+[33mcommit 0cda1925d6c734a10980109ac0f9b925a4b29016[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Tue Dec 9 12:37:40 2025 +0000
+
+    Changes
+
+[33mcommit e0bf6cabafed4170dbb7a75ae65b626cbcb8e95e[m
+Merge: da9a823 8eff67b
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Tue Dec 9 12:35:40 2025 +0000
+
+    Reemplazar empresa por logo
+    
+    Mapea el nombre de la empresa a su logo correspondiente y muestra la imagen en PlanCard en lugar del texto plano de plan. Se añade un mapeo EMPRESA_LOGOS y se renderiza la imagen adecuada según la empresa.
+    
+    X-Lovable-Edit-ID: edt-44824493-3c0c-4621-8979-463dea78c2fa
+
+[33mcommit 8eff67b7660abbfc50f33669389756d996f0b1b0[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Tue Dec 9 12:35:39 2025 +0000
+
+    Changes
+
+[33mcommit da9a8231b4bd1731c336883f81a9b88fd54dea1f[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Tue Dec 9 12:33:46 2025 +0000
+
+    Visual edit in Lovable
+    
+    Edited UI in Lovable
+
+[33mcommit ee171e62f386fe04c38f4ea506e41ccc3e823622[m
+Merge: 507664d c1fcb12
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Tue Dec 9 11:16:55 2025 +0000
+
+    Show loading on quote modal
+    
+    - Ensure QuoteRecoveryModal reflects loading state when cotizacion is being fetched
+    - Wire recoveryDataLoading from useCotizacion into modal to display a loading indicator immediately as the quote loads
+    - Adjust QuoteRecoveryModal to display loading state from open + isLoading and propagate to UI accordingly
+    
+    X-Lovable-Edit-ID: edt-0192010d-7d69-4ea5-83cd-d065b34d9417
+
+[33mcommit c1fcb12848abd4505fe2f3bbba11a567363e3c8f[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Tue Dec 9 11:16:55 2025 +0000
+
+    Changes
+
+[33mcommit 507664dcb95e0284644c35e50892a00c4e9878d3[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Tue Dec 9 11:05:40 2025 +0000
+
+    Visual edit in Lovable
+    
+    Edited UI in Lovable
+
+[33mcommit f9da9843f6cca94958cd9ae4e1d32583eb7ad386[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Tue Dec 9 11:04:19 2025 +0000
+
+    Visual edit in Lovable
+    
+    Edited UI in Lovable
+
+[33mcommit 004e0b47644c499e51356adb4fe0d17dca68219e[m
+Merge: b86cfa1 54755ad
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Tue Dec 9 10:57:59 2025 +0000
+
+    Place sticky CTA under header
+    
+    Implement sticky sticky quote CTA positioned debajo del navbar, not at top. Adjust styles to sit below header height (top offset dynamic) to ensure it remains visible below navigation.
+    
+    X-Lovable-Edit-ID: edt-fb91fcf4-0daf-4cde-a74b-4d7045cb38e8
+
+[33mcommit 54755adee56463ceec477253069581c65e31cbc1[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Tue Dec 9 10:57:59 2025 +0000
+
+    Changes
+
+[33mcommit b86cfa108aa9ccff1ac940fecf8fdbcc6f5944c4[m
+Merge: 38a5d41 baa3a01
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Tue Dec 9 10:55:43 2025 +0000
+
+    Add sticky CTA button
+    
+    Implement a full-width, sticky CTA button under the hero to initiate plan quotes, organized as a new StickyQuoteCTA component and integrated into ResultadosPage. Maintains current styles and colors.
+    
+    X-Lovable-Edit-ID: edt-9e48be9d-f5a5-405e-8d1b-b6f0d3dd3f6c
+
+[33mcommit baa3a0145a8291843b67e6321ee156b45b4a2962[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Tue Dec 9 10:55:42 2025 +0000
+
+    Changes
+
+[33mcommit 38a5d41c538c516978e2d1b44cc9fd8e942d9e30[m
+Merge: 257fe70 c5fbf77
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Tue Dec 9 10:39:34 2025 +0000
+
+    Automate quote fetch on open
+    
+    Improve quote flow:
+    - Auto-fetch cotización data when opening the recovery modal from home
+    - Pre-fill and mask contact data; cache quote code to load from DB or session
+    - Simplify Step 3 with single “Editar datos” button
+    - Hide step indicators after quote generation and auto-close after a delay or on results load
+    
+    X-Lovable-Edit-ID: edt-a33a2d3e-2e91-4bb0-a4a5-f9a9b0b45465
+
+[33mcommit c5fbf770f8ebb3341f1ad8e9d1bc16348455a60a[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Tue Dec 9 10:39:34 2025 +0000
+
+    Changes
+
+[33mcommit 257fe706b26757984309148896fbc421182699a5[m
+Merge: 5a43619 700f5ad
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Tue Dec 9 00:36:46 2025 +0000
+
+    Redesign health plan cards
+    
+    Improve UI: remove redundant logos, reorganize cards, add prominent clinic search header with magnifier, and align layout to reference design for better clarity and contrast.
+    
+    X-Lovable-Edit-ID: edt-54245242-8e84-4f4c-97b6-2fd373ef42fa
+
+[33mcommit 700f5ad8eee9be8835a751d40685cddfdf8c1228[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Tue Dec 9 00:36:46 2025 +0000
+
+    Changes
+
+[33mcommit 5a436199a61a069b827b70a042f4a007af41a65d[m
+Merge: a2e0d84 11332e9
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Tue Dec 9 00:12:41 2025 +0000
+
+    Compact plan card
+    
+    Make the PlanCard more compact and move the "Comparar" button to the top area of the card.
+    
+    X-Lovable-Edit-ID: edt-f91b4dca-5c1d-474f-b76e-bcb99b212f66
+
+[33mcommit 11332e96694ef942f88655cac1c153bc0c1374b7[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Tue Dec 9 00:12:41 2025 +0000
+
+    Changes
+
+[33mcommit a2e0d84281c10a8e631b21ad1adf2534dbcb0c56[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Tue Dec 9 00:08:08 2025 +0000
+
+    Visual edit in Lovable
+    
+    Edited UI in Lovable
+
+[33mcommit 731152d44cd46e68fafb9acb41acf5ab84c74edf[m
+Merge: 2a6a7b3 05d0ed3
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Tue Dec 9 00:03:39 2025 +0000
+
+    Reduce plan card image size
+    
+    Lowered the logo image height by half from max-h-12 to max-h-6 in PlanCard.tsx to shrink the logo display.
+    
+    X-Lovable-Edit-ID: edt-cd80d16f-0968-4433-b807-3a6c7039a849
+
+[33mcommit 05d0ed37eb3766ee9c81d0810efec1507309a56d[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Tue Dec 9 00:03:37 2025 +0000
+
+    Changes
+
+[33mcommit 2a6a7b348fad95a0cec04dadcd71ad9a57b9d789[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 8 23:59:59 2025 +0000
+
+    Applied theme Harvest
+    
+    Applied theme in Lovable
+
+[33mcommit 627c3e01237e4b392f18026af877fa3d6a977481[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 8 23:43:59 2025 +0000
+
+    Visual edit in Lovable
+    
+    Edited UI in Lovable
+
+[33mcommit cc97e7c1b1d14915096ceb12d7d593442d333c61[m
+Merge: 54e7c0b a4b8833
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 8 22:52:13 2025 +0000
+
+    Organize components into folders
+    
+    Reorganize all standalone components into atomic design folders (atoms, molecules, organisms) under src/modules/salud/components. Move mislocated files into appropriate subfolders, update index exports, and adjust imports accordingly to ensure modular structure and no functional changes.
+    
+    X-Lovable-Edit-ID: edt-d1ab05a6-1d95-42f5-8086-73185deeaa54
+
+[33mcommit a4b8833a0951b7ac5e3e66629d4507f5df91f91b[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 8 22:52:13 2025 +0000
+
+    Changes
+
+[33mcommit 54e7c0be679d54c88f37ea646b517ebd0a23e0a1[m
+Merge: af891ed 3ca88b6
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 8 22:46:53 2025 +0000
+
+    Refactor PublicQuotePage
+    
+    Organize PublicQuotePage into modular atoms/molecules/organisms components, remove redundant code, and separate UI into smaller reusable pieces under src/modules/salud/components.
+    
+    X-Lovable-Edit-ID: edt-1ad9c8a1-c8bf-470c-bc89-b5a95ca0db3a
+
+[33mcommit 3ca88b68c66cdf2ceba4e4f1d6c55c7539a96e8d[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 8 22:46:52 2025 +0000
+
+    Changes
+
+[33mcommit af891edaee659af1366cc111f2791b20a185057b[m
+Merge: 5388057 c24b1c4
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 8 22:42:52 2025 +0000
+
+    Refactor ResultadosPage
+    
+    Modularize ResultadosPage using atomic design
+    - Create atoms, molecules, and organisms for ResultadosPage
+    - Extract repeated UI blocks (quick nav/buttons) into reusable components
+    - Consolidate redundant code, optimize structure, and maintain full functionality
+    - Add exports and integrate new components into ResultadosPage layout
+    
+    X-Lovable-Edit-ID: edt-2647ecd3-03a2-4604-a3d2-ac4e81e91d58
+
+[33mcommit c24b1c44be6b698a8f96ae9e776e60bad142a4b3[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 8 22:42:52 2025 +0000
+
+    Changes
+
+[33mcommit 53880572e54ce04db86ce8ba691d404d710a2d3d[m
+Merge: b836df5 f9d62fa
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 8 22:38:27 2025 +0000
+
+    Refactor ComparisonPage
+    
+    Modularize ComparisonPage by splitting into atomic design components:
+    - Create atoms, molecules, and organisms directories under src/modules/salud/components
+    - Add new atoms (PlanBadge, AttributeValue, ClinicaCheck)
+    - Add molecules (PlanHeader, AttributeGroupRow, AttributeRow, ClinicaRow, AddPlanCard, EmptyState)
+    - Add organisms (BeneficiosTable, ClinicasTable, ClinicasContent, AddPlanTab, ComparisonHeader, ComparisonTabs, ComparisonStyles)
+    - Implement ComparisonPage refactor wiring to keep existing functionality intact and maintain modular structure
+    
+    X-Lovable-Edit-ID: edt-0d4804d4-a98b-4cb6-8749-5e4eeb82e9d0
+
+[33mcommit f9d62fac49706b2621d1142b6f7dbbebfb87e994[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 8 22:38:27 2025 +0000
+
+    Changes
+
+[33mcommit b836df50779d2caafe6e7fb82831c5085c2f5fe8[m
+Merge: 629c4ac 10fac11
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 8 22:12:03 2025 +0000
+
+    Fix vendor registration securely
+    
+    Implement secure vendor registration endpoint
+    - Add server-side vendor registration edge function
+    - Enforce auth, input validation, role assignment via admin client
+    - Introduce basic protections for PDF generation and quotes flow
+    - Replace client-side vendor role assignment with server-side process
+    
+    X-Lovable-Edit-ID: edt-c9600cc7-da3b-47f0-91d5-9498044ecdf3
+
+[33mcommit 10fac113ce91d6079ea59291b550b622c74212f5[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 8 22:12:02 2025 +0000
+
+    Changes
+
+[33mcommit 629c4acb0c0f4ad9b3a3f6aa9e6c5d5872935607[m
+Merge: 3b04c44 6a5ba9b
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 8 13:08:39 2025 +0000
+
+    Redesign UI to vibrant style
+    
+    Implement visual overhaul: switch to stronger CSS palette, add commercial PlanCard with banners and emojis, intensify Resultados header gradient, and refresh comparison table using HTML-inspired cues without exact copies.
+    
+    X-Lovable-Edit-ID: edt-6bedfd03-2f23-4d2d-b3cc-efd0f6f62071
+
+[33mcommit 6a5ba9b70ebe253651e449df4a2dacf659b63bc4[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 8 13:08:38 2025 +0000
+
+    Changes
+
+[33mcommit 3b04c44c3b06a50a957c5b4bfb5de9a31497af05[m
+Author: hernan527 <hernan527@gmail.com>
+Date:   Mon Dec 8 09:39:13 2025 -0300
+
+    ejemplos
+
+[33mcommit a4c10fc691e34fb2693d5bef77145c794ae060ac[m
+Merge: f153362 fdecaec
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 8 08:43:02 2025 +0000
+
+    Remember personal data locally
+    
+    Implement memory of visitor personal data after first entry:
+    - Persist personal data to localStorage on first submit
+    - Auto-fill and reuse stored data for subsequent quotes
+    - Ensure data is used only for the same session and cleanly ignored if absent
+    - Integrate with existing FormQuote flow to avoid re-prompting for data
+    
+    This enables users to quote multiple times without re-entering personal data.
+    
+    X-Lovable-Edit-ID: edt-a9171641-92e6-4f1c-a9de-28f69e158f00
+
+[33mcommit fdecaec2a8a160e024acc179dfaf7d6689c6614e[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 8 08:43:02 2025 +0000
+
+    Changes
+
+[33mcommit f1533626bd34b4eac2a61b89d35dd3c87ab446d0[m
+Merge: 6446d2a e7b967c
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 8 08:40:34 2025 +0000
+
+    Fix contact data handling
+    
+    Fix edge function validation by handling empty personalData gracefully when submitting quotes. Make personalData optional in input schema and ensure requests with empty fields do not fail validation.
+    
+    X-Lovable-Edit-ID: edt-3041c2f6-a01f-4992-91be-36d8c2632a95
+
+[33mcommit e7b967c3c453777e522cdb3f4398f7411818ee4c[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 8 08:40:33 2025 +0000
+
+    Changes
+
+[33mcommit 6446d2a13a4419d1a631ca7fa7d92fb6951d4b30[m
+Merge: 65367ff 88c5949
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 8 08:39:16 2025 +0000
+
+    Fix dashboard new quote link
+    
+    Update VendorDashboardPage so the "Go to Quote" button navigates to /resultados instead of home, ensuring users can start a new quote from the dashboard.
+    
+    X-Lovable-Edit-ID: edt-505e1e57-db75-49f6-b4ba-8da2710b1031
+
+[33mcommit 88c594912b2f7cc42ac0a5e484b3de521d2972ab[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 8 08:39:16 2025 +0000
+
+    Changes
+
+[33mcommit 65367ff28ed56b71c4682c6306d8d91f648773d8[m
+Merge: c8cf204 f240d9c
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 8 08:38:31 2025 +0000
+
+    Update vendor nav to resultados
+    
+    Redirect the new quotation action from the Vendor dashboard to /resultados (cotización) instead of home, by adjusting the VendorSidebar navigation to point "Nueva Cotización" to /resultados.
+    
+    X-Lovable-Edit-ID: edt-96fde767-e7e5-4caf-ad2b-8d63be91b447
+
+[33mcommit f240d9c41f3d615cce16c7bc8bf048a48eeba6d5[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 8 08:38:31 2025 +0000
+
+    Changes
+
+[33mcommit c8cf204b221397f833a2401d63504b9ad3d725d2[m
+Merge: 8c5d880 00cf2e1
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 8 08:36:57 2025 +0000
+
+    Make personalData optional in edge schema
+    
+    Adjust submit-quote edge function to allow missing personalData when fetching quotes, while preserving required fields when submitting a quote.
+    
+    X-Lovable-Edit-ID: edt-8a107439-918d-485f-9eb5-00dfd58530bb
+
+[33mcommit 00cf2e19620aee32a931f27b3286038fcf44b945[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 8 08:36:57 2025 +0000
+
+    Changes
+
+[33mcommit 8c5d880555e73f97a5f6a072f849d3f244c51aa9[m
+Merge: ef18657 c420f10
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 8 08:35:18 2025 +0000
+
+    Fix edge form data
+    
+    Fixes:
+    - Aligns FormQuote.tsx submission with edge function expectations by ensuring personalData fields are properly populated and validated before submit.
+    - Adjusts edge function schema usage to require non-empty personalData fields or proper mapping from form.
+    
+    X-Lovable-Edit-ID: edt-20615130-f6ff-426b-8113-5df32529f8db
+
+[33mcommit c420f10254d08e4a2f1821a81f338aefe964b65a[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 8 08:35:18 2025 +0000
+
+    Changes
+
+[33mcommit ef186575acfda991fbeaa584de3bd1033713caeb[m
+Merge: 69831ee de0e011
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 8 08:34:29 2025 +0000
+
+    Implement Marketing Kit feature
+    
+    Add a Marketing Kit page for vendor with image gallery, filters, download, and preview modal; integrate UI components and data setup for marketing assets.
+    
+    X-Lovable-Edit-ID: edt-a90a4384-02eb-4047-ba44-0705cc1d4b81
+
+[33mcommit de0e011794803147ab141dbd745defe3978c7149[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 8 08:34:28 2025 +0000
+
+    Changes
+
+[33mcommit 69831ee07beba6794491cbfae1c1fbf9fde15a4f[m
+Merge: cf80823 797108d
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 8 08:23:36 2025 +0000
+
+    Limit edge function guards
+    
+    Implements warn-level fixes:
+    - Adds basic rate limiting to submit-quote edge function
+    - Introduces Zod-based server-side input validation for quote submissions
+    - Removes sensitive console logging from client and edge function
+    - Notes that access_code plaintext exposure is already mitigated at app layer; no code change
+    - Acknowledges Supabase leaked password protection setting requires manual enablement
+    - Prepares modifications to submit-quote and relevant UI logs in progress
+    
+    X-Lovable-Edit-ID: edt-f52e71f0-134f-43e1-a998-fb1b38603a84
+
+[33mcommit 797108d221db931ee0ffcca011acf3d561871aff[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 8 08:23:35 2025 +0000
+
+    Changes
+
+[33mcommit cf80823437f829cbecaa662ce5539704c3d4a18a[m
+Merge: 0ca6554 8641fa2
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 8 08:20:27 2025 +0000
+
+    Fix public quote PII exposure
+    
+    Update frontend to stop requesting PII in public quotes, add PublicQuote type, and refactor PublicQuotePage to use server-side access validation via recordQuoteView. Remove client_name, client_email, client_phone from public queries; include non-PII fields and created_at. Also adjust Quote service interfaces accordingly.
+    
+    X-Lovable-Edit-ID: edt-dfb7b225-21d2-41dc-b12c-0205bd1b1f9b
+
+[33mcommit 8641fa2fec9f03a95472d190ea023565dbd0edda[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 8 08:20:27 2025 +0000
+
+    Changes
+
+[33mcommit 0ca6554f686c8f6a4d0b6743c0c90140115a693b[m
+Merge: 73cc96a 013a5d0
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 8 08:12:51 2025 +0000
+
+    Persist quotes features
+    
+    Add quote persistence, public links, and PDF download enhancements for Advisor module; update public quote view, vendor quotes page, app routes, and UI components to support saving, editing, sharing, and tracking of quotes with access codes and analytics.
+    
+    X-Lovable-Edit-ID: edt-b53d49e1-d167-49e1-a2af-592e7521a147
+
+[33mcommit 013a5d0a095d18521ab29a753ab90026b71e544d[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 8 08:12:50 2025 +0000
+
+    Changes
+
+[33mcommit 73cc96a82920c8586494af5324d755e46bc11818[m
+Merge: 445b677 ab4d525
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 8 07:25:21 2025 +0000
+
+    Fix generate-pdf flow
+    
+    Refactor generate-pdf edge function to avoid reading the stream twice, correctly handle success vs error paths, and ensure the final response uses an intact body. Also restructure to proxy HTML content to Puppeteer service safely with proper error handling and CORS.
+    
+    X-Lovable-Edit-ID: edt-b7f4c493-07fc-4fc8-a894-2718685dd740
+
+[33mcommit ab4d5257d9eb33f62d6c1e5ae18b7b222ba1e9fa[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 8 07:25:21 2025 +0000
+
+    Changes
+
+[33mcommit 445b67723213811eea971bd434f190dbc1425bd4[m
+Merge: 5d440ee d7e7f75
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 8 06:54:42 2025 +0000
+
+    Add session detection in header
+    
+    Detects user session to show appropriate vendor dashboard link and replaces "Soy Asesor" with "Mi Dashboard" when a vendor is logged in; updates Header to handle vendor auth state and navigation.
+    
+    X-Lovable-Edit-ID: edt-3b1bda2c-512a-4bc9-883f-5bb245bef6d5
+
+[33mcommit d7e7f75dca40dc123425f96c1ad79626bd37a145[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 8 06:54:42 2025 +0000
+
+    Changes
+
+[33mcommit 5d440eea44c1588b509ac129d188e2daf95ef2aa[m
+Merge: f9c888f 6103d24
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 8 06:37:24 2025 +0000
+
+    Agregar botón Soy Asesor header
+    
+    Integrar un botón de tipo outline con icono UserCheck en el header que, al hacer clic, navega a /vendedor/registro; diseño responsive (mostrar texto completo en desktop y versión abreviada en mobile).
+    
+    X-Lovable-Edit-ID: edt-0873aafa-aff2-4be9-a3e3-f0ed9039d1de
+
+[33mcommit 6103d2434bc5e5fd9f7251705726e0e3cf827bb5[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 8 06:37:24 2025 +0000
+
+    Changes
+
+[33mcommit f9c888fe0a18bae3fa5f325b527369fb7983ab14[m
+Merge: e54eaa9 3944a78
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sun Dec 7 23:35:20 2025 +0000
+
+    Implement vendor modules
+    
+    Add Phase 2 and 3: roles service, vendor service, vendor auth hook, vendor UI (layout, pages, components) and routes integration to enable vendor registration, dashboard, and profile management.
+    
+    X-Lovable-Edit-ID: edt-b00c6fe0-4c69-4a35-ac5a-0ecd01ffdc4f
+
+[33mcommit 3944a7823e370fbbb30ac32654787e01b536b8d6[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sun Dec 7 23:35:20 2025 +0000
+
+    Changes
+
+[33mcommit e54eaa98278891808aa61bb6b8d13c74b9cc87a8[m
+Merge: 6e6e456 532ab76
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sun Dec 7 23:28:39 2025 +0000
+
+    Implement vendor system plan
+    
+    Add DB migrations for roles and vendor_profiles,
+    create roles and vendor services plus vendor auth hook,
+    and implement Vendor layout and pages with routes.
+    
+    X-Lovable-Edit-ID: edt-affdd346-9632-4b2e-a853-352faef18fdf
+
+[33mcommit 532ab76a3fae94db166061c43ec7bac063aa9ea3[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sun Dec 7 23:28:39 2025 +0000
+
+    Changes
+
+[33mcommit 6e6e456ec8ebddfde0de222d8ccef1b1826c63fb[m
+Author: hernan527 <hernan527@gmail.com>
+Date:   Sun Dec 7 18:57:45 2025 -0300
+
+    supabase
+
+[33mcommit 617920763007e7d5cf5dc5f969b3b78b40a1ffa8[m
+Merge: 8618a5b a0f3760
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sun Dec 7 13:10:31 2025 +0000
+
+    Integrate PDF generation flow
+    
+    Add comprehensive PDF generation flow for plan comparison:
+    - Implement PdfComparisonTemplate component with inline styles for Puppeteer rendering
+    - Create generatePdfHtml to render HTML string from data
+    - Implement PdfDownloadSection to manage filters (regions, barrios), price editing (hidden by default), and trigger edge function to convert HTML to PDF via /api/convert
+    - Wire up front-end to assemble data, apply region/bario filters, and download generated PDF
+    
+    X-Lovable-Edit-ID: edt-b929fb35-8f62-419a-a026-0269a7b5d26f
+
+[33mcommit a0f3760feb96f4743394c99c0ceb40f40b5a5ee4[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sun Dec 7 13:10:30 2025 +0000
+
+    Changes
+
+[33mcommit 8618a5bcc6439af9e38f3c0fc8e84702312d22c1[m
+Merge: 05a38d5 04a5382
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sun Dec 7 09:54:23 2025 +0000
+
+    Create styleguide page
+    
+    Add a new StyleGuide page to serve as a design system reference, capturing current styles, tokens, colors, typography, and UI components. Integrate into router and add a minimal page scaffold to showcase design system elements for reuse across the app.
+    
+    X-Lovable-Edit-ID: edt-2d6121cb-305c-4395-9ec7-2299a338b75f
+
+[33mcommit 04a53824f50e3bcbf285f62fe4fdd7b31b5da2bb[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sun Dec 7 09:54:22 2025 +0000
+
+    Changes
+
+[33mcommit 05a38d5fac290fa34f7b3ca7364a52201224eefc[m
+Merge: 96ce957 02fd063
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sun Dec 7 03:18:02 2025 +0000
+
+    Implement dual price slider
+    
+    Adds a dual-thumb price range slider (min/max) and wires it to live plan data; updates order button with an icon; converts hero to auto-playing carousel with benefit phrases; and prepares results filters to reflect real-time data.
+    
+    X-Lovable-Edit-ID: edt-fb86e523-5b13-458b-bae3-b12a6850a136
+
+[33mcommit 02fd063682a6994dd06c8565e1ae24e2e4b45a6f[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sun Dec 7 03:18:01 2025 +0000
+
+    Changes
+
+[33mcommit 96ce957d37d739d8f8c67a4d0dbff712dee63977[m
+Merge: 7676bc9 3113194
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sun Dec 7 03:08:31 2025 +0000
+
+    Fix cotizacion hook data extract
+    
+    Extract nested array from API response and handle success correctly by reading result.data.data and updating state accordingly.
+    
+    X-Lovable-Edit-ID: edt-2a3d379e-6f64-42eb-829f-9d3f1cbe9107
+
+[33mcommit 3113194c2f47f43558f451afd56e83c119f6a59c[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sun Dec 7 03:08:31 2025 +0000
+
+    Changes
+
+[33mcommit 7676bc9eb122eed34f7061c7d0aa60987a2fcaee[m
+Merge: 0140abc 760113c
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sun Dec 7 03:02:59 2025 +0000
+
+    Relax edge data requirement
+    
+    Allow fetching quote plans without requiring personalData; adjust edge function to not demand personalData when only retrieving plan prices, preventing premature 400 errors and blank UI.
+    
+    X-Lovable-Edit-ID: edt-3ebbfe5b-2440-4d77-a4cc-7083b457a519
+
+[33mcommit 760113c6e931cc1d46334c6cfc77822e5d2f6f39[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sun Dec 7 03:02:59 2025 +0000
+
+    Changes
+
+[33mcommit 0140abc34e64769c758832ac44849d35f7226e05[m
+Merge: a6047ea ec55afe
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sun Dec 7 02:57:15 2025 +0000
+
+    Corrige local mode handling
+    
+    Ajusta health service para leer API mode dinámicamente de Supabase y usar conexión directa sin depender de VITE_API_MODE, resolviendo búsqueda en localhost y asegurando accesos a la edge function correctamente.
+    
+    X-Lovable-Edit-ID: edt-6096c49a-b6fb-4593-9305-37c159558077
+
+[33mcommit ec55afe18009e8a0da20d88e4ebfbbe7fe9944b5[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sun Dec 7 02:57:15 2025 +0000
+
+    Changes
+
+[33mcommit a6047eab8f8e091c7b6cd912ddfda67dfd00c329[m
+Merge: 7632b14 9af1584
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sun Dec 7 02:49:05 2025 +0000
+
+    Ajustar env para preview
+    
+    Ajusta configuración de entorno para que Lovable use la edge function de Supabase en el preview (cambia VITE_API_MODE a production y apunta a la URL de funciones de Supabase), evitando que intente conectar a localhost desde el entorno de desarrollo. Incluye actualización de .env para producción.
+    
+    X-Lovable-Edit-ID: edt-125e0de5-0ccd-4b8d-bad2-e9b03e5301f2
+
+[33mcommit 9af158437d1566afd67cc07f0950bb08a7662e52[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sun Dec 7 02:49:04 2025 +0000
+
+    Changes
+
+[33mcommit 7632b14b2d7ce03cb25935a17ac4f88dbb48e5e8[m
+Author: hernan527 <hernan527@gmail.com>
+Date:   Sat Dec 6 23:26:49 2025 -0300
+
+    rang
+
+[33mcommit 04acf6b54605c27e72a095bcc1ef021d36e622a6[m
+Author: hernan527 <hernan527@gmail.com>
+Date:   Sat Dec 6 19:49:28 2025 -0300
+
+    interfaces
+
+[33mcommit 28520053170a6481c6490168c036a4e70bb1cd64[m
+Merge: 76017d1 36b3c01
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Dec 6 17:55:43 2025 +0000
+
+    Implement cotizacion flow with loading
+    
+    - Add useCotizacion hook enhancements: isLoading, fetchCotizacion, localStorage persistence, and recovery modal flow
+    - Introduce QuoteRecoveryModal and integrate recovery logic in Results page
+    - Implement Skeleton Loader display during API fetch to improve UX
+    
+    X-Lovable-Edit-ID: edt-446d4c92-ba43-48ea-951e-6424e77c906a
+
+[33mcommit 36b3c01fae542b4e9265a9c21d813767a6bcf17a[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Dec 6 17:55:43 2025 +0000
+
+    Changes
+
+[33mcommit 76017d1beebc6c82a26e47e803786dcced043181[m
+Merge: ab36faf 1bd3835
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Dec 6 16:29:20 2025 +0000
+
+    Implement cotizacion persistence
+    
+    Add central useCotizacion hook to manage formData, saved form, and recovery modal with localStorage persistence (key: last_cotizacion_form). Introduce recovery modal flow to update or start new. Ensure memory-first initialization prioritizes in-memory state, then localStorage, and avoid product caching.
+    
+    X-Lovable-Edit-ID: edt-fbf40842-336c-4a91-a43d-b76d2f6fafd6
+
+[33mcommit 1bd3835a9edb9bbd423c7fbab626887db4c7ab9e[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Dec 6 16:29:20 2025 +0000
+
+    Changes
+
+[33mcommit ab36faf2905513cbc067a7353b60a5e999ea2de5[m
+Merge: b4e1a81 aae92b6
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Dec 6 10:14:34 2025 +0000
+
+    Habilitar plan híbrido
+    
+    Implement auto-confirm de emails, crear servicios de perfil y cotizaciones, y actualizar páginas de autenticación para soportar el enfoque híbrido: tablas profiles y saved_quotes con RLS en Lovable Cloud, nuevos servicios user.service.ts y quotes.service.ts, y mejoras en Login/Register pages.
+    
+    X-Lovable-Edit-ID: edt-42f9e292-8d56-4957-a3f8-df640e6eeab5
+
+[33mcommit aae92b68134573d333bfaaa629b33f65dee04e70[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Dec 6 10:14:34 2025 +0000
+
+    Changes
+
+[33mcommit b4e1a81f3b05e9155eb345f891d8a8b074a21a0d[m
+Merge: e67c551 6591829
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Dec 6 10:09:11 2025 +0000
+
+    Implementar migración hybrid
+    
+    Corrige warning de seguridad y crea servicios user.service.ts y quotes.service.ts para soporte del plan híbrido, además de ajustar migración de Lovable Cloud con perfiles y saved_quotes y políticas RLS.
+    
+    - Generar esquemas de tablas profiles y saved_quotes con RLS
+    - Añadir triggers updated_at y manejo automático de nuevos usuarios
+    - Implementar servicios frontend para perfil y cotizaciones
+    - Preparar integración con páginas de autenticación para nuevos campos y flujo
+    
+    Nota: se mantiene configuración de health service hacia backend existente.
+    
+    X-Lovable-Edit-ID: edt-778660c0-3117-4534-941c-604596229cbf
+
+[33mcommit 6591829334c3b9513bead2164baa0d9edba7679e[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Dec 6 10:09:09 2025 +0000
+
+    Changes
+
+[33mcommit e67c551be5c0b6804eab9cd3997bab2fa5b619b5[m
+Merge: 81d9aeb fb2fbc2
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Dec 6 09:50:26 2025 +0000
+
+    Simplify ResultsHeaderBar UI
+    
+    - Replace grid/list text/radio with icon-only buttons placed to the right of the search field
+    - Implement grid/list as icon buttons (no text/checkbox); align to the right of Buscar Clínicas
+    - Make ordenar a button with double-arrow icon, optionally as a select for price sorting (initially icon button, consider single select)
+    
+    X-Lovable-Edit-ID: edt-0a97231c-955e-4fdf-b9fe-cee6678b217c
+
+[33mcommit fb2fbc23b96defcb599ec21a62a1b07b7b27d0be[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Dec 6 09:50:25 2025 +0000
+
+    Changes
+
+[33mcommit 81d9aeb084f5a0194b0b7ac9346b34cef4002333[m
+Merge: e3d6c9e 5dd1a9d
+Author: hernan527 <hernan527@gmail.com>
+Date:   Sat Dec 6 06:36:28 2025 -0300
+
+    actualizar
+
+[33mcommit e3d6c9ee6f892df3186fb8eebc538faf74b5eb4c[m
+Merge: a928c46 f7f7262
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Fri Dec 5 10:46:39 2025 +0000
+
+    Refactor UX pages
+    
+    Improve ComparisonPage by forcing top scroll on mount and removing fixed height to allow dynamic content height; update ResultsPage to a compact hero with horizontal quick-links bar and showcase results upfront in an e-commerce style layout.
+    
+    X-Lovable-Edit-ID: edt-0caa663d-4733-4e9b-83ff-c9d073482c9a
+
+[33mcommit f7f726210fe96750c4aa5d9f2b5c2eaac92a61f4[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Fri Dec 5 10:46:39 2025 +0000
+
+    Changes
+
+[33mcommit a928c467c285ba76627f840b0ad05a505114689c[m
+Merge: d3ebc9d 08fbb64
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Fri Dec 5 10:25:26 2025 +0000
+
+    Ajusta TabsBar en Comparar
+    
+    Implementa barra de pestañas con scroll horizontal controlable para la vista de clínicas en ComparisonPage, asegurando ancho uniforme con la lista de clínicas, añade flechas de navegación y manejo de overflow para una UX fluida en escritorio y móvil.
+    
+    X-Lovable-Edit-ID: edt-9f320251-fbe0-4b26-a307-8fd85e09a982
+
+[33mcommit 08fbb640f6399d223626c5fdd96c26edf22fb87e[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Fri Dec 5 10:25:26 2025 +0000
+
+    Changes
+
+[33mcommit 5dd1a9d9d6f5852394b99a18533bd5f3fd4ea15b[m
+Merge: e11a893 747aabb
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Wed Dec 3 02:36:23 2025 +0000
+
+    Refactor ResultsHeaderBar móvil
+    
+    Optimiza UX móvil de la barra de resultados: elimina el botón de filtros dentro del contenedor, agrega un botón flotante con icono Filter que abre filtros en móvil, oculta controles de escritorio en pantallas pequeñas, y garantiza que solo buscador y contador ocupen ancho completo en móvil. También implementa mejoras en la página de Comparación: scroll y sticky de tablas, scroll al top y ajuste de hero/tabs. Actualiza edge function de cotización para usar URL por entorno y caída segura.
+    
+    X-Lovable-Edit-ID: edt-14b9751d-d1ad-4c65-97f0-be6285328426
+
+[33mcommit 747aabb803ece2c0e8e53095f383926bb72ff6b4[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Wed Dec 3 02:36:22 2025 +0000
+
+    Changes
+
+[33mcommit e11a893926e212531585f2b5e0c8636bb5d4e359[m
+Merge: d3ebc9d a07f940
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Wed Dec 3 02:29:15 2025 +0000
+
+    Apply visual identity
+    
+    Implement visual identity plan: add Plus Jakarta Sans, update color palette (blue+green), gradients, shadows, and UI components; overhaul header/footer (branding tweaks) and hero/logos sections; adjust button, typography, and scaffolding to reflect new brand identity.
+    
+    X-Lovable-Edit-ID: edt-b8504ca9-4e66-4e25-b187-cbe8b9a04c81
+
+[33mcommit a07f940ede49fc8a5beb499716fd5302a338ab8d[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Wed Dec 3 02:29:15 2025 +0000
+
+    Changes
+
+[33mcommit d3ebc9d6c459786b6777577f96b2d04d81872afe[m
+Merge: f1ff872 d4ef27b
+Author: hernan527 <hernan527@gmail.com>
+Date:   Mon Dec 1 23:33:32 2025 -0300
+
+    !kkk!
+
+[33mcommit f1ff872063b62df22e9adc53edcd21d129c989fa[m
+Author: hernan527 <hernan527@gmail.com>
+Date:   Mon Dec 1 23:31:15 2025 -0300
+
+    Cambios en la de comparacion
+
+[33mcommit d4ef27bb52c8dfd9a80591ed1d9cd5c0029da53a[m
+Merge: cbd092b 97e822a
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Tue Dec 2 02:22:28 2025 +0000
+
+    Ajustar scroll interno y sticky
+    
+    Asegura que el scroll esté dentro del contenedor de tabs, mantiene la columna izquierda sticky en todas las vistas (Beneficios y Clínicas) y mejora el comportamiento en dispositivos móviles para la página de comparación.
+    
+    X-Lovable-Edit-ID: edt-f48ea630-7369-4189-919f-b21a688eaa80
+
+[33mcommit 97e822aa01de08d3ba68770aa8b8e01682bd6ec6[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Tue Dec 2 02:22:28 2025 +0000
+
+    Changes
+
+[33mcommit cbd092b0576f2b54cf0e60484521bb7220383dbe[m
+Merge: efb5394 866da2c
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Tue Dec 2 02:14:13 2025 +0000
+
+    Refactor comparison UX
+    
+    Improve comparison page UX with sticky headers, horizontal scrolling, and larger tabs; adjust layout limits and ensure top scroll on load; update HealthPlanComparisonModal tabs styling; prepare edge function to use env var for quote endpoint (security).
+    
+    X-Lovable-Edit-ID: edt-eb4eeca0-e44d-49ae-8b6b-e199ddc33521
+
+[33mcommit 866da2c7c989691ffd7788ea001a926be0870141[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Tue Dec 2 02:14:12 2025 +0000
+
+    Changes
+
+[33mcommit efb5394052c03a3215826e1217e79aa3195214d7[m
+Merge: bb4859f 344b771
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Tue Dec 2 00:56:04 2025 +0000
+
+    Aplicar tipado en FromQuote
+    
+    Implementa interfaces QuoteFormData y PersonalData en src/modules/salud/components/FromQuote.ts, tipando estado inicial, updateFormData con Partial<QuoteFormData>, y useState<QuoteFormData>, eliminando any y asegurando que formData esté correctamente tipado acorde a las interfaces importadas.
+    
+    X-Lovable-Edit-ID: edt-a8dc504e-f024-4ab0-ad68-1d1484b65ae0
+
+[33mcommit 344b771519ad8fa7b7da3fd4adce0bb3529631eb[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Tue Dec 2 00:56:04 2025 +0000
+
+    Changes
+
+[33mcommit bb4859f73cbfee44689fa3c071556276e0a744c4[m
+Author: hernan527 <hernan527@gmail.com>
+Date:   Mon Dec 1 21:53:02 2025 -0300
+
+    interfaces
+
+[33mcommit 56714b4f542a39d036b62749422eaf6618aa0a00[m
+Merge: a589c7f fd9a987
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Tue Dec 2 00:33:13 2025 +0000
+
+    Descompone ResultadosPage
+    
+    Separar ResultadosPage.tsx en components: ResultsFilterSidebar, ResultsHeaderBar, ResultsGrid y PlanCard; crear PlanDetailsModal; refactor page para ser contenedor de estado y pasar datos a componentes hijos.
+    
+    X-Lovable-Edit-ID: edt-6f2b5f1e-5425-406e-b67f-43dcbb05a6fe
+
+[33mcommit fd9a987d60e4e55fe8e1d4316230ee0fa4c0327f[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Tue Dec 2 00:33:13 2025 +0000
+
+    Changes
+
+[33mcommit a589c7f2fa25542f5c5fa922fee00afdcd1bea62[m
+Merge: f2d1426 3a48f56
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 1 10:00:22 2025 +0000
+
+    Add auth module scaffold
+    
+    Create modular auth structure with pages, service, and integration scaffold:
+    - src/modules/auth/pages/LoginPage.tsx, RegisterPage.tsx, ForgotPasswordPage.tsx
+    - src/services/auth.service.ts (auth.signIn, signUp, signOut, getSession using Supabase client)
+    - Example integration in LoginPage.tsx showing usage of authService.signIn(...)
+    
+    X-Lovable-Edit-ID: edt-c59f66cb-4451-409f-9382-aca019ebab4a
+
+[33mcommit 3a48f563edce8159ecc8157579c02f54a042e5c7[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 1 10:00:22 2025 +0000
+
+    Changes
+
+[33mcommit f2d1426f0c195c541547f855d54ef2a9c455a8f4[m
+Author: hernan527 <hernan527@gmail.com>
+Date:   Mon Dec 1 06:55:17 2025 -0300
+
+    cambio de supabse pryect
+
+[33mcommit 8cbe2458d7cbba9392bf7ba6172e76fbe15be1af[m
+Merge: 5c24913 2baf93c
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 1 08:55:33 2025 +0000
+
+    Consolidate health module
+    
+    Remove duplicate old files and align to modular health structure:
+    - Delete old pages from src/pages (ComparisonPage.tsx, RsultadosPage.tsx, NotFound.tsx)
+    - Delete old health components from src/components (ComparisonBar.tsx, FloatingQuoteButton.tsx, FormQuote.tsx, HealthPlanComparisonModal.tsx, NavLink.tsx, QuoteModal.tsx)
+    - Ensure App.tsx imports point to modular health pages
+    - Preserve Layout and modular health components under src/modules/salud/
+    
+    X-Lovable-Edit-ID: edt-c5f335b8-8af4-4aba-81af-e8bf3ec253a7
+
+[33mcommit 2baf93cf019768ababdd22f4ac52b7e2ab27d5d7[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 1 08:55:33 2025 +0000
+
+    Changes
+
+[33mcommit 5c249136bdfa79eb1b5748e4c65b73279889b6ca[m
+Merge: 179c567 764e0f1
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 1 08:49:41 2025 +0000
+
+    Refactor salud to services
+    
+    Introduce environment-based API config and a health service layer, moving salud API calls from components to src/services/health.service.ts, add environment files, and update relevant components to consume the service.
+    
+    X-Lovable-Edit-ID: edt-ab1abc66-0452-40ff-8e2d-465a05133535
+
+[33mcommit 764e0f18d969d8725e126634cc28fc0b74f9ef4f[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 1 08:49:41 2025 +0000
+
+    Changes
+
+[33mcommit 179c567627a5d1e41b726238b885e80246a23c31[m
+Merge: 22a544d a9892c3
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 1 08:46:17 2025 +0000
+
+    Modularizar salud module
+    
+    Move health-related components and pages into src/modules/salud, keep shared Layout, update imports, and prepare NotFound/Comparison/Resultados pages to use Layout within Salud. Avoid moving global ui components.
+    
+    X-Lovable-Edit-ID: edt-336ff33d-68a9-4f19-ba6b-dbef22f73d19
+
+[33mcommit a9892c34c5c98c246b9f6a1083221e1149e6721b[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 1 08:46:17 2025 +0000
+
+    Changes
+
+[33mcommit 22a544d5a3e970a4d066719a9a9e6424560aa872[m
+Merge: 074ac0b a967690
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 1 08:22:35 2025 +0000
+
+    Modularize home layout
+    
+    Refactor home page into a modular Atomic Design structure:
+    - Create layouts with reusable Header, Footer, and Layout wrappers
+    - Add home module with organisms (HeroSection, HowItWorks, LogosGrid, Testimonials, FAQ)
+    - Move index page into src/modules/home/pages and wrap content with Layout
+    - Update imports to reflect new structure and ensure consistent appearance/behavior
+    
+    X-Lovable-Edit-ID: edt-06dff713-a7f6-4422-92ca-08d8faf989ed
+
+[33mcommit a967690cf12c783b07fdd681883d5d7e0ffff252[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 1 08:22:34 2025 +0000
+
+    Changes
+
+[33mcommit 074ac0bd87990bbed552b8c89fb7c35f3c9a0256[m
+Merge: ff69044 2bc4916
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 1 07:24:51 2025 +0000
+
+    Handle undefined in compare sort
+    
+    Fix a runtime error in ComparisonPage.tsx by guarding against undefined entity values in the uniqueClinicas sorting logic. Ensure localeCompare is only called when entity is defined, preventing Cannot read properties of undefined (reading 'localeCompare').
+    
+    X-Lovable-Edit-ID: edt-fe8f8ed4-ebf7-4d6e-a0ef-69f944391e56
+
+[33mcommit 2bc491620f4f3a5751a1a39afc900817a89ccf3c[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Mon Dec 1 07:24:51 2025 +0000
+
+    Changes
+
+[33mcommit ff690448e9aa83ca89688e694dd3550128272055[m
+Author: hernan527 <hernan527@gmail.com>
+Date:   Sun Nov 30 17:50:38 2025 -0300
+
+    a ptrciueent
+
+[33mcommit 9868ee73b0d29a50bf9ac36c8efb054b34251d89[m
+Merge: 0ed32b2 04c7215
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sun Nov 30 09:25:10 2025 +0000
+
+    Add public quote endpoint
+    
+    Expose a new edge function submit-quote to handle quotation requests, call external endpoint, and return results; update client to invoke edge function and add user feedback scaffolding. Prepare for JWT protection once authentication is in place.
+    
+    X-Lovable-Edit-ID: edt-c2dc7127-a367-40b3-bf6a-5f1685bcfee9
+
+[33mcommit 04c7215e8d29ee3af6cbb7782e3457011100a535[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sun Nov 30 09:25:09 2025 +0000
+
+    Changes
+
+[33mcommit 0ed32b227487be9dc24ad15bc771a1763e7b2151[m
+Merge: edd788c 57149d6
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sun Nov 30 09:19:17 2025 +0000
+
+    Mejorar cartas y logo
+    
+    Ajusta tarjetas de resultados para ser más amigables y consistentes; reduce tamaño del logo de las tarjetas a la mitad (max-h-10) y aplica mejoras de espaciado y jerarquía visual. También reduce tamaño del logo en el modal de detalles a max-h-12 para mantener consistencia.
+    
+    X-Lovable-Edit-ID: edt-b7002fc1-6901-426e-aee1-56d8c8e1bdcd
+
+[33mcommit 57149d624262b9de9b4862fc304b2562f04239fe[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sun Nov 30 09:19:17 2025 +0000
+
+    Changes
+
+[33mcommit edd788c4cce993cf63e1692616d4cca01fe45cb8[m
+Merge: cc1f905 7241432
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sun Nov 30 07:48:34 2025 +0000
+
+    Connect to Lovable Cloud
+    
+    Enable Lovable Cloud backend for the project, providing PostgreSQL database, authentication, storage, and server-side functions; adds backend view actions and links to cloud docs.
+    
+    X-Lovable-Edit-ID: edt-aba469c5-07c3-491f-a0f9-47fe0fdd560a
+
+[33mcommit 7241432d3c6a784de3e26012fd3279751ea1a5e5[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sun Nov 30 07:48:34 2025 +0000
+
+    Changes
+
+[33mcommit cc1f905b46dd8722e68e444b04e173f6dc5ed8dd[m
+Merge: 5dd3161 7ffa663
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sun Nov 30 02:21:06 2025 +0000
+
+    Haz alegre y colorido
+    
+    Actualiza diseño a paleta vibrante con Tailwind
+    - Implementa colores más vivos y gradientes en index.css y tailwind.config.ts
+    - Aplica sistema de diseño basado en variables CSS con foco en legibilidad
+    - Mantiene funcionalidad existente y compatibilidad con rutas actuales
+    
+    X-Lovable-Edit-ID: edt-769934ca-aca5-420e-946b-fcbd8b0a411a
+
+[33mcommit 7ffa663eccc7cd7ad871e47a039eadca85544de6[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sun Nov 30 02:21:06 2025 +0000
+
+    Changes
+
+[33mcommit 5dd316182c24408c8f922b70763d5b871071147c[m
+Merge: fc5979d 173ca48
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sun Nov 30 02:17:55 2025 +0000
+
+    Fix helmet title string
+    
+    Update ComparisonPage to render Helmet title as a proper string by wrapping dynamic content in braces, preventing initial empty title errors. This ensures valid string content for <title> even when data is loading.
+    
+    X-Lovable-Edit-ID: edt-b4fec5a3-6da4-4d3b-a960-f792d4a53420
+
+[33mcommit 173ca483dee8d247f452354c62fb768610d7db88[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sun Nov 30 02:17:55 2025 +0000
+
+    Changes
+
+[33mcommit fc5979dfe02e342d1a4c5b167c6041b798a51656[m
+Merge: 35dd837 28a1a60
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sun Nov 30 02:14:19 2025 +0000
+
+    Implement dynamic meta tags
+    
+    Add react-helmet-async integration and dynamic SEO tags across pages (ResultadosPage, ComparisonPage, Index) via HelmetProvider, update App.tsx, and prepare for dynamic metadata to improve SEO with dynamic content.
+    
+    X-Lovable-Edit-ID: edt-9aec0ccd-df34-4688-8cff-445cbd7fed49
+
+[33mcommit 28a1a60e3680c008e7d887dfcf18acc6f5743962[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sun Nov 30 02:14:19 2025 +0000
+
+    Changes
+
+[33mcommit 35dd8376fa55813c788b1e848f4b0ac9a4b874a3[m
+Merge: e22c6ad 6dae87c
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sun Nov 30 02:07:58 2025 +0000
+
+    enable react-snap prerendering
+    
+    Agregar react-snap como dependencia y guiar la configuración para prerender HTML estático. Incluir instrucciones para modificar main.tsx (hydrate en producción), añadir script postbuild manualmente en package.json y configuración opcional de react-snap para rutas /, /resultados y /comparar.
+    
+    X-Lovable-Edit-ID: edt-a4e5249a-58c7-4204-b974-eb012f1a4114
+
+[33mcommit 6dae87cc74491ee326ed5633a727d9a5e02ce4e0[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sun Nov 30 02:07:57 2025 +0000
+
+    Changes
+
+[33mcommit e22c6addb9e24da562ab3c73232384b718838b8c[m
+Merge: 6a6c170 7901280
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sun Nov 30 02:03:17 2025 +0000
+
+    Integrate folleto Pdf in results
+    
+    Update health plan data to use folleto array for flyers, adjust UI to show PDF tab from folleto[0], and replace pdfUrl references accordingly.
+    
+    X-Lovable-Edit-ID: edt-7ea8e186-7958-4e99-b4ce-85b6146c7960
+
+[33mcommit 7901280f4cc885127617c1a4d51ccfbfe9ac621b[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sun Nov 30 02:03:17 2025 +0000
+
+    Changes
+
+[33mcommit 6a6c170731b0d606cedfa4f72dfcc87f7cdeb750[m
+Author: hernan527 <hernan527@gmail.com>
+Date:   Sat Nov 29 23:00:22 2025 -0300
+
+    agregue archivos
+
+[33mcommit b8cd42ad8cbe98b7b647d3bed35113e45d65b7bc[m
+Merge: 56a3deb 95fbfb1
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sun Nov 30 01:56:12 2025 +0000
+
+    Añadir pestañas en modal y PDF
+    
+    Implementa un sistema de pestañas en el modal de detalles de ResultadosPage para mostrar la información del plan y una pestaña para visualizar el PDF mediante un iframe, usando URLs ya presentes en los datos de cada plan. Incluye integración con campos pdfUrl en la interfaz de HealthPlan y ajuste del modal para mostrar/ocultar contenido de forma dinámica.
+    
+    X-Lovable-Edit-ID: edt-50ea2123-4dd0-4dbd-b856-26eb112e38d0
+
+[33mcommit 95fbfb10b4dbfaaac43d02f6a356f713e16d91bb[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sun Nov 30 01:56:12 2025 +0000
+
+    Changes
+
+[33mcommit 56a3deb8473f6b86fcafce0744b8d570fea799d3[m
+Merge: cf119ab ae56933
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sun Nov 30 01:31:24 2025 +0000
+
+    Modernizar lista de planes
+    
+    - Implement grid de tarjetas responsive (3 cols desktop, 2 med, 1 mobile) con hover y sombra
+    - Añadir logo en recuadro cuadrado centrado dentro de cada card
+    - Añadir sidebar de filtros: fija en desktop; drawer slide-in en mobile con overlay y cierre
+    - Incluir sorting superior con Select y orden dinámico
+    - Abrir detalles en modal Dialog al clicar Detalles
+    - Mantener router existente y estilo con Tailwind + shadcn/ui
+    - Mantener ResultadosPage existente y conectar correctamente con home y rutas
+    
+    X-Lovable-Edit-ID: edt-9c37a8e4-0866-465c-8453-b42d042efb97
+
+[33mcommit ae569337ce667a207961ff6d8379a393a23547b0[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sun Nov 30 01:31:23 2025 +0000
+
+    Changes
+
+[33mcommit cf119ab22b3c27c46711ca34ddacb9e609eabc03[m
+Merge: e2a1d2c 1407dd2
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sun Nov 30 01:16:04 2025 +0000
+
+    Ajustar header image en tarjetas
+    
+    Reubicar la imagen del plan para que aparezca en la parte superior de cada tarjeta como header, ajustando el estilo para que se vea integrada y tipo banner. Mantiene comportamiento existente de tarjetas de resultados y compatibilidad con diseño actual.
+    
+    X-Lovable-Edit-ID: edt-d6071ea1-5160-4bae-b384-ed300e70460f
+
+[33mcommit 1407dd247c68dd0e468f0118c86449df35c38534[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sun Nov 30 01:16:04 2025 +0000
+
+    Changes
+
+[33mcommit e2a1d2cf01fe72229ec0a5952c3a53e404a2e60c[m
+Merge: 927e621 ea802e1
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Nov 29 23:44:37 2025 +0000
+
+    Rediseñar páginas
+    
+    - Actualizar routing: convertir Index.jsx en Home y mantener Resultados en /resultados y Comparar en /comparar; NotFound para others.
+    - Construir página de inicio profesional (Index.jsx) con Hero, cómo funciona, logos, testimonios, FAQ y footer usando Tailwind + shadcn/ui.
+    - Mejorar ResultadosPage con layout encuadrado (filtros a la izquierda junto a resultados), hero reducido y secciones adicionales antes del footer.
+    - Mejorar ComparisonPage para diseño moderno y completo.
+    
+    X-Lovable-Edit-ID: edt-b0291310-04ec-4544-87b0-daab6ee0ac07
+
+[33mcommit ea802e123c6f1fe6341f5953c2e194a5dbe6faca[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Nov 29 23:44:36 2025 +0000
+
+    Changes
+
+[33mcommit 927e62163cdc0acbd5ca27cc118b85d08216ca34[m
+Merge: f98c91a fcc55a2
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Nov 29 23:30:35 2025 +0000
+
+    Redesign home route and page
+    
+    Refactor router to map / to new Index home page and preserve /resultados for existing results, /comparar for ComparisonPage, and * for NotFound. Implement new Index.jsx as a full home page with Hero, How It Works, logo grid, testimonials, FAQ, and footer. Move previous results content to ResultadosPage.tsx and ensure navigation from Hero button to /resultados. All changes stay within App.jsx and relevant page components.
+    
+    X-Lovable-Edit-ID: edt-99a2e8b3-0015-447b-b7c3-ceed21665960
+
+[33mcommit fcc55a295106e30aa2ef59891769cdb480ef6241[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Nov 29 23:30:34 2025 +0000
+
+    Changes
+
+[33mcommit f98c91ac04d0e2cb614454b4df824da1df2fe284[m
+Merge: 3d7067e 32b654b
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Nov 29 22:36:22 2025 +0000
+
+    Mejorar FormQuote interacciones
+    
+    Implementa incremento/decremento continuo al mantener presionado +/-, compatible con touch. Ajusta layout para grupo familiar: al seleccionar uno, oculta otros grupos y muestra edades junto al seleccionado, evitando scroll. Ajustes también en/Dialog para integrar FormQuote completo.
+    
+    X-Lovable-Edit-ID: edt-4da01f62-e22c-4bc4-9b53-e98b864f34eb
+
+[33mcommit 32b654b635d2290024e5b28b18b67b1b01852426[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Nov 29 22:36:21 2025 +0000
+
+    Changes
+
+[33mcommit 3d7067e764e5908736b298b7dbe54968af10a50c[m
+Merge: e4d527e 33988a4
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Nov 29 22:28:35 2025 +0000
+
+    Mejorar formQuote en modal
+    
+    Integrar completamente FormQuote dentro del Dialog del index para que parezca un formulario auténtico en el modal, eliminando appearance de componente anidado. Ajustes de estilos en DialogContent y contenedor para un renderizado limpio y compacto dentro del modal.
+    
+    X-Lovable-Edit-ID: edt-9a63dbc6-2a70-4b3e-8412-c1e838064176
+
+[33mcommit 33988a47d9fb14ee6e056a0df42c5c0d13a7e233[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Nov 29 22:28:34 2025 +0000
+
+    Changes
+
+[33mcommit e4d527e509efde20bdb8840f303b4b9964c05ede[m
+Merge: 268c318 6125727
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Nov 29 22:26:29 2025 +0000
+
+    Cambiar formulario por FormQuote
+    
+    Reemplaza el formulario actual de resultados por el componente FormQuote ( enclosed en un modal Dialog ) y mantiene el FloatingQuoteButton para abrirlo. Asegura que la página de resultados muestre FormQuote en lugar del formulario anterior y que el flujo de cotización funcione como modal. Mantener ruta /resultados y compatibilidad con el resto de componentes.
+    
+    X-Lovable-Edit-ID: edt-bc15318f-c733-4aa8-a03f-a058aebe351b
+
+[33mcommit 612572750e16043a4bf7e09bee64724b8f6d3daf[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Nov 29 22:26:28 2025 +0000
+
+    Changes
+
+[33mcommit 268c3187941b948a5022ae4533aa3160e729024b[m
+Author: hernan527 <hernan527@gmail.com>
+Date:   Sat Nov 29 19:21:57 2025 -0300
+
+    agregue el formulario
+
+[33mcommit 3c6ecd89f305967f15f01499aa23b093b86dc9d6[m
+Merge: 9760acb bf26f44
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Nov 29 19:43:49 2025 +0000
+
+    Convert Comparison to page
+    
+    Refactor the HealthPlanComparisonModal into a standalone ComparisonPage
+    - Fix Volver button navigation to home
+    - Ensure selected plans and Add Plan tab render with internal state via sessionStorage
+    - Preserve all props: plansToCompare, allAvailablePlans, onAddPlan, onRemovePlan
+    - Remove modal-specific code (Dialog components) and open controls
+    - Keep original logic, tabs, sticky table, search, and helpers intact
+    
+    X-Lovable-Edit-ID: edt-d5687c1b-3ade-45f8-831a-9aad14e46bfd
+
+[33mcommit bf26f44d887d829f319d2f14ca0dd670b382779c[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Nov 29 19:43:49 2025 +0000
+
+    Changes
+
+[33mcommit 9760acbdfa6ab76494ae0b15bee3445330c82b5b[m
+Merge: dae7437 7aae661
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Nov 29 19:41:16 2025 +0000
+
+    Convert modal to page
+    
+    Refactor HealthPlanComparisonModal into a standalone ComparisonPage.tsx that preserves all props (plansToCompare, allAvailablePlans, onAddPlan, onRemovePlan) and logic (tabs, search, sticky table, attribute/clínicas comparisons), but remove all modal/dialog related code. Add fixed header with Volver button and route to /comparar via App routing, integrating existing state and UI without modal references. Maintain internal behavior and styling using Tailwind.
+    
+    X-Lovable-Edit-ID: edt-3e7c8757-fa8f-4d8d-9599-dbec26509e0c
+
+[33mcommit 7aae661c8bcd263195252ef99937bcab3da4d553[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Nov 29 19:41:16 2025 +0000
+
+    Changes
+
+[33mcommit dae7437c20d5decf53bf80b11f7b406cc0718d13[m
+Merge: a4fb2b7 df73166
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Nov 29 19:36:46 2025 +0000
+
+    Convert modal to page comparison
+    
+    Transform HealthPlanComparisonModal from a modal into a standalone ComparisonPage.tsx page. Preserve all data structures, logic, tabs, search, sticky table, and add/remove plan behaviors, while removing all dialog/modal related code and props. Add fixed header with VOLVER button and keep plan limit, internal scrolling, and styling intact. Maintain interfaces and helper functions.
+    
+    X-Lovable-Edit-ID: edt-fbf3376a-0c86-464e-a97d-c07ac9fcd788
+
+[33mcommit df73166bef232e9116c9ab863d1a36afaf3fd0b7[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Nov 29 19:36:46 2025 +0000
+
+    Changes
+
+[33mcommit a4fb2b7dddcbd5000456a3c51110b21c7129f3f9[m
+Merge: b1c8257 6b8ea80
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Nov 29 19:02:10 2025 +0000
+
+    Mejorar modal de comparación
+    
+    Ajusta HealthPlanComparisonModal para que se vea correctamente con Tailwind:
+    - Aumenta tamaño del modal y añade descripción para accessibility.
+    - Integra descripción y mejor manejo de z-index/overlay.
+    - Mantiene estructura de pestañas (Clínicas, Beneficios, Más Información) y estilo de diseño responsive.
+    
+    X-Lovable-Edit-ID: edt-deca417e-eecc-48b7-8a19-e15e5b9034ba
+
+[33mcommit 6b8ea805fe6408a5dd176efd6385ba65713384db[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Nov 29 19:02:10 2025 +0000
+
+    Changes
+
+[33mcommit b1c8257a6d41a9b7462998340a3acea1577b1f85[m
+Merge: 3145791 6858a75
+Author: hernan527 <hernan527@gmail.com>
+Date:   Sat Nov 29 15:29:52 2025 -0300
+
+    before pull
+
+[33mcommit 314579162923ca2fae30ca4d46ca298efec0e3e7[m
+Author: hernan527 <hernan527@gmail.com>
+Date:   Sat Nov 29 15:28:09 2025 -0300
+
+    before pull
+
+[33mcommit 6858a75b37d4e238462c6fbc00c1aee3203157f6[m
+Merge: cbf688d a4dc0b4
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Nov 29 18:09:24 2025 +0000
+
+    Apply order from first attribute entry
+    
+    X-Lovable-Edit-ID: edt-aef270ee-1e1c-4826-819f-02dad87cc2c2
+
+[33mcommit a4dc0b4b6b0267a14f7f6034e18a6f99542441d8[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Nov 29 18:09:23 2025 +0000
+
+    Changes
+
+[33mcommit cbf688d56327714f7d9fcb927a94fa32555520f7[m
+Merge: 6f0543a 984954d
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Nov 29 18:05:34 2025 +0000
+
+    Ordenar atributos por grupo
+    
+    Refactor de la lógica de agrupación y ordenamiento de atributos en HealthPlanComparisonModal.tsx para respetar:
+    - orden por attribute_group_order entre grupos
+    - orden por attribute_name_order dentro de cada grupo
+    - manejo de valores faltantes y nombres de grupo
+    - mejora de legibilidad y preparación de datos para renderizado estructurado
+    
+    X-Lovable-Edit-ID: edt-2cd704d8-46c0-45ec-9505-f76cf8cecfd6
+
+[33mcommit 984954d3a054c769d9607ae64c2cac14ea5839be[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Nov 29 18:05:34 2025 +0000
+
+    Changes
+
+[33mcommit 6f0543a870265cb40c1cd77f68f729b0204ccbd1[m
+Merge: a5875fb cbc2382
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Nov 29 18:00:25 2025 +0000
+
+    Ordenar atributos por grupos
+    
+    Ajusta HealthPlanComparisonModal.tsx para respetar los nuevos campos de orden
+    - Usa attribute_group_order para ordenar grupos de atributos
+    - Usa attribute_name_order para ordenar atributos dentro de cada grupo
+    - Mantiene la estructura de la tabla de beneficios con agrupación visible y orden consistente
+    - Añade soporte de órdenes opcionales en atributos y grupos sin romper compatibilidad existente
+    
+    X-Lovable-Edit-ID: edt-3cc09dec-7e0c-4528-96e5-0d54ddfd1693
+
+[33mcommit cbc23827c07da2d74cc660ae9a98cca128f1dbb2[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Nov 29 18:00:24 2025 +0000
+
+    Changes
+
+[33mcommit a5875fbb4d498fd09766ec5ad8af4be1f7b838d9[m
+Merge: f67f162 bfe1106
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Nov 29 17:43:43 2025 +0000
+
+    Ajustar clínica tabla
+    
+    Mejorar ancho de columnas en la tabla de clínicas, ensanchar la columna de clínicas para nombres largos, estrechar columnas de planes (solo con cruz/tilde), eliminar duplicado de encabezados superior y hacer sticky el header de la tabla.
+    
+    X-Lovable-Edit-ID: edt-ecfd2695-5ac9-4d2e-977d-8de1a694a01d
+
+[33mcommit bfe1106b43cc5dbdd9395ce65810f9842d690062[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Nov 29 17:43:42 2025 +0000
+
+    Changes
+
+[33mcommit f67f162c3ff7e4f58d1d20967e7ee8a96931a709[m
+Merge: 80ae275 9196e45
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Nov 29 17:38:59 2025 +0000
+
+    Sync clinic table header to columns
+    
+    Align clinic table header with benefits by switching to ScrollArea, using PlanHeader for fixed-width headers, and ensure headers match column widths without horizontal scroll. This mirrors the benefits table styling for consistency.
+    
+    X-Lovable-Edit-ID: edt-37e7660d-88da-4634-92d9-a33f58a8639f
+
+[33mcommit 9196e456e04d0db327224be9be808a99d3b94bed[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Nov 29 17:38:58 2025 +0000
+
+    Changes
+
+[33mcommit 80ae275c1cbeafacf2d7fbe7753392e2ca30428f[m
+Merge: db28b48 5e3d95c
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Nov 29 17:34:35 2025 +0000
+
+    Ajusta grupos de atributos
+    
+    Mejora la visualización de grupos en la tabla de beneficios:
+    - Asegura que los grupos se muestren correctamente usando attribute_group_name o 'Otros Beneficios' cuando falte.
+    - Ordena grupos con prioridad a los definidos en ATTRIBUTE_GROUPS y luego los alfabéticos.
+    - Mantiene estructura de filas para cada grupo y sus valores por plan.
+    
+    X-Lovable-Edit-ID: edt-ec405deb-dc86-42c9-9959-26c18a408e65
+
+[33mcommit 5e3d95ce72f1603b095825f569b3bb9f9d9a76d9[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Nov 29 17:34:34 2025 +0000
+
+    Changes
+
+[33mcommit db28b48f866f9c95106fa77ee02693d50f1d47bd[m
+Merge: ca633dc 61655de
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Nov 29 17:33:46 2025 +0000
+
+    Ajusta tabla de beneficios
+    
+    Asegura que se muestre la fila de grupo (attribute_group_name) sobre los beneficios, manteniendo la estructura especificada. Ajusta estilos para visibilidad de la cabecera de grupo y confirma que los atributos se renderizan dentro del bloque correcto. También maneja el caso en que los grupos no existan asignando “Otros Beneficios” y mantiene la fila de grupo colapsada/visible según el diseño.
+    
+    X-Lovable-Edit-ID: edt-60c605a3-34c3-4911-bc3a-1017b25c64a8
+
+[33mcommit 61655de83a3fb30a2316c8b82d2444860df517c5[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Nov 29 17:33:45 2025 +0000
+
+    Changes
+
+[33mcommit ca633dc2c7c1d2ebe639cf6bdb1917e532382e94[m
+Merge: 31cbf3e fb4058b
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Nov 29 17:19:51 2025 +0000
+
+    Reorganize benefits table
+    
+    Update HealthPlanComparisonModal to:
+    - Align clinic header with benefits header and fix height
+    - Move remove button to top-right as trash icon only
+    - Place rating star beside plan name
+    - Group benefit rows by attribute_group_name and render grouped headers and values as specified
+    - Ensure clinics header matches benefits header and enable proper scrolling/layout within modal
+    
+    X-Lovable-Edit-ID: edt-cc72f55e-d912-43de-ab85-6af0faf8565e
+
+[33mcommit fb4058b2238d6bbaf01c6c24f66490df6aa9d901[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Nov 29 17:19:51 2025 +0000
+
+    Changes
+
+[33mcommit 31cbf3ee59bbc8c8a6b24c58992c9b39d610bf3d[m
+Merge: abf7a81 c914899
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Nov 29 16:59:53 2025 +0000
+
+    Ajustar modal de comparación
+    
+    - Fija tamaño del modal y evita cambios dinámicos según contenido
+    - Adecua contenido de pestañas a límites del modal con scroll en clínicas
+    - Asegura scroll en listado de clínicas y mejora estructura de Tabs para rendimiento y consistencia
+    
+    X-Lovable-Edit-ID: edt-9a2fa2cf-d486-40f1-b404-704e9e622a3b
+
+[33mcommit c914899c0fd2537eb0ff477ea701d2ea50f03d30[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Nov 29 16:59:53 2025 +0000
+
+    Changes
+
+[33mcommit abf7a81691cb4931f4f8df6282175d0d05a257db[m
+Merge: bceabb6 a1a8bb1
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Nov 29 16:34:38 2025 +0000
+
+    Fix null-safe search in HealthPlanComparisonModal
+    
+    - Add guards before calling toLowerCase on plan.name, plan.linea, and plan.empresa to prevent runtime errors when fields are undefined.
+    
+    X-Lovable-Edit-ID: edt-8fb23a4f-c4c0-428c-a27b-ace71a904089
+
+[33mcommit a1a8bb1d301217a021ce9ffad58d1092b648fb43[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Nov 29 16:34:37 2025 +0000
+
+    Changes
+
+[33mcommit bceabb61da60d0bd65562b4adcd2e141814b3508[m
+Merge: 4e4d08a f18aed4
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Nov 29 16:31:48 2025 +0000
+
+    Ocultar bar al abrir modal
+    
+    Actualiza el flujo para ocultar ComparisonBar cuando se abre HealthPlanComparisonModal y mejora la integración del modal con CSS y componentes reales de shadcn. Incluye prop isComparisonModalOpen en ComparisonBar y pasa estado desde Index.tsx, reformula HealthPlanComparisonModal para usar UI real y limpieza de estilos.
+    
+    X-Lovable-Edit-ID: edt-14ce3536-c34d-4945-8f58-5e5570a829b0
+
+[33mcommit f18aed43c56ccced5902d17d19f5f3404dd3e437[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Nov 29 16:31:48 2025 +0000
+
+    Changes
+
+[33mcommit 4e4d08aaa644d2c12c50b4052321ceb6667b555c[m
+Author: hernan527 <hernan527@gmail.com>
+Date:   Sat Nov 29 13:12:51 2025 -0300
+
+    algiunas coasa
+
+[33mcommit 7706533417b4bf0ac78ce7608121dc23a478fa2f[m
+Merge: 8d99aa4 87d3662
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Nov 29 13:55:40 2025 +0000
+
+    Add HealthPlanComparisonModal
+    
+    Implement a new React functional, responsive HealthPlanComparisonModal using Tailwind. It manages visibility, handles adding/removing plans, supports three tabs (Clinics, Benefits, More Info), and includes an add-plan section with search. Also fetches clinics data, filters by plansToCompare, and renders comparison tables with quick-delete per plan.
+    
+    X-Lovable-Edit-ID: edt-23795bd0-181a-40ff-9908-bc7311bb9bc8
+
+[33mcommit 87d366252e4a2430fa27d4966a5af6f5f15b24b0[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Nov 29 13:55:40 2025 +0000
+
+    Changes
+
+[33mcommit 8d99aa4b81b923c9f76e3250c8dfe194dde7292d[m
+Author: hernan527 <hernan527@gmail.com>
+Date:   Sat Nov 29 09:56:11 2025 -0300
+
+    cambio url origin
+
+[33mcommit 367fc1339b073dce556d0a47134079d2309a4c13[m
+Merge: 8cde380 a01002d
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Nov 29 02:42:16 2025 +0000
+
+    Move images to public assets for proper loading
+    
+    - Place all plan header logos from src/assets/images/card-header into public/assets/images/card-header
+    - Ensure plan images referenced via /assets/images/card-header/<file>.webp render correctly in grid/list views and comparison bar
+    - No code logic changes; only asset path alignment to API usage expectations
+    
+    X-Lovable-Edit-ID: edt-c97d6c09-6346-48c6-8d32-1a1304d79266
+
+[33mcommit a01002d3be8e37c767d968396ff585288ca19038[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Nov 29 02:42:16 2025 +0000
+
+    Changes
+
+[33mcommit 8cde3801aad017b7fc9165680eec380bc9a4a487[m
+Merge: b568d01 b7c0ce7
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Nov 29 02:40:05 2025 +0000
+
+    Mostrar logo en cards
+    
+    Añade la imagen del logo de cada plan en las cards de ambas vistas (grid y list), usando la ruta plan.images[0].url, y verifica que la ruta comience con '/' para que se renderice correctamente. También deja preparado el render para mostrar el logo en el header de cada card y asegura que la ruta sea válida y visible en el listado de planes.
+    
+    X-Lovable-Edit-ID: edt-548d5d08-7ed7-4f5d-ad50-1a5b21058fff
+
+[33mcommit b7c0ce7e5281a5c67cf3b93e8191e6cde5aba78f[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Nov 29 02:40:04 2025 +0000
+
+    Changes
+
+[33mcommit b568d01bd8649d5b6a0f4ab2d3e9ebd0e1738904[m
+Merge: c08cc43 e40cc50
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Nov 29 02:22:26 2025 +0000
+
+    Add comparison bar UI
+    
+    Implement a floating comparison panel that shows selected plans with their logos (from images[0].url) and names, and allow removing items directly from the panel. Ensure logos use plan.images[0].url and provide removal controls.
+    
+    X-Lovable-Edit-ID: edt-645540ea-81c5-4fb3-bb72-ea5d0e4236ed
+
+[33mcommit e40cc50699bde068083a332626c702cd55f277c5[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Nov 29 02:22:26 2025 +0000
+
+    Changes
+
+[33mcommit c08cc43dc6da3fef35a01030806592dbfe44d19d[m
+Author: hernan527 <hernan527@gmail.com>
+Date:   Fri Nov 28 23:16:44 2025 -0300
+
+    card heder added
+
+[33mcommit c1623ddc32ecb958fc3aa6f60513782c4978a748[m
+Merge: acf7cbf f129c3d
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Nov 29 01:32:01 2025 +0000
+
+    Habilitar busqueda de clínicas
+    
+    Implementa autocompletado y filtrado por clínicas en la barra de búsqueda superior, mostrando clínicas como badges, permitiendo selección y filtrando planes por clínicas asociadas. Añade toggle de comparar en tarjetas para gestionar una lista de planes a comparar.
+    
+    X-Lovable-Edit-ID: edt-8df3eb7b-2f6e-426a-a715-dc35e07560ee
+
+[33mcommit f129c3d6f157b4c5b7a8fb241bb6cd1cee523aeb[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Nov 29 01:32:01 2025 +0000
+
+    Changes
+
+[33mcommit acf7cbf441ea08f365cdd191ba25ccad0ddad13d[m
+Merge: 910d791 4122a27
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Nov 29 01:21:21 2025 +0000
+
+    Fetch api fields fix
+    
+    Adapt to API schema: map health plans using empresa/attributes, not provider/features; add null checks and correct keys to render plans without runtime errors.
+    
+    X-Lovable-Edit-ID: edt-77dcc009-494f-4b5c-9c6c-7ccc1ec3250a
+
+[33mcommit 4122a27e917246dcf7be5fa9703ac3d62e515038[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Nov 29 01:21:21 2025 +0000
+
+    Changes
+
+[33mcommit 910d791537d4b7f0470c552f38e8e5c8881b881b[m
+Merge: ce18bff c50a072
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Nov 29 01:20:23 2025 +0000
+
+    Integrate plans API fetch
+    
+    - Fetch health plans from external endpoint
+    - Prepare for quote flow with floating button and multi-step form
+    - Setup form structure and submission to cotizacion endpoint (partial)
+    
+    X-Lovable-Edit-ID: edt-a901917d-9a6a-4173-996d-ec88efbc79f5
+
+[33mcommit c50a072b652e6d6076e30b9baed35e616e2bb5b3[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Nov 29 01:20:23 2025 +0000
+
+    Changes
+
+[33mcommit ce18bff88aa2589e7c443fc1a5d6030436a10b85[m
+Merge: cee8699 21f56b1
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Fri Nov 28 23:28:30 2025 +0000
+
+    Add health results view
+    
+    Implement left filters, header search, view toggle (grid/list), and responsive plan cards for health plan results page; partial UI built with filters, header, and card grid/list switching.
+    
+    X-Lovable-Edit-ID: edt-ff6d9c45-7fd3-4136-9ab6-f7d84715dc98
+
+[33mcommit 21f56b12a1a616a7885d92b6188ea9be907ea552[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Fri Nov 28 23:28:30 2025 +0000
+
+    Changes
+
+[33mcommit cee869941d8234a1f5f08f9c27a3c7242923375b[m
+Merge: 266824f 11a340d
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Fri Nov 28 10:42:30 2025 +0000
+
+    Create minimal white hero
+    
+    Set up ultra-clean project state with a single white hero area; remove extraneous content and keep the page minimal for future content.
+    
+    X-Lovable-Edit-ID: edt-610cb8ab-4adc-49eb-9101-2c6761f6d10d
+
+[33mcommit 11a340d47cdb1098f28f5be5927e866021952d08[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Fri Nov 28 10:42:29 2025 +0000
+
+    Changes
+
+[33mcommit 266824f13b5dca9987777bc44f2dd6e013a27dd3[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Fri Nov 28 10:41:39 2025 +0000
+
+    Initial commit from template vite_react_shadcn_ts_20250728_minor
