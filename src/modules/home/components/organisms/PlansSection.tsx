@@ -1,54 +1,53 @@
-import { useState, useEffect, useMemo } from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Scale, Sparkles, User, Users as UsersIcon } from "lucide-react";
+import { Scale, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { HomePlanCard, HomePlanData } from "./HomePlanCard";
 import { HomeComparisonModal } from "./HomeComparisonModal";
+import { CotizadorSidebar } from "./CotizadorSidebar"; 
 import { usePlans } from "@/hooks/usePlans";
 import masterQuotes from '@/data/cotizaciones_maestras_rows.json';
 import { normalizeLogoPath } from "@/lib/supabase-helpers";
 
+// Forzamos el tipado de la data para habilitar .find()
+const quotes = (masterQuotes as any) as any[];
+
 export const PlansSection = () => {
   const [selectedPlans, setSelectedPlans] = useState<string[]>([]);
   const [showModal, setShowModal] = useState(false);
-  const [profile, setProfile] = useState({ edad1: 18, edad2: 0, hijos: 0, tipo: 'P' });
+  const [filtros, setFiltros] = useState({ 
+    edadTitular: 30, 
+    edadConyuge: 0, 
+    hijos: 0, 
+    sueldo: 0 
+  });
 
-  // 1. Obtenemos la data del Hook (usePlans procesa las relaciones de clínicas)
   const { data, isLoading } = usePlans();
 
-  // 2. Metemos la lógica de extracción y combinación TODO dentro del useMemo
+  // 1. MOTOR DE CÁLCULO (Sliders + JSON + Aportes)
   const livePlans = useMemo(() => {
-    // EXTRAER LOS PLANES (Soluciona el error de TypeScript y de dependencias)
-    // Usamos una aserción de tipo 'any' temporal para que no proteste por la propiedad .planes
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const rawData: any = data;
     const dbPlans = Array.isArray(rawData) ? rawData : rawData?.planes || [];
-
     if (!dbPlans || dbPlans.length === 0) return [];
 
-    // Generamos el ID matemático (ej: 1800000)
+    const esDesregulado = filtros.sueldo > 300000;
+    const aporteObraSocial = esDesregulado ? Math.round(filtros.sueldo * 0.0765) : 0;
+
     const targetId = parseInt(
-      `${profile.edad1}${String(profile.edad2).padStart(2, '0')}${String(profile.hijos).padStart(2, '0')}${profile.tipo === 'P' ? '0' : '1'}`
+      `${filtros.edadTitular}${String(filtros.edadConyuge).padStart(2, '0')}${String(filtros.hijos).padStart(2, '0')}${esDesregulado ? '1' : '0'}`
     );
     
-    const quoteRow = masterQuotes.find(q => q.id === targetId);
-    if (!quoteRow || !quoteRow.respuesta) return [];
+    const quoteRow = quotes.find(q => q.id === targetId);
+    if (!quoteRow) return [];
 
-    const preciosMock = JSON.parse(quoteRow.respuesta);
+    const preciosMock = typeof quoteRow.respuesta === 'string' 
+      ? JSON.parse(quoteRow.respuesta) 
+      : quoteRow.respuesta;
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return dbPlans.map((dbPlan: any) => {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const infoPrecio = preciosMock.find((p: any) => p.item_id === dbPlan.item_id);
       if (!infoPrecio) return null;
-
-      // Extraer clínicas completas con datos de ubicación
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const clinicsData = dbPlan.plan_clinica?.map((pc: any) => pc.clinicas).filter(Boolean) || [];
-      
-      // Nombres para mostrar en cards (limitado a 3)
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const clinicNames = clinicsData.map((c: any) => c.nombre || c.nombre_abreviado).slice(0, 3);
 
       return {
         id: dbPlan.id.toString(),
@@ -56,19 +55,25 @@ export const PlansSection = () => {
         name: dbPlan.nombre_plan || dbPlan.name,
         empresa: dbPlan.empresas?.nombre || "Empresa",
         logo: normalizeLogoPath(dbPlan.empresas?.imagenes?.logo || "/placeholder.svg"),
-        price: infoPrecio.precio,
-        originalPrice: Math.round(infoPrecio.precio * 1.25),
-        attributes: dbPlan.slogans || ["Cobertura Médica Premium"],
-        clinics: clinicNames,
-        clinicsData: clinicsData, // Data completa para el modal
-        copago: dbPlan.tiene_copagos || false
+        price: Math.max(0, infoPrecio.precio - aporteObraSocial),
+        originalPrice: infoPrecio.precio,
+        attributes: dbPlan.slogans || [],
+        clinics: dbPlan.plan_clinica?.map((pc: any) => pc.clinicas?.nombre_abreviado || pc.clinicas?.nombre).slice(0, 3) || [],
+        clinicsData: dbPlan.plan_clinica?.map((pc: any) => pc.clinicas).filter(Boolean) || [],
+        copago: dbPlan.tiene_copagos || false,
+        modalidad: esDesregulado ? 'D' : 'P'
       };
     }).filter(Boolean) as HomePlanData[];
-    
-    // Agregamos 'data' a las dependencias para que useMemo se dispare cuando cargue el Mock
-  }, [data, profile]);
+  }, [data, filtros]);
 
-  // 4. HANDLERS
+  // 2. SINCRONIZACIÓN PARA DUELOS (Comparación)
+  const selectedPlanData = useMemo(() => {
+    return selectedPlans
+      .map((id) => livePlans.find((p) => p.id === id))
+      .filter(Boolean) as HomePlanData[];
+  }, [selectedPlans, livePlans]);
+
+  // 3. HANDLERS
   const togglePlan = (planId: string) => {
     setSelectedPlans(prev => 
       prev.includes(planId) 
@@ -77,108 +82,90 @@ export const PlansSection = () => {
     );
   };
 
-  const selectedPlanData = selectedPlans
-    .map((id) => livePlans.find((p) => p.id === id))
-    .filter(Boolean) as HomePlanData[];
-
-  // 5. EFECTOS
-  useEffect(() => {
-    if (selectedPlans.length === 2) {
-      const timer = setTimeout(() => setShowModal(true), 400);
-      return () => clearTimeout(timer);
-    }
-  }, [selectedPlans]);
-
-  if (isLoading) return (
-    <div className="py-20 text-center font-bold text-primary animate-pulse">
-      Cargando planes profesionales...
-    </div>
-  );
+  if (isLoading) return <div className="py-20 text-center animate-pulse font-bold">Iniciando Versus...</div>;
 
   return (
-    <section className="py-20 bg-background relative overflow-hidden">
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-2 bg-primary/10 rounded-full px-4 py-2 mb-6">
+    <section className="py-12 bg-background relative min-h-screen">
+      <div className="container mx-auto px-4">
+        
+        {/* Encabezado */}
+        <div className="mb-10">
+          <div className="inline-flex items-center gap-2 bg-primary/10 rounded-full px-4 py-2 mb-4">
             <Sparkles className="w-4 h-4 text-primary" />
             <span className="text-sm font-bold text-primary uppercase tracking-wider">
-              Cotización Real Instantánea
+              Comparador Inteligente
             </span>
           </div>
-          <h2 className="text-3xl md:text-5xl font-black text-foreground mb-4">
-            Elegí tu <span className="text-primary italic">Perfil</span>
+          <h2 className="text-4xl md:text-5xl font-black italic text-foreground">
+            Versus <span className="text-primary">Prepagas</span>
           </h2>
-
-          {/* BOTONES DE PERFIL */}
-          <div className="flex flex-wrap justify-center gap-3 mt-8">
-            <Button 
-              variant={profile.edad1 === 18 && profile.hijos === 0 ? "default" : "outline"}
-              className="rounded-full shadow-sm"
-              onClick={() => setProfile({ edad1: 18, edad2: 0, hijos: 0, tipo: 'P' })}
-            >
-              <User className="mr-2 h-4 w-4" /> Soltero 18 años
-            </Button>
-            <Button 
-              variant={profile.hijos === 2 ? "default" : "outline"}
-              className="rounded-full shadow-sm"
-              onClick={() => setProfile({ edad1: 30, edad2: 30, hijos: 2, tipo: 'P' })}
-            >
-              <UsersIcon className="mr-2 h-4 w-4" /> Familia (2 hijos)
-            </Button>
-          </div>
         </div>
 
-{/* GRILLA DE PLANES */}
-<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-  {livePlans.map((plan, index) => (
-    <HomePlanCard
-      key={plan.id}
-      plan={plan}
-      isSelected={selectedPlans.includes(plan.id)}
-      onSelect={() => togglePlan(plan.id)}
-      onWhatsApp={() => window.open(`https://wa.me/549...?text=Hola, quiero info del ${plan.name}`)} 
-      index={index}
-    />
-  ))}
-</div>
+        {/* LAYOUT PRINCIPAL: Sidebar Sticky + Grilla */}
+        <div className="flex flex-col lg:flex-row gap-8 items-start relative">
+          
+          {/* SIDEBAR STICKY (Los 4 Sliders) */}
+          <aside className="w-full lg:w-[380px] lg:sticky lg:top-8 self-start z-30">
+            <CotizadorSidebar filtros={filtros} setFiltros={setFiltros} />
+          </aside>
 
-        {/* BARRA FLOTANTE DE COMPARACIÓN */}
-        <AnimatePresence>
-          {selectedPlans.length > 0 && (
-            <motion.div 
-              initial={{ y: 100, x: "-50%" }} 
-              animate={{ y: 0, x: "-50%" }} 
-              exit={{ y: 100, x: "-50%" }} 
-              className="fixed bottom-8 left-1/2 z-50 w-[90%] max-w-md"
-            >
-              <div className="bg-card/95 backdrop-blur-xl border border-primary/20 rounded-3xl shadow-2xl p-4 flex items-center justify-between">
-                <div className="flex -space-x-3">
-                  {selectedPlanData.map((p) => (
-                    <div key={p.id} className="w-10 h-10 rounded-full border-2 border-background bg-muted flex items-center justify-center overflow-hidden">
-                      <img src={p.logo} alt="" className="w-6 h-6 object-contain" />
-                    </div>
-                  ))}
-                </div>
-                
-                <Button 
-                  onClick={() => setShowModal(true)} 
-                  disabled={selectedPlans.length < 2} 
-                  className="font-bold rounded-xl bg-primary text-primary-foreground shadow-lg hover:scale-105 transition-transform"
-                >
-                  <Scale className="w-4 h-4 mr-2" />
-                  {selectedPlans.length === 2 ? "¡Ver Comparativa!" : `${selectedPlans.length}/2 seleccionados`}
-                </Button>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+          {/* LISTADO DE RESULTADOS */}
+          <main className="flex-1 w-full">
+            <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 pb-32">
+              <AnimatePresence mode="popLayout">
+                {livePlans.map((plan, index) => (
+                  <HomePlanCard
+                    key={plan.id}
+                    plan={plan}
+                    index={index}
+                    isSelected={selectedPlans.includes(plan.id)}
+                    onSelect={() => togglePlan(plan.id)}
+                    onWhatsApp={() => window.open(`https://wa.me/549...?text=Hola! Coticé el ${plan.name} en Versus.`)}
+                  />
+                ))}
+              </AnimatePresence>
+            </div>
+          </main>
+
+        </div>
       </div>
 
+      {/* BARRA FLOTANTE DE COMPARACIÓN */}
+      <AnimatePresence>
+        {selectedPlans.length > 0 && (
+          <motion.div 
+            initial={{ y: 100, x: "-50%" }} 
+            animate={{ y: 0, x: "-50%" }} 
+            exit={{ y: 100, x: "-50%" }}
+            className="fixed bottom-8 left-1/2 z-50 w-[90%] max-w-md"
+          >
+            <div className="bg-card/95 backdrop-blur-xl border border-primary/20 rounded-3xl shadow-2xl p-4 flex items-center justify-between">
+              <div className="flex -space-x-3">
+                {selectedPlanData.map((p) => (
+                  <div key={p.id} className="w-10 h-10 rounded-full border-2 border-background bg-muted flex items-center justify-center overflow-hidden">
+                    <img src={p.logo} alt="" className="w-6 h-6 object-contain" />
+                  </div>
+                ))}
+              </div>
+              <Button 
+                onClick={() => setShowModal(true)} 
+                disabled={selectedPlans.length < 2}
+                className="font-bold rounded-xl shadow-lg transition-transform hover:scale-105"
+              >
+                <Scale className="w-4 h-4 mr-2" />
+                {selectedPlans.length === 2 ? "¡Ver Comparativa!" : `${selectedPlans.length}/2 Seleccionados`}
+              </Button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* MODAL DE DUELO */}
       <HomeComparisonModal
         isOpen={showModal}
         onClose={() => setShowModal(false)}
         plans={selectedPlanData}
-        onWhatsApp={(name) => window.open(`https://wa.me/549...?text=Hola, comparé planes y me interesa el ${name}`)}
+        onWhatsApp={(name) => window.open(`https://wa.me/549...?text=Hola! Comparé en Versus y me gustó el plan ${name}`)}
       />
     </section>
   );

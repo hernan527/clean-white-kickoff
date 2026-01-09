@@ -448,3 +448,4 @@
   background: hsl(var(--primary) / 0.3);
   color: hsl(var(--foreground));
 }
+/* Necesario para que el sticky de la PlansSection funcione en Main */

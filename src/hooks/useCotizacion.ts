@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { QuoteFormData } from '@/core/interfaces/plan/quoteFormData';
 import { submitQuote } from '@/services/health.service';
 import {  type HealthPlan } from '@/core/interfaces/plan/planes';
-
+import planesMock from "@/data/planes_mock.json";
 import { initialFormData } from '@/data/initialFormData';
 const STORAGE_KEY = 'last_cotizacion_form';
 const QUOTE_CODE_KEY = 'quote_code';

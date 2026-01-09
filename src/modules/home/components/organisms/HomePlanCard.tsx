@@ -2,10 +2,10 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { MessageCircle, Scale, Check, Building2, Stethoscope, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge"; // Asegúrate de tener el componente Badge de Shadcn
 import { cn } from "@/lib/utils";
 import { normalizeLogoPath } from "@/lib/supabase-helpers";
 
-// Rotating taglines for each plan
 const TAGLINES = [
   "Sin letra chica",
   "Atención 24/7",
@@ -15,7 +15,6 @@ const TAGLINES = [
   "Alta inmediata",
 ];
 
-// Estructura de clínica con información de ubicación
 export interface ClinicData {
   id?: number;
   nombre: string;
@@ -36,9 +35,10 @@ export interface HomePlanData {
   price: number;
   originalPrice: number;
   attributes: string[];
-  clinics: string[]; // Nombres para mostrar en cards (limitado)
-  clinicsData: ClinicData[]; // Data completa para el modal
+  clinics: string[];
+  clinicsData: ClinicData[];
   copago: boolean;
+  modalidad?: 'P' | 'D'; // Modalidad calculada
 }
 
 interface HomePlanCardProps {
@@ -48,8 +48,6 @@ interface HomePlanCardProps {
   onWhatsApp: () => void;
   index: number;
 }
-
-const WHATSAPP_NUMBER = "5491112345678"; // Cambiar por número real
 
 export const HomePlanCard = ({ plan, isSelected, onSelect, onWhatsApp, index }: HomePlanCardProps) => {
   const [currentTagline, setCurrentTagline] = useState(0);
@@ -61,10 +59,15 @@ export const HomePlanCard = ({ plan, isSelected, onSelect, onWhatsApp, index }: 
     return () => clearInterval(interval);
   }, []);
 
+  // Calculamos el descuento real basado en el precio final vs original
   const discount = Math.round(((plan.originalPrice - plan.price) / plan.originalPrice) * 100);
 
   const formatCurrency = (value: number) =>
-    new Intl.NumberFormat("es-AR", { style: "currency", currency: "ARS", maximumFractionDigits: 0 }).format(value);
+    new Intl.NumberFormat("es-AR", { 
+      style: "currency", 
+      currency: "ARS", 
+      maximumFractionDigits: 0 
+    }).format(value);
 
   const getFeatureIcon = (text: string) => {
     const t = text.toLowerCase();
@@ -85,7 +88,16 @@ export const HomePlanCard = ({ plan, isSelected, onSelect, onWhatsApp, index }: 
           : "border-border hover:border-primary/50"
       )}
     >
-      {/* Selected indicator */}
+      {/* Indicador de Modalidad P o D */}
+      <div className="absolute top-3 left-3 z-20">
+        <Badge className={cn(
+          "px-2 py-0.5 text-[10px] uppercase font-bold border-none",
+          plan.modalidad === 'D' ? "bg-green-500 text-white" : "bg-blue-500 text-white"
+        )}>
+          Mod. {plan.modalidad}
+        </Badge>
+      </div>
+
       {isSelected && (
         <motion.div 
           initial={{ scale: 0 }}
@@ -96,7 +108,6 @@ export const HomePlanCard = ({ plan, isSelected, onSelect, onWhatsApp, index }: 
         </motion.div>
       )}
 
-      {/* Header with logo */}
       <div className="h-20 flex items-center justify-center p-4 bg-muted/30 border-b border-border">
         <div className="bg-white rounded-xl p-2 shadow-sm border border-border/50 transition-transform group-hover:scale-110">
           <img
@@ -107,12 +118,9 @@ export const HomePlanCard = ({ plan, isSelected, onSelect, onWhatsApp, index }: 
         </div>
       </div>
 
-      {/* Content */}
       <div className="p-5">
-        {/* Plan name */}
         <h3 className="font-bold text-lg text-foreground leading-tight mb-1">{plan.name}</h3>
         
-        {/* Rotating tagline */}
         <div className="h-5 overflow-hidden mb-4">
           <motion.p
             key={currentTagline}
@@ -125,7 +133,6 @@ export const HomePlanCard = ({ plan, isSelected, onSelect, onWhatsApp, index }: 
           </motion.p>
         </div>
 
-        {/* Attributes */}
         <div className="flex flex-wrap gap-1.5 mb-4">
           {plan.attributes.slice(0, 3).map((attr, idx) => (
             <span
@@ -137,7 +144,6 @@ export const HomePlanCard = ({ plan, isSelected, onSelect, onWhatsApp, index }: 
           ))}
         </div>
 
-        {/* Clinic badges */}
         <div className="flex flex-wrap gap-1.5 mb-4">
           {plan.clinics.slice(0, 2).map((clinic, idx) => (
             <span
@@ -154,19 +160,24 @@ export const HomePlanCard = ({ plan, isSelected, onSelect, onWhatsApp, index }: 
           )}
         </div>
 
-        {/* Price section */}
         <div className="border-t border-border pt-4 mb-4">
           <div className="flex items-center justify-between">
             <div>
-              <span className="text-xs text-destructive/70 line-through">{formatCurrency(plan.originalPrice)}</span>
+              <span className="text-xs text-destructive/70 line-through">
+                {formatCurrency(plan.originalPrice)}
+              </span>
               <div className="flex items-center gap-2">
-                <span className="text-2xl font-black text-foreground">{formatCurrency(plan.price)}</span>
+                <span className="text-2xl font-black text-foreground">
+                  {formatCurrency(plan.price)}
+                </span>
                 <span className="text-xs text-muted-foreground">/mes</span>
               </div>
             </div>
-            <span className="text-[10px] font-bold text-success bg-success/10 px-2 py-0.5 rounded-full border border-success/20">
-              -{discount}% OFF
-            </span>
+            {discount > 0 && (
+              <span className="text-[10px] font-bold text-success bg-success/10 px-2 py-0.5 rounded-full border border-success/20">
+                -{discount}% OFF
+              </span>
+            )}
           </div>
           <span className={cn(
             "inline-block mt-2 px-2 py-0.5 rounded text-[10px] font-bold uppercase",
@@ -178,7 +189,6 @@ export const HomePlanCard = ({ plan, isSelected, onSelect, onWhatsApp, index }: 
           </span>
         </div>
 
-        {/* Action buttons */}
         <div className="flex gap-2">
           <Button
             onClick={onWhatsApp}
