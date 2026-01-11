@@ -8,7 +8,7 @@ dotenv.config();
 
 const supabaseData = createClient(
   process.env.VITE_MY_SUPABASE_URL || '',
-  process.env.VITE_MY_SUPABASE_ANON_KEY || ''
+  process.env.VITE_SUPABASE_SERVICE_ROLE_KEY || ''
 );
 
 const TAMANO_PAGINA = 1000;

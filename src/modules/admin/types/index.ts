@@ -2,6 +2,7 @@
 
 // Base types for API entities
 export interface Empresa {
+  id: string;
   _id: string;
   nombre: string;
   descripcion?: string;
@@ -23,6 +24,7 @@ export interface Direccion {
   calle: string;
   numero: string;
   ciudad: string;
+  telefono: string;
   provincia: string;
   codigoPostal?: string;
   barrio?: string;
@@ -30,22 +32,29 @@ export interface Direccion {
   longitud?: number;
 }
 
+
 export interface Clinica {
   _id: string;
-  entity: string;
+  id: string;   // Para Supabase
+  ID: string;
+  url?: string;
+  nombre_abreviado: string;
+  entity?: string;
   nombre?: string;
   descripcion?: string;
+  imagenes: Array<{
+    url: string;
+    descripcion?: string;
+    nombre?: string;
+  }>;
   images: Array<{
     url: string;
     descripcion?: string;
     nombre?: string;
   }>;
-  direcciones: Direccion[];
   especialidades: Especialidad[];
-  ubicacion?: Array<{
-    region: string;
-    barrio: string;
-  }>;
+  direcciones?: Direccion[]; // El que usas en el front
+  ubicaciones?: Direccion[];  // Como viene de la DB (Supabase)
   item_ids: string[];
   createdAt?: string;
   updatedAt?: string;
@@ -59,6 +68,7 @@ export interface PlanArchivo {
 }
 
 export interface Plan {
+  id: string;
   _id: string;
   nombre: string;
   empresa: string;
@@ -81,6 +91,15 @@ export interface Plan {
   activo?: boolean;
   createdAt?: string;
   updatedAt?: string;
+  plan_prestacion?: {
+    prestacion_id: number;
+    valor: string;
+    listar: boolean;
+    prestaciones_maestras?: {
+      nombre: string;
+      icono_emoji: string;
+    };
+  }[];
 }
 
 // Dashboard stats

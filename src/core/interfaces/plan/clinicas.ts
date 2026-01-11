@@ -3,6 +3,7 @@ import { Ubicacion, Image } from './interfaces';
 // Angular: Clinicas
 export interface Clinica { // (Nombre en singular para React)
     _id?: string; // Opcional
+    id?: string;   // Para Supabase
     nombre: string;
     entity: string;
     item_id: string;

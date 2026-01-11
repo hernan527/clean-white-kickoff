@@ -35,7 +35,7 @@ export function getPlanPrice(plan: PlanSimple): number {
 
 /**
  * Extrae la ruta del logo de una empresa y la normaliza.
- * Convierte rutas legacy (/assets/imagenes/) a las rutas correctas (/assets/images/)
+ * Convierte rutas legacy (/assets/imagenes/) a las rutas correctas (/assets/imagenes/)
  */
 export function getCompanyLogo(empresa?: EmpresaSimple): string | null {
   if (!empresa?.imagenes) return null;
@@ -47,7 +47,7 @@ export function getCompanyLogo(empresa?: EmpresaSimple): string | null {
   
   if (!logo) return null;
   
-  // Normaliza la ruta: el mock usa /assets/imagenes/ pero las imágenes están en /assets/images/
+  // Normaliza la ruta: el mock usa /assets/imagenes/ pero las imágenes están en /assets/imagenes/
   return normalizeLogoPath(logo);
 }
 
@@ -58,7 +58,7 @@ export function normalizeLogoPath(path: string): string {
   if (!path) return '';
   
   // Corrige la ruta del mock: imagenes → images
-  return path.replace('/assets/imagenes/', '/assets/images/');
+  return path.replace('/assets/imagenes/', '/assets/imagenes/');
 }
 
 /**

@@ -8,77 +8,79 @@ dotenv.config();
 
 const supabase = createClient(
   process.env.VITE_MY_SUPABASE_URL || '',
-  process.env.VITE_MY_SUPABASE_ANON_KEY || ''
+  process.env.VITE_SUPABASE_SERVICE_ROLE_KEY || ''
 );
 
 async function syncComoGoogleSheets() {
-  console.log('🌐 Iniciando el "Mete y Saca" de datos nivel Google Sheets...');
+  console.log('🌐 Iniciando el "Mete y Saca" de datos con relaciones completas...');
 
-  // 1. Traemos todas las tablas (El "SpreadsheetApp.getActiveSpreadsheet()")
-  const [p, e, c, r] = await Promise.all([
+  const [p, e, c, r, pp, pm] = await Promise.all([
     supabase.from('planes').select('*'),
     supabase.from('empresas').select('*'),
     supabase.from('clinicas').select('*'),
-    supabase.from('plan_clinica').select('*')
+    supabase.from('plan_clinica').select('*'),
+    supabase.from('plan_prestacion').select('*'),
+    supabase.from('prestaciones_maestras').select('*')
   ]);
 
-  if (!p.data || !e.data || !c.data || !r.data) {
-    console.error("❌ No se pudo succionar la data de Supabase");
+  if (!p.data || !e.data || !c.data || !r.data || !pp.data || !pm.data) {
+    console.error("❌ No se pudo succionar la data completa de Supabase");
     return;
   }
 
-  // 2. Procesamos los planes igual que tu función obtenerDataPlanes
   const planesRelacionados = p.data.map(plan => {
-    // Match de Empresa (obtenerDataEmpresas)
     const emp = e.data.find(empresa => empresa.id === plan.empresa_id);
     
-    // El "misClinicas" de tu script: El secreto está en el mapeo { clinicas: cInfo }
+    // --- 🏥 MATCH DE CLÍNICAS (Corregido para el Frontend) ---
     const misClinicas = r.data
-      .filter(rel => rel.plan_id === plan.id)
+      .filter(rel => Number(rel.plan_id) === Number(plan.id))
       .map(rel => {
-        const cInfo = c.data.find(clin => String(clin.id) === String(rel.clinica_id));
+        const cInfo = c.data.find(clin => Number(clin.id) === Number(rel.clinica_id));
         if (!cInfo) return null;
-        
-        // ESTA ES LA ESTRUCTURA QUE LO DEJA ABIERTO COMO UNA FLOR
+
         return {
+          plan_id: rel.plan_id,
+          clinica_id: rel.clinica_id,
+          // IMPORTANTE: La propiedad debe llamarse 'clinicas' (plural) 
+          // para coincidir con tu lógica de 'pc.clinicas' en el frontend
           clinicas: {
-            id: cInfo.id,
-            nombre: cInfo.nombre,
-            nombre_abreviado: cInfo.nombre_abreviado || cInfo.nombre,
-            ubicaciones: {
-              barrio: cInfo.barrio || "",
-              region: cInfo.region || "",
-              direccion: cInfo.direccion || ""
-            }
+            ...cInfo,
+            // Normalizamos imágenes para que siempre sea un array
+            imagenes: Array.isArray(cInfo.imagenes) ? cInfo.imagenes : [],
+            // Mantenemos la estructura original de ubicaciones para no romper nada
+            ubicaciones: cInfo.ubicaciones 
           }
         };
       }).filter(Boolean);
 
-    // Mapeo del objeto empresa minimalista
+    // --- 🛠️ MATCH DE PRESTACIONES ---
+    const misPrestaciones = pp.data
+      .filter(rel => Number(rel.plan_id) === Number(plan.id))
+      .map(rel => {
+        const pMaestra = pm.data.find(m => m.id === rel.prestacion_id);
+        if (!pMaestra) return null;
+        return {
+          ...rel,
+          prestaciones_maestras: pMaestra
+        };
+      }).filter(Boolean);
+
     const imgParsed = typeof emp?.imagenes === 'string' ? JSON.parse(emp.imagenes) : emp?.imagenes;
     const slogansParsed = typeof emp?.slogans === 'string' ? JSON.parse(emp.slogans) : emp?.slogans;
 
     return {
+      ...plan,
       id: plan.id,
-      nombre_plan: String(plan.nombre_plan || ""),
-      item_id: String(plan.item_id || ""),
-      empresa_id: plan.empresa_id,
-      categoria: String(plan.categoria || "base").toLowerCase(),
-      popularidad: parseInt(plan.popularidad || 0),
-      listar: plan.listar === true,
       empresas: emp ? {
-        id: emp.id,
-        nombre: emp.nombre,
-        imagenes: {
-          logo: imgParsed?.logo || ""
-        },
+        ...emp,
+        imagenes: { logo: imgParsed?.logo || "" },
         slogans: Array.isArray(slogansParsed) ? slogansParsed : [""]
       } : null,
-      plan_clinica: misClinicas // Inyectamos el array con el objeto "clinicas" adentro
+      plan_clinica: misClinicas,
+      plan_prestacion: misPrestaciones
     };
   });
 
-  // 3. Estructura Final (El "mockTotal" de tu script)
   const mockTotal = {
     planes: planesRelacionados,
     tabla_empresas: e.data,
@@ -90,7 +92,7 @@ async function syncComoGoogleSheets() {
   const outputPath = path.resolve('./src/data/planes_mock.json');
   fs.writeFileSync(outputPath, JSON.stringify(mockTotal, null, 2), 'utf-8');
   
-  console.log(`✅ ¡ÉXTASIS! Mock generado con ${planesRelacionados.length} planes. Derechito al Drive.`);
+  console.log(`✅ ¡ÉXTASIS! Mock generado con ${planesRelacionados.length} planes. Clínicas vinculadas.`);
 }
 
 syncComoGoogleSheets();

@@ -8,8 +8,7 @@ interface LayoutProps {
 
 const Layout = ({ children }: LayoutProps) => {
   return (
-    <div className="min-h-screen bg-background relative overflow-hidden">
-      {/* Animated background blobs - only visible in dark mode */}
+<div className="min-h-screen bg-background relative overflow-x-clip">      {/* Animated background blobs - only visible in dark mode */}
       <div className="fixed inset-0 -z-10 overflow-hidden dark:block hidden">
         <div className="absolute top-0 -left-4 w-96 h-96 bg-violet-600 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob" />
         <div className="absolute top-0 -right-4 w-96 h-96 bg-cyan-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000" />

@@ -1,85 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { supabase } from '@/integrations/supabase/client';
-import { DashboardStats, AdminUser, UserActivity } from '../types';
+import { DashboardStats, AdminUser } from '../types';
 
-const API_BASE = 'https://servidorplus.avalianonline.com.ar';
 
-// ============= Dashboard Stats =============
-export const getDashboardStats = async (): Promise<DashboardStats | null> => {
-  try {
-    const { data, error } = await supabase.rpc('get_admin_dashboard_stats');
-    if (error) throw error;
-    return data as unknown as DashboardStats;
-  } catch (error) {
-    console.error('Error fetching dashboard stats:', error);
-    return null;
-  }
-};
+const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5200'; // CORRECTO
 
-// ============= Users Management =============
-export const getAdminUsersList = async (): Promise<AdminUser[]> => {
-  try {
-    const { data, error } = await supabase.rpc('get_admin_users_list');
-    if (error) throw error;
-    return (data || []) as AdminUser[];
-  } catch (error) {
-    console.error('Error fetching users list:', error);
-    return [];
-  }
-};
-
-export const updateUserRole = async (userId: string, role: 'user' | 'vendor' | 'admin'): Promise<boolean> => {
-  try {
-    // First check if user has a role entry
-    const { data: existingRole } = await supabase
-      .from('user_roles')
-      .select('*')
-      .eq('user_id', userId)
-      .maybeSingle();
-
-    if (existingRole) {
-      // Update existing role
-      const { error } = await supabase
-        .from('user_roles')
-        .update({ role })
-        .eq('user_id', userId);
-      if (error) throw error;
-    } else {
-      // Insert new role
-      const { error } = await supabase
-        .from('user_roles')
-        .insert({ user_id: userId, role });
-      if (error) throw error;
-    }
-    return true;
-  } catch (error) {
-    console.error('Error updating user role:', error);
-    return false;
-  }
-};
-
-// ============= Activity Tracking =============
-export const getUserActivity = async (
-  limit = 100,
-  offset = 0,
-  userId?: string
-): Promise<UserActivity[]> => {
-  try {
-    const { data, error } = await supabase.rpc('get_admin_user_activity', {
-      p_limit: limit,
-      p_offset: offset,
-      p_user_id: userId || null
-    });
-    if (error) throw error;
-    return (data || []) as UserActivity[];
-  } catch (error) {
-    console.error('Error fetching user activity:', error);
-    return [];
-  }
-};
-
-// ============= External API CRUD =============
-
-// Generic fetch helper
+// --- Función base de peticiones (Usa FETCH) ---
 const apiRequest = async <T>(
   endpoint: string,
   method: 'GET' | 'POST' | 'PUT' | 'DELETE' = 'GET',
@@ -88,79 +14,136 @@ const apiRequest = async <T>(
   try {
     const options: RequestInit = {
       method,
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: { 'Content-Type': 'application/json' },
     };
-    if (body) {
-      options.body = JSON.stringify(body);
-    }
+    if (body) options.body = JSON.stringify(body);
+    
     const response = await fetch(`${API_BASE}${endpoint}`, options);
+    
+    // 1. Si la respuesta es 204 (No Content) o está vacía, no parsear JSON
+    if (response.status === 204 || response.headers.get("content-length") === "0") {
+      return {} as T;
+    }
+
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
-    return await response.json();
+
+    // 2. Intentar parsear solo si hay contenido
+    const contentType = response.headers.get("content-type");
+    if (contentType && contentType.includes("application/json")) {
+      return await response.json();
+    }
+    
+    return {} as T;
   } catch (error) {
     console.error(`API Error [${method} ${endpoint}]:`, error);
     return null;
   }
 };
 
-// Empresas CRUD
-export const getEmpresas = () => apiRequest<unknown[]>('/empresas');
-export const getEmpresaById = (id: string) => apiRequest<unknown>(`/empresas/${id}`);
-export const createEmpresa = (data: unknown) => apiRequest<unknown>('/empresas', 'POST', data);
-export const updateEmpresa = (id: string, data: unknown) => apiRequest<unknown>(`/empresas/${id}`, 'PUT', data);
-export const deleteEmpresa = (id: string) => apiRequest<unknown>(`/empresas/${id}`, 'DELETE');
-
-// Clinicas CRUD
-export const getClinicas = () => apiRequest<unknown[]>('/clinicas');
-export const getClinicaById = (id: string) => apiRequest<unknown>(`/clinicas/${id}`);
-export const createClinica = (data: unknown) => apiRequest<unknown>('/clinicas', 'POST', data);
-export const updateClinica = (id: string, data: unknown) => apiRequest<unknown>(`/clinicas/${id}`, 'PUT', data);
-export const deleteClinica = (id: string) => apiRequest<unknown>(`/clinicas/${id}`, 'DELETE');
-
-// Planes CRUD
-export const getPlanes = () => apiRequest<unknown[]>('/planes');
-export const getPlanById = (id: string) => apiRequest<unknown>(`/planes/${id}`);
-export const createPlan = (data: unknown) => apiRequest<unknown>('/planes', 'POST', data);
-export const updatePlan = (id: string, data: unknown) => apiRequest<unknown>(`/planes/${id}`, 'PUT', data);
-export const deletePlan = (id: string) => apiRequest<unknown>(`/planes/${id}`, 'DELETE');
-
-// Quotes from Supabase
-export const getSavedQuotes = async () => {
-  try {
-    const { data, error } = await supabase
-      .from('saved_quotes')
-      .select('*, profiles:user_id(first_name, last_name, avatar_url)')
-      .order('created_at', { ascending: false });
-    if (error) throw error;
-    return data;
-  } catch (error) {
-    console.error('Error fetching quotes:', error);
-    return [];
-  }
+// ============= Dashboard & Users (Supabase Directo) =============
+export const getDashboardStats = async () => {
+  const { data, error } = await supabase.rpc('get_admin_dashboard_stats');
+  return error ? null : (data as any);
 };
 
+export const getAdminUsersList = async () => {
+  const { data, error } = await supabase.rpc('get_admin_users_list');
+  return error ? [] : (data as any[]);
+};
+
+// ============= API EXTERNA (Planes, Clínicas, Atributos) =============
+
+
+// --- JERARQUÍA Y MAESTROS ---
+export const getJerarquiaPlanes = () => apiRequest<any[]>('/plans/jerarquia-planes');
+
+// En lugar de llamar a la API, devolvemos un array vacío para que no explote
+export const getAtributosMaestros = async () => {
+  console.warn("⚠️ Ruta /clinic/atributos pendiente en backend. Devolviendo lista vacía.");
+  return []; 
+};
+
+// Esta es la que te falta declarar para que no tire ReferenceError
+// --- PRESTACIONES ---
+export const getPrestacionesMaestras = () => apiRequest<any[]>('/plans/prestaciones-maestras');
+
+// CORREGIDO: quitamos los ":" y usamos "="
+export const createPrestacionMaestra = async (payload: { nombre: string, emoji: string }) => {
+  return apiRequest('/plans/prestaciones-maestras', 'POST', {
+      nombre: payload.nombre,
+      icono_emoji: payload.emoji,
+      categoria: 'Beneficios',
+      icono: "Activity"
+  });
+};
+
+export const getPlanes = () => apiRequest<any[]>('/plans');
+
+// Estas son las funciones que te faltaban:
+export const createPlan = (data: any) => apiRequest('/plans', 'POST', data);
+export const updatePlan = (id: string, data: any) => apiRequest(`/plans/${id}`, 'PUT', data);
+// Actualización de beneficios del folleto (listar, valor, etc)
+export const updatePrestacionesPlan = (planId: string, prestaciones: any[]) => 
+  apiRequest(`/plans/${planId}/prestaciones`, 'PUT', { prestaciones });
+
+// --- EMPRESAS ---
+export const getEmpresas = () => apiRequest<any[]>('/company');
+
+export const updateEmpresa = (id: string, data: any) => apiRequest(`/company/${id}`, 'PUT', data);
+
+// --- CLÍNICAS (OPERACIONES FULL) ---
+export const getClinicas = () => apiRequest<any[]>('/clinic');
+export const getClinicaById = (id: string) => apiRequest<any>(`/clinic/${id}`);
+
+// EL CLÍMAX: Sincroniza Datos, Planes y Atributos (La colita)
+// admin.service.ts
+export const updateClinicaFull = async (id: any, clinicaData: any, planIds: any[], atributoIds: any[]) => {
+  // 1. Validar el ID
+  if (!id || id === "NaN") {
+    throw new Error("ID inválido detectado en el Service");
+  }
+
+  // 2. IMPORTANTE: Enviar los argumentos por separado a apiRequest
+  // Según tu apiRequest(endpoint, method, body)
+  // El 'body' debe contener la estructura que espera tu backend de Node/Supabase
+  
+  const payload = {
+    clinicaData, // El objeto con nombre, descripcion, imagenes, etc.
+    planIds,     // El array de IDs de planes
+    atributoIds  // El array de IDs de atributos
+  };
+
+  console.log("🚀 Enviando actualización completa:", payload);
+
+  // Enviamos al endpoint de tu backend que ejecuta la lógica de Supabase que pasaste
+  return apiRequest(`/clinic/${id}`, 'PUT', payload);
+};
+
+// En admin.service.ts
+export const createClinicaFull = (clinicaData: any, planIds: (string | number)[]) => 
+  apiRequest('/clinic', 'POST', { clinicaData, planIds });
+
+export const deleteClinicaFull = (id: string) => 
+  apiRequest(`/clinic/${id}`, 'DELETE');
+
+// --- EXPORTACIÓN UNIFICADA ---
 const AdminService = {
   getDashboardStats,
   getAdminUsersList,
-  updateUserRole,
-  getUserActivity,
-  getEmpresas,
-  getEmpresaById,
-  createEmpresa,
-  updateEmpresa,
-  deleteEmpresa,
+  getJerarquiaPlanes,
+  getAtributosMaestros, // <--- Agregado
+  getPrestacionesMaestras, // <--- Agregado
+  getPlanes,            // <--- Agregado (Esto soluciona tu TypeError)
+  updatePrestacionesPlan, // <--- Agregado para el editor de folletos
+  getEmpresas, 
   getClinicas,
   getClinicaById,
-  createClinica,
-  updateClinica,
-  deleteClinica,
-  getPlanes,
-  getPlanById,
+  updateClinicaFull,    // Versión unificada con FETCH
+  createClinicaFull,
+  deleteClinicaFull,
   createPlan,
   updatePlan,
-  deletePlan,
-  getSavedQuotes,
+  createPrestacionMaestra
 };
 
 export default AdminService;

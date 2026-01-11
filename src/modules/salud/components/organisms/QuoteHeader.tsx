@@ -36,7 +36,7 @@ export const QuoteHeader = ({
             <div className="flex items-center gap-4">
                 <div className="relative">
                     <Avatar className="h-14 w-14 border-2 border-teal-100 shadow-sm">
-                        <AvatarImage src="/assets/images/avatars/advisor-placeholder.png" />
+                        <AvatarImage src="/assets/imagenes/avatars/advisor-placeholder.png" />
                         <AvatarFallback className="bg-teal-50 text-teal-700 font-bold text-lg">
                             {advisorName.charAt(0)}
                         </AvatarFallback>
