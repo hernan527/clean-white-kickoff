@@ -1,7 +1,4 @@
 node_modules
-dist
 .git
-Dockerfile
-.dockerignore
-build
+dist
 .pnpm-debug.log
