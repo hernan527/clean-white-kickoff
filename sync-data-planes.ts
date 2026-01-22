@@ -6,10 +6,19 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const supabase = createClient(
-  process.env.VITE_MY_SUPABASE_URL || '',
-  process.env.VITE_SUPABASE_SERVICE_ROLE_KEY || ''
-);
+const supabaseUrl = process.env.VITE_SUPABASE_URL || process.env.VITE_MY_SUPABASE_URL || '';
+const serviceRoleKey = process.env.VITE_SUPABASE_SERVICE_ROLE_KEY || '';
+
+// Este script corre en el build (pnpm sync). En CI/preview no siempre existen las env.
+// Si faltan, salimos sin fallar para no romper el build.
+if (!supabaseUrl || !serviceRoleKey) {
+  console.warn(
+    '⚠️ sync-data-planes.ts: faltan variables de entorno (VITE_SUPABASE_URL / VITE_SUPABASE_SERVICE_ROLE_KEY). Se omite sync para no romper el build.'
+  );
+  process.exit(0);
+}
+
+const supabase = createClient(supabaseUrl, serviceRoleKey);
 
 async function syncComoGoogleSheets() {
   console.log('🌐 Iniciando el "Mete y Saca" de datos con relaciones completas...');
