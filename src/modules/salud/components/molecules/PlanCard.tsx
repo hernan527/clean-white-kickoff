@@ -104,7 +104,7 @@ export const PlanCard = ({
          <div className="flex items-center gap-2 transform transition-transform group-hover:scale-105 duration-300">
            {EMPRESA_LOGOS[plan.empresa] ? (
               <div className="bg-white rounded-xl p-2 shadow-sm border border-border/50">
-                <img src={`${EMPRESA_LOGOS[plan.empresa]}`} alt={plan.empresa} className="h-8 w-auto object-contain" />
+                <img src={`/assets/imagenes/card-header/${EMPRESA_LOGOS[plan.empresa]}`} alt={plan.empresa} className="h-8 w-auto object-contain" />
               </div>
            ) : (
               <span className="text-xl font-bold text-foreground">{plan.empresa}</span>
@@ -116,7 +116,6 @@ export const PlanCard = ({
       <div className="p-5 flex flex-col flex-grow relative">
         <div className="flex justify-between items-start mb-1">
             <div>
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-explicit-any
                 <h3 className="font-bold text-xl text-foreground leading-tight">{(plan as any).nombre || plan.name}</h3>
                 <p className="text-xs text-muted-foreground mt-1 font-medium">{plan.linea} • Cartilla Global</p>
             </div>

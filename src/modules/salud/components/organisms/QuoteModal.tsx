@@ -84,7 +84,7 @@ export const QuoteModal = ({ open, onOpenChange }: QuoteModalProps) => {
 
   const handleSubmit = async () => {
     try {
-      const response = await fetch('https://servidorplus.avalianonline.com.ar/cotizacion', {
+      const response = await fetch('https://servidorplus.saludok.com.ar/cotizacion', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

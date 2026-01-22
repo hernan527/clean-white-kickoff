@@ -5,6 +5,7 @@ import { PlanClinica } from './clinicas';
 import { PlanEmpresa } from './empresas';
 
 export interface HealthPlan {
+    nombre: string;
     _id: string; // Coincide
     item_id?: string; // Opcional, si se usa
     linea?:string;

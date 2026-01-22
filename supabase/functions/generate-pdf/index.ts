@@ -1,5 +1,6 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
-
+const controller = new AbortController();
+const timeout = setTimeout(() => controller.abort(), 15000); // 15 segundos max
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
@@ -90,13 +91,13 @@ serve(async (req) => {
 
     console.log('Proxy: Enviando contenido HTML a Contabo/Puppeteer, tamaño:', htmlContent.length);
 
-    const pdfResponse = await fetch(VPS_PUPPETEER_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ htmlContent }),
-    });
+const pdfResponse = await fetch(VPS_PUPPETEER_URL, {
+  method: 'POST',
+  signal: controller.signal, // Agregamos la señal
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ htmlContent }),
+});
+clearTimeout(timeout);
 
     if (!pdfResponse.ok) {
       const errorText = await pdfResponse.text();

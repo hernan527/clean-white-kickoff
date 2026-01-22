@@ -10,7 +10,7 @@ interface PersonalData {
 export interface QuoteFormData {
   _id: string;
   group: number | null;
-  empresa_prepaga: number;
+  empresa_prepaga: string;
   edad_1: number;
   edad_2: number;
   numkids: number;

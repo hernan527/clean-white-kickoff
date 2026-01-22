@@ -65,20 +65,29 @@ const fetchCotizacion = useCallback(async (formDataToUse?: QuoteFormData) => {
     try {
         const result = await submitQuote(formToSend);
         
-        // Extract the plans array from the nested response structure
-        // Response structure: { success: true, data: { data: [...plans], message, success } }
-        const plansArray = result.data?.data;
+        console.log('--- DEBUG COMPLETO ---');
+        console.dir(result); 
+
+        // El array viene en result.data.data
+        const plansArray = result.data?.data;        
         
         if (result.success && Array.isArray(plansArray)) {
-            // Deduplicate plans by _id
-            const typedPlans = plansArray as HealthPlan[];
+            // 1. Normalizamos los datos para que el Frontend no explote
+            const normalizedPlans = plansArray.map((plan: any, index: number) => ({
+                ...plan,
+                // Si no tiene _id, creamos uno con el índice
+                _id: plan._id || plan.id || `plan-${index}`,
+                // Si empresa_prepaga es undefined, usamos 'empresa' o 'Generico'
+                empresa_prepaga: plan.empresa_prepaga || plan.empresa || plan.prepaga || "Generico",
+                nombre: plan.nombre || plan.plan || "Plan Médico"
+            })) as HealthPlan[];
+
+            // 2. Quitamos duplicados por el ID normalizado
             const seenIds = new Set<string>();
-            const uniquePlans = typedPlans.filter((plan) => {
-              if (seenIds.has(plan._id)) {
-                return false;
-              }
-              seenIds.add(plan._id);
-              return true;
+            const uniquePlans = normalizedPlans.filter((plan) => {
+                if (seenIds.has(plan._id)) return false;
+                seenIds.add(plan._id);
+                return true;
             });
             
             setCotizacionData(uniquePlans);
@@ -86,24 +95,20 @@ const fetchCotizacion = useCallback(async (formDataToUse?: QuoteFormData) => {
             
             console.log('✅ Cotización fetched:', uniquePlans.length, 'planes');
 
-            // Save the form data used for this fetch
             if (formToSend.group !== null) {
                 setFormDataState(formToSend);
                 localStorage.setItem(STORAGE_KEY, JSON.stringify(formToSend));
             }
         } else {
-            // FAILURE: Handle API response error
             console.error('Error fetching cotización: Respuesta API inválida o fallida.', result.error);
         }
-
     } catch (error) {
-        // CATCH: Handle network or service exception
         console.error('Error en fetchCotizacion (Network or API Exception):', error);
         throw error;
     } finally {
         setIsLoading(false);
     }
-}, [formData]); // Dependencies remain the same
+}, [formData]);
   // Check localStorage on mount - handle different navigation scenarios
   useEffect(() => {
     if (hasCheckedStorage) return;

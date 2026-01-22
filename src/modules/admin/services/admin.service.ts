@@ -1,7 +1,7 @@
 import { supabase } from '@/integrations/supabase/client';
 import { DashboardStats, AdminUser, UserActivity } from '../types';
 
-const API_BASE = 'https://servidorplus.avalianonline.com.ar';
+const API_BASE = 'https://servidorplus.saludok.com.ar';
 
 // ============= Dashboard Stats =============
 export const getDashboardStats = async (): Promise<DashboardStats | null> => {

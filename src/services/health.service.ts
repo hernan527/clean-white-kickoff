@@ -7,7 +7,7 @@ import { QuoteFormData, QuoteResponse } from '@/core/interfaces/plan/quoteFormDa
 export const submitQuote = async (formData: QuoteFormData): Promise<QuoteResponse> => {
   try {
     console.log('📤 Enviando cotización a edge function...');
-    
+    console.log("DATOS ENVIADOS A SUPABASE:", JSON.stringify(formData, null, 2));
     const { data, error } = await supabase.functions.invoke('submit-quote', {
       body: formData
     });

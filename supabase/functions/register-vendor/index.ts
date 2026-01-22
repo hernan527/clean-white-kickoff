@@ -31,14 +31,14 @@ Deno.serve(async (req) => {
     // Create Supabase client with service role for admin operations
     const supabaseAdmin = createClient(
       Deno.env.get('SUPABASE_URL') ?? '',
-      Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? '',
+      Deno.env.get('SERVICE_ROLE_KEY') ?? '',
       { auth: { persistSession: false } }
     );
 
     // Create client with user's token to get their ID
     const supabaseUser = createClient(
       Deno.env.get('SUPABASE_URL') ?? '',
-      Deno.env.get('SUPABASE_ANON_KEY') ?? '',
+      Deno.env.get('ANON_KEY') ?? '',
       {
         global: { headers: { Authorization: authHeader } },
         auth: { persistSession: false }

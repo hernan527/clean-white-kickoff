@@ -89,13 +89,21 @@ export const VendorRegistrationPage = () => {
 
       if (user) {
         // Call secure edge function to register vendor (handles role + profile server-side)
-        const { data, error: vendorError } = await supabase.functions.invoke('register-vendor', {
-          body: {
-            business_name: businessName || `${firstName} ${lastName}`,
-            phone: phone.trim(),
-            whatsapp: (whatsapp || phone).trim(),
-          },
-        });
+ // 1. Obtenemos la sesión actual para sacar el token
+const { data: { session } } = await supabase.auth.getSession();
+
+// 2. Llamamos a la función PASANDO el token en los headers
+const { data, error: vendorError } = await supabase.functions.invoke('register-vendor', {
+  body: {
+    business_name: businessName || `${firstName} ${lastName}`,
+    phone: phone.trim(),
+    whatsapp: (whatsapp || phone).trim(),
+  },
+  // ESTO ES LO QUE FALTA:
+  headers: {
+    Authorization: `Bearer ${session?.access_token}`,
+  },
+});
 
         if (vendorError) {
           console.error('Error registering vendor:', vendorError);
