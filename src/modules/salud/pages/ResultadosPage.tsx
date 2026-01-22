@@ -199,6 +199,7 @@ const ResultadosPage = () => {
       <FloatingBattleBar 
         plans={comparisonPlansList}
         onCompare={handleCompare}
+        onSave={handleCompare}
         onRemove={handleRemoveFromBattle}
         maxPlans={2}
       />
