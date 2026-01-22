@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { supabase } from '@/integrations/supabase/client';
 import type { Company, CompanyMember, CompanyWithStats, CreateCompanyInput, CreateCompanyMemberInput } from '../types/company';
 

@@ -13,7 +13,7 @@ Deno.serve(async (req) => {
 
   try {
     const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
-    const serviceRoleKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
+    const serviceRoleKey = Deno.env.get('SERVICE_ROLE_KEY')!;
 
     // Create admin client with service role
     const supabaseAdmin = createClient(supabaseUrl, serviceRoleKey, {
@@ -24,25 +24,29 @@ Deno.serve(async (req) => {
     });
 
     // Get the authorization header to verify the calling user
-    const authHeader = req.headers.get('Authorization');
-    if (!authHeader) {
-      return new Response(
-        JSON.stringify({ error: 'Authorization header required' }),
-        { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-      );
-    }
+const authHeader = req.headers.get('Authorization');
 
-    // Verify the calling user
-    const token = authHeader.replace('Bearer ', '');
-    const { data: { user: callingUser }, error: authError } = await supabaseAdmin.auth.getUser(token);
+// 2. Verificamos que exista y que sea un token real (mínimo debe tener 3 partes separadas por puntos)
+if (!authHeader || authHeader.includes('undefined') || authHeader.includes('null')) {
+  console.error("ERROR: Se recibió un header inválido:", authHeader);
+  return new Response(
+    JSON.stringify({ error: 'Sesión no válida. Por favor, re-inicia sesión en la aplicación.' }),
+    { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+  );
+}
 
-    if (authError || !callingUser) {
-      return new Response(
-        JSON.stringify({ error: 'Invalid token' }),
-        { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-      );
-    }
+const token = authHeader.replace('Bearer ', '');
 
+// 3. Ahora sí intentamos validar
+const { data: { user: callingUser }, error: authError } = await supabaseAdmin.auth.getUser(token);
+
+if (authError || !callingUser) {
+  console.error("Error de autenticación de Supabase:", authError);
+  return new Response(
+    JSON.stringify({ error: 'Token inválido o expirado' }),
+    { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+  );
+}
     // Check if calling user is super admin or company admin
     const { data: isSuperAdmin } = await supabaseAdmin.rpc('is_super_admin', { _user_id: callingUser.id });
     

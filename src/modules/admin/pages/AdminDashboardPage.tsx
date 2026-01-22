@@ -10,7 +10,6 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { DashboardStats } from '../types';
 import AdminService from '../services/admin.service';
-import { supabase } from '@/integrations/supabase/client';
 
 export const AdminDashboardPage = () => {
   const [stats, setStats] = useState<DashboardStats | null>(null);
@@ -24,28 +23,7 @@ export const AdminDashboardPage = () => {
     };
     fetchStats();
   }, []);
-useEffect(() => {
-  const bypassRole = async () => {
-    // 1. Obtenemos el ID del usuario logueado actualmente
-    const { data: { user } } = await supabase.auth.getUser();
-    
-    if (user) {
-      console.log("🛠️ Intentando bypass para el usuario:", user.email);
-      
-      // 2. Forzamos el update de tu rol en la tabla pública
-      // Nota: Esto solo funcionará si la tabla 'profiles' permite updates al propio usuario
-      const { error } = await supabase
-        .from('profiles') 
-        .update({ role: 'admin' })
-        .eq('id', user.id);
 
-      if (error) console.error("❌ Falló el bypass:", error.message);
-      else console.log("💦 ¡Éxtasis! Ahora sos ADMIN. Refrescá la página.");
-    }
-  };
-
-  bypassRole();
-}, []);
   const statCards = [
     { 
       label: 'Usuarios Totales', 

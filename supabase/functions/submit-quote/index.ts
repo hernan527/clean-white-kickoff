@@ -26,12 +26,13 @@ const quoteRequestSchema = z.object({
   edadHijo4: z.number().min(0).max(30).optional(),
   edadHijo5: z.number().min(0).max(30).optional(),
   zone_type: z.string().max(50).optional(),
+  empresa_prepaga: z.string().max(50).optional(),
   tipo: z.enum(['P', 'D']),
   sueldo: z.number().min(0).max(100000000).optional(),
   aporteOS: z.number().min(0).max(100000000).optional(),
   // personalData - accept any object shape, validate only if has non-empty values
   personalData: z.any().optional(),
-}).transform((data) => {
+}).transform((data: { personalData: any; }) => {
   // If personalData exists but has empty required fields, set it to undefined
   if (data.personalData) {
     const pd = data.personalData;
@@ -129,6 +130,7 @@ Deno.serve(async (req: Request) => {
     // Preparar datos para enviar al endpoint externo
     const externalPayload = {
       group: quoteData.group,
+      empresa_prepaga: quoteData.empresa_prepaga || "todas", // <--- AGREGÁ ESTA LÍNEA
       edad_1: quoteData.edad_1,
       edad_2: quoteData.edad_2 || 0,
       numkids: quoteData.numkids || 0,
