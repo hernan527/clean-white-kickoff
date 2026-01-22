@@ -1,11 +1,16 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { Swords, X, Plus, Sparkles } from "lucide-react";
+import { Swords, X, Plus, Sparkles, Save } from "lucide-react";
 import { HealthPlan } from "@/core/interfaces/plan/planes";
 import { cn } from "@/lib/utils";
 
 interface FloatingBattleBarProps {
   plans: HealthPlan[];
   onCompare: () => void;
+  /**
+   * Abre el flujo de guardado (disquete). En la implementación actual,
+   * normalmente navega a /comparar donde está el modal SaveQuoteModal.
+   */
+  onSave?: () => void;
   onRemove: (planId: string) => void;
   maxPlans?: number;
 }
@@ -27,6 +32,7 @@ const EMPRESA_LOGOS: Record<string, string> = {
 export const FloatingBattleBar = ({ 
   plans, 
   onCompare, 
+  onSave,
   onRemove,
   maxPlans = 2 
 }: FloatingBattleBarProps) => {
@@ -88,28 +94,50 @@ export const FloatingBattleBar = ({
           )} />
 
           {/* Battle Button */}
-          <motion.button
-            onClick={onCompare}
-            disabled={!canBattle}
-            whileHover={canBattle ? { scale: 1.05 } : {}}
-            whileTap={canBattle ? { scale: 0.95 } : {}}
-            className={cn(
-              "flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-sm transition-all",
-              canBattle 
-                ? "bg-white text-primary hover:bg-white/90 shadow-lg cursor-pointer" 
-                : "bg-muted text-muted-foreground cursor-not-allowed"
+          <div className="flex items-center gap-2">
+            {/* Guardar (disquete) */}
+            {canBattle && onSave && (
+              <motion.button
+                onClick={onSave}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className={cn(
+                  "flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-sm transition-all",
+                  canBattle
+                    ? "bg-background text-foreground border border-border shadow-lg"
+                    : "bg-muted text-muted-foreground cursor-not-allowed"
+                )}
+                title="Guardar cotización"
+              >
+                <Save className="w-4 h-4" />
+                <span className="hidden sm:inline">Guardar</span>
+              </motion.button>
             )}
-          >
-            {canBattle ? (
-              <>
-                <Swords className="w-4 h-4" />
-                <span>¡Batalla!</span>
-                <Sparkles className="w-4 h-4" />
-              </>
-            ) : (
-              <span className="text-xs">Seleccioná otro plan</span>
-            )}
-          </motion.button>
+
+            {/* Batalla */}
+            <motion.button
+              onClick={onCompare}
+              disabled={!canBattle}
+              whileHover={canBattle ? { scale: 1.05 } : {}}
+              whileTap={canBattle ? { scale: 0.95 } : {}}
+              className={cn(
+                "flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-sm transition-all",
+                canBattle 
+                  ? "bg-white text-primary hover:bg-white/90 shadow-lg cursor-pointer" 
+                  : "bg-muted text-muted-foreground cursor-not-allowed"
+              )}
+            >
+              {canBattle ? (
+                <>
+                  <Swords className="w-4 h-4" />
+                  <span>¡Batalla!</span>
+                  <Sparkles className="w-4 h-4" />
+                </>
+              ) : (
+                <span className="text-xs">Seleccioná otro plan</span>
+              )}
+            </motion.button>
+          </div>
         </div>
 
         {/* Hint Text */}
