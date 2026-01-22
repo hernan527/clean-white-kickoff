@@ -32,7 +32,7 @@ const quoteRequestSchema = z.object({
   aporteOS: z.number().min(0).max(100000000).optional(),
   // personalData - accept any object shape, validate only if has non-empty values
   personalData: z.any().optional(),
-}).transform((data: { personalData: any; }) => {
+}).transform((data) => {
   // If personalData exists but has empty required fields, set it to undefined
   if (data.personalData) {
     const pd = data.personalData;
