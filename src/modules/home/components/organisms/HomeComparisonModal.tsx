@@ -212,9 +212,7 @@ export const HomeComparisonModal = ({ isOpen, onClose, plans, onWhatsApp }: Home
       <div className="text-[10px] font-black text-primary uppercase text-center mb-1 tracking-tighter opacity-70">
         {planA.name}
       </div>  
-    <div className="flex flex-col gap-2">
-       {console.log("ESTRUCTURA PLAN A:", planA?.plan_prestacion)}
-        {console.log("¿Qué tiene planA realmente?:", planA)}
+     <div className="flex flex-col gap-2">
   {(planA.plan_prestacion || []).map((item: any, idx: number) => {
     // 🎯 ACCESO SEGÚN TU JSON:
     const maestra = item?.prestaciones_maestras;
@@ -327,9 +325,9 @@ export const HomeComparisonModal = ({ isOpen, onClose, plans, onWhatsApp }: Home
                             <div key={idx} className="flex items-start gap-2 text-[10px] bg-muted/40 rounded-lg p-2.5 border border-border/50">
 {/* Contenedor del Logo */}
 <div className="w-8 h-8 rounded border bg-white flex items-center justify-center overflow-hidden shrink-0 mt-0.5 shadow-sm">
-  {clinic?.imagenes && clinic.imagenes.length > 0 ? (
+  {Array.isArray((clinic as any)?.imagenes) && (clinic as any).imagenes.length > 0 ? (
     <img 
-      src={clinic.imagenes[0].url || clinic.imagenes[0].logo || "/placeholder.svg"} 
+       src={((clinic as any).imagenes?.[0]?.url || (clinic as any).imagenes?.[0]?.logo || "/placeholder.svg")} 
       alt={clinic.nombre_abreviado || 'Logo'} 
       className="w-full h-full object-contain p-0.5"
       onError={(e) => {
@@ -371,9 +369,9 @@ export const HomeComparisonModal = ({ isOpen, onClose, plans, onWhatsApp }: Home
                             <div key={idx} className="flex items-start gap-2 text-[10px] bg-muted/40 rounded-lg p-2.5 border border-border/50">
 {/* Contenedor del Logo */}
   <div className="w-8 h-8 rounded border bg-white flex items-center justify-center overflow-hidden shrink-0 mt-0.5 shadow-sm">
-  {clinic?.imagenes && clinic.imagenes.length > 0 && clinic.imagenes[0]?.url ? (
+  {Array.isArray((clinic as any)?.imagenes) && (clinic as any).imagenes.length > 0 && (clinic as any).imagenes[0]?.url ? (
     <img 
-      src={clinic.imagenes[0].url} 
+       src={(clinic as any).imagenes[0].url} 
       alt={clinic.nombre_abreviado || 'Logo clínica'} 
       className="w-full h-full object-contain p-0.5"
       // Si la imagen existe pero no carga (404), mostramos el icono por defecto
