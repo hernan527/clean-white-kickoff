@@ -5,7 +5,7 @@ import { QuoteFormData } from '@/core/interfaces/plan/quoteFormData'; // Asegúr
 export const initialFormData: QuoteFormData = {
   _id: '',
   group: 1,
-  empresa_prepaga: 0,
+  empresa_prepaga: "todas",
   edad_1: 34,
   edad_2: 0,
   numkids: 1,
