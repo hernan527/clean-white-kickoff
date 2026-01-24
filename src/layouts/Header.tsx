@@ -73,12 +73,12 @@ const Header = () => {
         {/* LOGO */}
         <a href="/" className="flex items-center gap-2 group">
           <img 
-            src="/assets/images/logos/logo-header-tr.png" 
+            src="/assets/imagenes/logos/logo-header-tr.png" 
             alt="Mejor Plan - Consultores en Salud" 
             className="h-12 hidden md:block transition-transform group-hover:scale-105 dark:brightness-110"
           />
           <img 
-            src="/assets/images/logos/logo-header-tr-mobile.png" 
+            src="/assets/imagenes/logos/logo-header-tr-mobile.png" 
             alt="Mejor Plan - Consultores en Salud" 
             className="h-10 md:hidden dark:brightness-110"
           />

@@ -6,12 +6,16 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
+<<<<<<< HEAD
 src/data/cotizaciones_maestras_rows2.json
+=======
+
+.env
+>>>>>>> a0867345bbc22aadf7927156e29ee0e6d97e79d1
 node_modules
 dist
 dist-ssr
 *.local
-cotizaciones_maestras_rows.json
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

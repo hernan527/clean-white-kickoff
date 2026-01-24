@@ -10,7 +10,7 @@ const Footer = () => {
           {/* Columna Marca */}
           <div className="space-y-4">
             <img 
-              src="/assets/images/logos/logo-footer.gif" 
+              src="/assets/imagenes/logos/logo-footer.gif" 
               alt="Mejor Plan" 
               className="h-12 mb-4 opacity-90"
             />

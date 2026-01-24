@@ -240,7 +240,7 @@ export const ProviderLandingPage = () => {
                 {/* Visual de Confianza */}
                 <div className="bg-white p-8 rounded-[2.5rem] shadow-xl border border-slate-200 text-center">
                     <div className="w-20 h-20 bg-slate-100 rounded-full mx-auto mb-4 overflow-hidden">
-                        <img src="/assets/images/avatars/advisor-placeholder.png" alt="Asesor" className="w-full h-full object-cover" />
+                        <img src="/assets/imagenes/avatars/advisor-placeholder.png" alt="Asesor" className="w-full h-full object-cover" />
                     </div>
                     <p className="text-lg font-bold text-slate-900">"Mi objetivo es que tengas el mejor plan posible con tu presupuesto actual."</p>
                     <div className="mt-4 pt-4 border-t border-slate-100">

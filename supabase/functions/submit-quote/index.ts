@@ -34,20 +34,21 @@ const quoteRequestSchema = z.object({
   personalData: z.any().optional(),
 }).transform((data: { personalData: any; }) => {
   // If personalData exists but has empty required fields, set it to undefined
-  if (data.personalData) {
-    const pd = data.personalData;
-    const hasValidData = pd.name?.trim() && pd.email?.trim() && pd.phone?.trim();
-    if (!hasValidData) {
-      return { ...data, personalData: undefined };
-    }
-    // Validate the personalData only if it has content
-    const validatedPd = personalDataSchema.safeParse(pd);
-    if (!validatedPd.success) {
-      return { ...data, personalData: undefined };
-    }
-    return { ...data, personalData: validatedPd.data };
+  if (!data.personalData) return data;
+
+  const pd = data.personalData;
+  const hasValidData = pd?.name?.trim() && pd?.email?.trim() && pd?.phone?.trim();
+  if (!hasValidData) {
+    return { ...data, personalData: undefined };
   }
-  return data;
+
+  // Validate the personalData only if it has content
+  const validatedPd = personalDataSchema.safeParse(pd);
+  if (!validatedPd.success) {
+    return { ...data, personalData: undefined };
+  }
+
+  return { ...data, personalData: validatedPd.data };
 });
 
 type QuoteRequest = z.infer<typeof quoteRequestSchema>;

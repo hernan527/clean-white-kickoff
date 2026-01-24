@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "sync": "tsx sync-data.ts",
+    "sync": "tsx sync-data-planes.ts",
     "dev": "vite",
     "build": "pnpm sync && tsc && vite build",
     "build:dev": "vite build --mode development",

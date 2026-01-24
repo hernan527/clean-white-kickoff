@@ -82,8 +82,14 @@ export interface QuoteView {
  * Get the current authenticated user ID
  */
 const getCurrentUserId = async (): Promise<string | null> => {
-  const { data: { user } } = await supabase.auth.getUser();
-  return user?.id || null;
+  // Prefer local session (fast + reliable) to avoid transient getUser() nulls
+  const { data: sessionData } = await supabase.auth.getSession();
+  const sessionUserId = sessionData.session?.user?.id;
+  if (sessionUserId) return sessionUserId;
+
+  // Fallback to remote user fetch
+  const { data: userData } = await supabase.auth.getUser();
+  return userData.user?.id || null;
 };
 
 /**

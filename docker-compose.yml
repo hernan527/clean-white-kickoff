@@ -1,0 +1,31 @@
+version: "3.7"
+services:
+
+  cotizar_app:
+    image: cotizadoronline:v1.0.0
+    networks:
+      - mired
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+      resources:
+        limits:
+          cpus: "1"
+          memory: 1024M
+      labels:
+        - traefik.enable=true
+        - traefik.http.routers.cotizar.rule=Host(`cotizar.saludok.com.ar`)
+        - traefik.http.routers.cotizar.entrypoints=websecure
+        - traefik.http.routers.cotizar.tls.certresolver=letsencryptresolver
+        - traefik.http.services.cotizar.loadbalancer.server.port=80  # Cambia a 80 si Nginx escucha ahí
+        - traefik.http.routers.cotizar.priority=1
+        - traefik.http.services.cotizar.loadbalancer.passHostHeader=true
+
+
+networks:
+  network_public:
+    external: true
+    name: network_public

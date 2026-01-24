@@ -145,7 +145,15 @@ const ResultadosPage = () => {
 
   const handleCompare = () => {
     if (comparisonPlansList.length === 2) {
-      setBattleModalOpen(true);
+      // Persist selection for /comparar page (which includes SaveQuoteModal, public link, etc.)
+      try {
+        sessionStorage.setItem('comparisonPlans', JSON.stringify(comparisonPlansList));
+        sessionStorage.setItem('allPlans', JSON.stringify(healthPlans));
+      } catch (e) {
+        console.error('Error saving comparison plans to sessionStorage:', e);
+      }
+
+      navigate('/comparar');
     }
   };
 
@@ -191,6 +199,7 @@ const ResultadosPage = () => {
       <FloatingBattleBar 
         plans={comparisonPlansList}
         onCompare={handleCompare}
+        onSave={handleCompare}
         onRemove={handleRemoveFromBattle}
         maxPlans={2}
       />

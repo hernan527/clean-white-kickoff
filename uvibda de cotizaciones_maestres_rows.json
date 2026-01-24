@@ -2557,8 +2557,8 @@ Date:   Sat Nov 29 02:42:16 2025 +0000
 
     Move images to public assets for proper loading
     
-    - Place all plan header logos from src/assets/images/card-header into public/assets/images/card-header
-    - Ensure plan images referenced via /assets/images/card-header/<file>.webp render correctly in grid/list views and comparison bar
+    - Place all plan header logos from src/assets/imagenes/card-header into public/assets/imagenes/card-header
+    - Ensure plan images referenced via /assets/imagenes/card-header/<file>.webp render correctly in grid/list views and comparison bar
     - No code logic changes; only asset path alignment to API usage expectations
     
     X-Lovable-Edit-ID: edt-c97d6c09-6346-48c6-8d32-1a1304d79266
